@@ -16,7 +16,7 @@ Mod zamienia alchemię z singletonów odnawianych medytacją na system zużywaln
 
 ## Twarde wymogi (szczegóły i uzasadnienia: [docs/decisions.md](docs/decisions.md))
 
-- **Pełna „vanillowość”** — żadnych nowych napisów, zmian UI, mod-smellu. Jeśli trzeba pokazać komunikat, najpierw szukaj istniejącego klucza lokalizacji (obecnie reużywamy `panel_alchemy_exception_already_cooked`; PL + EN, zero nowych stringów).
+- **Pełna „vanillowość”** — żadnego mod-smellu: zero własnego renderowania napisów/nakładek UI. **Dozwolone** (doprecyzowanie użytkownika, sesja 7): nowy element w istniejącym systemie gry wyglądający jak vanilla — np. nowy wpis lokalizacji (PL + EN) w istniejącym miejscu UI, nowa pozycja filtra. Najpierw i tak szukaj istniejącego klucza lokalizacji (obecnie reużywamy `panel_alchemy_exception_already_cooked`).
 - **Kompatybilność z innymi modami nie jest wymogiem** (użytkownik nie gra z innymi).
 - **Zakres:** mikstury + bomby + wywary. Oleje i przedmioty questowe — vanilla. Alkohol wyłącznie składnikiem.
 - Limity dawek i pozyskanie poza warzeniem (loot, zakup, questy) — jak w vanilli (od v0.4).
