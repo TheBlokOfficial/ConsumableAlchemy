@@ -1,63 +1,86 @@
-# Rejestr decyzji — Consumable Alchemy
+# Rozstrzygnięcia — Consumable Alchemy
 
-Decyzje użytkownika (właściciela projektu) z sesją i uzasadnieniem. Sesje 1–4: 2026-10-06, sesje 6–7: 2026-10-07; „sesja 1” = ustalenia startowe projektu. Odrzucone warianty są tu po to, żeby do nich nie wracać bez nowego argumentu. Szczegóły techniczne: [architecture.md](architecture.md), receptury: [recipes.md](recipes.md).
+Rozstrzygnięcia autora z powodem. Odrzucone warianty są tu po to, żeby do nich nie wracać bez nowego
+argumentu. Numer nie zmienia się i nie wraca (wycofane: D24 — sposób pracy, jest w CLAUDE.md; D25 — scalone
+z D18). Pytania otwarte (D22, D23, D26, D27 i inne): [roadmap.md](roadmap.md#do-decyzji-autora).
+Mechanizm: [architecture.md](architecture.md), receptury: [recipes.md](recipes.md).
 
 ## Cel
 
-Zamiana alchemii z singletonów odnawianych medytacją na system zużywalny. Wzorzec użytkownika: Wiedźmin 1 (każda butelka to składniki; tanie, powszechne składniki). Kryterium (sesja 3): rzucenie petardy / wypicie mikstury **nie może boleć ani irytować przy powielaniu** (nie żal rzucić, nawet przy pudle), a całość ma być bardziej immersyjna niż vanilla (medytacja = wszystko odnowione). Użytkownik pytał wtedy, czy mod ma w ogóle sens — odpowiedzią jest model odblokowanie/powielenie (D11).
+Wzorzec: Wiedźmin 1 — każda butelka to składniki, a składniki są tanie i powszechne. Kryterium: wypicie
+mikstury i rzucenie bomby nie może boleć ani irytować przy powielaniu (nie żal rzucić, nawet przy pudle),
+a całość ma być bardziej immersyjna niż vanilla, w której medytacja odnawia wszystko. Bez odblokowania
+i powielenia (D11) mod nie miałby sensu: każde warzenie za pełną recepturę byłoby kilkukrotnie droższe niż
+jednorazowe warzenie w vanilli.
 
 ## Twarde wymogi
 
-- **D1. Pełna „vanillowość”** (sesja 1) — żadnych nowych napisów, zmian UI, mod-smellu. Jeśli trzeba pokazać komunikat, najpierw szukaj istniejącego klucza lokalizacji.
-- **D2. Języki PL + EN** (sesja 1) — reużywamy `panel_alchemy_exception_already_cooked`. **Doprecyzowanie (sesja 7):** „zero nowych napisów” dotyczyło własnego renderowania napisów (nakładki, custom UI), nie dodawania nowych elementów do istniejących systemów — nowy wpis lokalizacji PL + EN (mod `.w3strings`) w istniejącym miejscu UI jest dozwolony, jeśli wygląda jak vanilla.
-- **D3. Kompatybilność z innymi modami nie jest wymogiem** (sesja 1) — użytkownik nie gra z innymi.
-- **D4. README = strona dla gracza** (PL, bez technikaliów, styl Nexusa); szczegóły techniczne tylko w CLAUDE.md / `docs/`.
+- **D1. Vanillowość.** Zero mod-smellu i własnego renderowania (nakładki, własne okna i przyciski). Wolno
+  dodać element do istniejącego systemu gry, jeśli wygląda jak vanilla: nowy wpis lokalizacji w istniejącym
+  miejscu UI, nowa pozycja filtra. Komunikat: najpierw istniejący klucz lokalizacji (obecnie reużywany
+  `panel_alchemy_exception_already_cooked`). Powód: mod ma nie wyglądać jak mod; granica dotyczy wyglądu,
+  nie tego, czy tekst jest nowy.
+- **D2. Języki PL + EN** — każdy nowy tekst w grze w obu.
+- **D3. Zgodność z innymi modami nie jest wymogiem** — autor gra bez innych modów.
+- **D4. README = strona dla gracza** (PL, bez technikaliów, styl Nexusa, lista zmian wersji); technikalia
+  w CLAUDE.md i `docs/`.
 
 ## Mechanika
 
-- **D5. Medytacja (i każde inne odnawianie) nie uzupełnia** mikstur, bomb ani (od sesji 4) wywarów (sesja 1).
-- **D6. Uwarzone przedmioty można warzyć ponownie; warzenie napełnia do max** (sesja 6, kod sesja 7). Historia: sesja 1 — 1 warzenie = 1 dawka; sesja 2 — potwierdzone (uzysk >1 rodziłby nadwyżkę ponad limit). Zmienione w sesji 6, bo: dolewka przy 2/3 kosztuje tyle co przy 0/3 — tak samo jak medytacja w vanilli, to nie wada; skille limitu zyskują sens (większa pojemność = tańsza dawka); rozwiązuje problem przenoszenia dawek przy ulepszaniu (nowy poziom dostaje max).
-- **D7. Limit = vanilla** (atrybut `ammo` wg poziomu + bonusy vanilli: skill Optymalizacja `S_Alchemy_s08`, buff `EET_Mutagen03`, zestaw `EISB_RedWolf_2`, perk `S_Perk_20`); wywary 1, bonusy ich nie dotyczą (sesja 6, kod sesja 7). Historia: sesja 1 — stałe 3 (psuło opisy skilli); sesja 2 — baza 3 + bonusy vanilli; sesja 6 — limit vanilli (spójność z D6).
-- **D8. Poziomy jak w vanilli** (sesja 1): wyższy poziom usuwa niższy, niższego nie można warzyć mając wyższy.
-- **D9. Zakres** (sesja 1, rozszerzony w sesji 4): mikstury + bomby + **wywary** (od sesji 4, limit vanillowy 1 — spójność: medytacja nie odnawia niczego alchemicznego). Oleje — vanilla (przedmiot oleju i tak się nie zużywa, medytacja ich nie dotyczy → nie łamią spójności). Przedmioty questowe (tag `Quest`) wyłączone z systemu (sesja 4).
-- **D10. Alkohol jest wyłącznie składnikiem** (sesja 4; wcześniej odnawiał wywary). W recepturze stały, ×1 (sesja 6) — znany problem szybszego zużycia: [roadmap.md](roadmap.md).
-- **D11. Odblokowanie i powielenie** (sesja 3): pierwsze warzenie = pełna receptura vanilla („odblokowanie”), kolejne = krótsza, tańsza („powielenie”).
-  1. Sygnałem jest sama lista składników w prawym panelu menu — po odblokowaniu się skraca (precedens vanilli: poziomy 1/2/3 mają różne listy bez wyjaśnień).
-  2. Odblokowanie = **posiadanie przedmiotu w ekwipunku (także 0 dawek)**. Bez nowych danych w zapisie; mikstur/bomb nie da się sprzedać ani wyrzucić, więc odblokowania nie da się stracić (poza wymianą na wyższy poziom, który ma własne pierwsze warzenie). Pozyskanie innymi drogami też odblokowuje.
-  3. Znacznik `isNew` na liście — odpada (menu alchemii go nie rysuje).
-- **D12. Mikstura z 0 dawek zostaje w ekwipunku** (jak w vanilli) — akceptowane jako znacznik „już uwarzone” (sesja 2).
-- **D13. Wariant A** (koniec sesji 3, kod sesja 4 = v0.3): reguła v2 + połowa ilości przy powielaniu (w górę, alkohol zawsze 1); warzenie tylko z menu; wywary w systemie; oleje vanilla. Szczegóły reguły: [recipes.md](recipes.md).
-- **D14. Pozyskanie poza warzeniem = vanilla** (sesja 7): loot/zakup/questy/start — nowy przedmiot dostaje max, posiadany jest odrzucany komunikatem „already cooked”. Uzasadnienie użytkownika: w świecie i tak nie ma gotowych mikstur do podniesienia (niezweryfikowane w danych; poz. 2/3 na pewno nie ma w lootcie ani u kupców). Historia: v0.3 — loot nowej = 1 dawka, posiadanej +1; sesja 6 — rekomendacja „loot 1 dawka” (niepotwierdzona), zastąpiona.
-- **D15. Walka: zostawić `IsInCombat`** (sesja 3) — alchemia blokuje się tylko w walce, medytacja surowiej (`IsThreatened`); nie zrównywać. Skille limitu nie są przez moda psute: decydują o liczbie bomb na jedną walkę, a dodatkowe sloty trzeba opłacić składnikami.
-- **D16. Nadmiar ponad limit nie jest przycinany przy odczycie** (techniczna, v0.2) — przy wczytywaniu zapisu bonusy mogą być jeszcze nieprzywrócone → trwała utrata dawek. Nadmiar schodzi przy użyciu; warzenie zablokowane do spadku poniżej limitu.
-- **D17. Stół alchemiczny w Corvo Bianco: bez premii** (sesja 6, potwierdzone w sesji 7) — `ManageSingletonItemsBonus` tylko odmawia; warzenie przy stole też bez premii; sensowna rola stołu w TODO.
-- **D18. Dwa poziomy naraz na liście menu zostają** (sesja 6): posiadany niepełny poz. 1 + znana receptura poz. 2 widoczne obok siebie. Odrzucone: ukrywanie niższego poziomu przy znanej wyższej recepturze albo gdy wyższy da się uwarzyć.
+- **D5. Nic poza warzeniem nie uzupełnia** mikstur, bomb ani wywarów: medytacja, łóżko, stół, alkohol.
+- **D6. Warzenie napełnia do limitu**; uwarzony przedmiot można warzyć ponownie, gdy brakuje choć jednej
+  dawki. Powody: dolewka przy 2/3 kosztuje tyle co przy 0/3 — tak samo jak medytacja w vanilli, to nie wada;
+  skille limitu zyskują sens (większa pojemność = tańsza dawka); nowy poziom od razu ma max, więc nie ma
+  przenoszenia dawek przy ulepszaniu. Odrzucone: 1 warzenie = 1 dawka; uzysk kilku sztuk (nadwyżka ponad limit).
+- **D7. Limit = vanilla:** atrybut `ammo` wg poziomu + bonusy vanilli (skill Optymalizacja `S_Alchemy_s08`,
+  buff `EET_Mutagen03`, zestaw `EISB_RedWolf_2`, perk `S_Perk_20`); wywary 1, bonusy ich nie dotyczą.
+  Powód: spójność z D6 i z opisami skilli w grze. Odrzucone: stałe 3 (psuło opisy skilli); baza 3 + bonusy.
+- **D8. Poziomy jak w vanilli:** wyższy poziom usuwa niższy, niższego nie można warzyć, mając wyższy.
+- **D9. Zakres: mikstury, bomby, wywary.** Wywary w systemie, bo medytacja nie ma odnawiać niczego
+  alchemicznego. Oleje — vanilla: przedmiot oleju się nie zużywa, medytacja go nie dotyczy, więc nie łamie
+  spójności. Przedmioty z tagiem `Quest` poza systemem.
+- **D10. Alkohol jest wyłącznie składnikiem**, w recepturze stały, ×1. Skutek: zużywa się szybciej niż
+  w vanilli ([recipes.md](recipes.md#alkohol)).
+- **D11. Odblokowanie i powielenie:** pierwsze warzenie za pełną recepturę, każde kolejne za krótszą.
+  1. Sygnałem jest sama lista składników w prawym panelu menu — precedens vanilli: poziomy 1/2/3 mają różne
+     listy bez wyjaśnień.
+  2. Odblokowanie = posiadanie przedmiotu w ekwipunku, także z 0 dawek. Bez nowych danych w zapisie;
+     mikstur i bomb nie da się sprzedać ani wyrzucić, więc odblokowania nie da się stracić (poza wymianą na
+     wyższy poziom, który ma własne odblokowanie). Pozyskanie poza warzeniem też odblokowuje.
+  3. Odrzucone: znacznik `isNew` na liście — menu alchemii go nie rysuje.
+- **D12. Mikstura z 0 dawek zostaje w ekwipunku** (jak w vanilli) — to znacznik odblokowania.
+- **D13. Warzenie tylko w menu alchemii.** Odrzucone: medytacja warzy z zapasu składników — ciche zabieranie
+  składników jest niejawne i myli.
+- **D14. Pozyskanie poza warzeniem = vanilla:** nowy przedmiot z lootu, zakupu, questu czy startu dostaje max,
+  posiadany jest odrzucany komunikatem „already cooked”. Powód: w świecie i tak nie ma gotowych mikstur do
+  podniesienia (poz. 2/3 na pewno nie ma w lootcie ani u kupców; poz. 1 niesprawdzone w danych). Odrzucone:
+  nowy z lootu = 1 dawka, posiadany +1.
+- **D15. Blokada warzenia jak w vanilli** (`IsInCombat`), łagodniejsza niż medytacji (`IsThreatened`); nie
+  zrównywać — warzyć można przy wrogach w pobliżu, zanim zacznie się walka. Skille limitu nie są psute:
+  decydują o liczbie bomb na jedną walkę, a dodatkowe dawki trzeba opłacić składnikami.
+- **D16. Nadmiaru ponad limit nie przycinamy przy odczycie** — przy wczytywaniu zapisu bonusy limitu mogą być
+  jeszcze nieprzywrócone → trwała utrata dawek. Nadmiar schodzi przy użyciu; warzenie zablokowane do spadku
+  poniżej limitu.
+- **D17. Stół alchemiczny w Corvo Bianco bez premii:** `ManageSingletonItemsBonus` tylko odmawia, warzenie
+  przy stole też bez premii. Powód: vanillowa premia (+1 ponad max) działa przy odnawianiu, czyli dawałaby
+  dawkę bez warzenia (D5). Pomysł na inną rolę stołu: [roadmap.md](roadmap.md#odłożone).
+- **D18. Dwa poziomy naraz na liście menu zostają:** posiadana niepełna Jaskółka 1 (dolewka) i znana receptura
+  Jaskółki 2 (ulepszenie) widoczne obok siebie; w ekwipunku nigdy obie (ulepszenie zużywa poz. 1, a poz. 1 jest
+  zablokowany przy posiadanym poz. 2). Odrzucone: ukrywanie niższego poziomu przy znanej wyższej recepturze
+  albo gdy wyższy da się uwarzyć.
 
-- **D23. Samodzielne starty dodatków (HoS / B&W) — odłożone** (sesja 7). Rekomendacja (owinięcie `StandaloneEp*_1` + nadanie receptur posiadanym przedmiotom) i odrzucone warianty: [roadmap.md](roadmap.md#samodzielne-starty-dodatków-hos--bw--odłożone-decyzja-użytkownika-sesja-7).
-- **D24. Model współpracy** (sesja 7): użytkownik decyduje i testuje w grze; Claude jako architekt zleca kod subagentom — szczegóły w `CLAUDE.md` („Współpraca”).
-- **D25. Dwa poziomy na liście receptur zostają** (potwierdzone w sesji 7, por. D18): posiadana niepełna Jaskółka 1 (dolewka) + Jaskółka 2 (ulepszenie) widoczne naraz; w ekwipunku nigdy obie (ulepszenie zużywa poz. 1, poz. 1 zablokowany przy posiadanym poz. 2).
-- **D26. OTWARTE (sesja 7): dwuznaczny komunikat „Już masz ten przedmiot”** (`EAE_CannotCookMore` → `panel_alchemy_exception_already_cooked`). Vanilla: „uwarzone na zawsze”; w modzie także „pełna kieszeń — uwarzysz po zużyciu” (zgłosił użytkownik). Kierunek: znaleźć **istniejący** klucz lokalizacji pasujący do pełnej kieszeni i pokazywać go tylko przy `ammo >= max` (niższy poziom przy posiadanym wyższym — vanilla); uwaga: status steruje też filtrem menu „Już wykonane” (`canCookStatusForFilter`, `alchemyMenu.ws:459/514`) — zmienić tylko tekst, nie filtr. Research przerwany (budżet), do wznowienia: enum `EAlchemyExceptions`, `AlchemyExceptionToString`, kandydaci kluczy (crafting/ekwipunek/medytacja) z brzmieniem PL/EN z `*.w3strings`. Jeśli nic nie pasuje — zostaje jak jest. Propozycja użytkownika (sesja 7): nowy filtr „Uzupełniono” + nowy opis pozycji. Po doprecyzowaniu D2 nowe stringi są dozwolone → warianty: (i) tani — tylko nowy opis pozycji przy pełnej kieszeni (skrypt `cantCookReason` + własny `.w3strings` PL/EN z ID z zakresu modów; filtr zostaje „Już wykonane”); (ii) pełny — dodatkowo nowy filtr, jeśli wykonalny. Pierwotna ocena kosztu filtra (sprzed doprecyzowania): checkboxy filtrów najpewniej zaszyte we Flashu menu → edycja `.redswf`, duży koszt i ryzyko przy aktualizacjach gry); nazwa filtra „Już wykonane” pasuje do obu znaczeń, problemem jest tylko tekst pozycji — ten ustawia skrypt (`cantCookReason`), więc da się go zmienić bez Flasha. Do potwierdzenia przy wznowieniu: czy etykiety/liczba filtrów przychodzą ze skryptu.
-- **D27. OTWARTE (sesja 7): `Pops Antidote`** (q303) nie ma tagu `Quest`, więc mod traktuje go jak consumable (jest w tabeli receptur). Rekomendacja architekta: wyłączyć z systemu (vanilla) — czeka na decyzję użytkownika.
+## Receptury
 
-## Receptury powielania
-
-- **D19. Receptury powielania ręcznie dopracowane** (sesja 6), nie liczone regułą w grze. Skrypt Python tworzy szkic; każdą recepturę poprawiamy pod kątem spójności (między poziomami rodziny), unikatowości (brak kolizji) i oryginalności (sygnaturowy składnik). Do moda trafia gotowa tabela (generowany `.ws`). Powód: audyt reguły v0.3 (kolizje, utrata symboliki) — [recipes.md](recipes.md#audyt-reguły-v03-sesja-6).
-- **D20. Podmiany składników dozwolone, a nawet zalecane** (sesja 6), jeśli zachowują unikatowość; receptura powielania nie musi być podzbiorem pełnej.
-- **D21. Pełna receptura też może być zmieniana** (sugestia użytkownika, sesja 6): obie receptury projektujemy razem, by powielenie było spójnym okrojeniem pełnej. Tabela = pełna + powielenie dla każdego przedmiotu.
-- **D22. Części potworów w powieleniu — NIEROZSTRZYGNIĘTE** (sesja 6). Zależy od łatwości zdobycia (respawn, drop); punkt odniesienia: W1. Research: [recipes.md](recipes.md#części-potworów--research-sesja-6).
-
-## Odrzucone
-
-| Wariant | Sesja | Powód |
-|---|---|---|
-| Uzysk >1 sztuki na warzenie | 2–3 | nadwyżka ponad limit (później zbędne — D6 daje max) |
-| Wariant B: medytacja warzy z zapasów składników | 3 | ciche zabieranie składników jest niejawne i myli |
-| Reguła „wyrzuć najdroższy składnik” (`compare.py`) | 3 | zostawia rzadkie składniki (perła, Nigredo, Rebis, mniejsze mutageny, szpik alghula), nierówne oszczędności (Dimeritium 3: 272 → 172, wywar 28: 385 → 305) |
-| Reguła powszechności v3 (lista rzadkich składników) | 3 | nie obniża kosztu receptur złożonych z samych powszechnych składników — [recipes.md](recipes.md#v3-reguła-powszechności-sesja-3--wycofana) |
-| Reguła v1 (bez dzielnika, White Gull zostaje) | 3 | zastąpiona v2 — poz. 3 był pułapką kosztową, bomby poz. 3 tańsze od poz. 1 |
-| Dzielnik ilości 1 | 6 | psuje bomby poz. 1 (powielenie = pełna receptura) |
-| Dynamiczna podmiana składników (alternatywa wg ekwipunku) | 6 | mod-smell |
-| Ukrywanie niższego poziomu na liście | 6 | D18 |
-| Zrównanie blokady warzenia z medytacją (`IsThreatened`) | 3 | D15 |
-| Znacznik `isNew` jako sygnał odblokowania | 3 | menu go nie rysuje |
-| Przycinanie nadmiaru przy odczycie | v0.2 | D16 |
+- **D19. Receptury ręcznie dopracowane w tabeli**, nie liczone regułą w grze. Skrypt tworzy szkic; każdą
+  recepturę poprawiamy pod kątem spójności między poziomami rodziny, unikatowości (brak kolizji) i oryginalności
+  (sygnaturowy składnik). Do moda trafia generowany `.ws`. Powód: reguła dawała kolizje i odbierała miksturom
+  symbolikę ([recipes.md](recipes.md#znane-wady-obecnej-tabeli)). Odrzucone: strojenie reguły progiem
+  i dzielnikiem, reguła powszechności, „wyrzuć najdroższy składnik”
+  ([archive/recipe-rules.md](archive/recipe-rules.md)).
+- **D20. Podmiany składników dozwolone, a nawet zalecane**, jeśli zachowują unikatowość; receptura powielania
+  nie musi być podzbiorem pełnej. Odrzucone: dynamiczna podmiana składników wg ekwipunku — mod-smell.
+- **D21. Pełna receptura też może się zmienić:** obie receptury projektujemy razem, by powielenie było spójnym
+  okrojeniem pełnej. Tabela = pełna + powielenie dla każdego consumable.
+- **D28. Receptura powielania nie zawiera przedmiotu niższego poziomu.** Powód: pełna receptura poz. 2/3
+  zużywa przedmiot niższego poziomu, a niższego nie wolno warzyć, mając wyższy (D8) — z nim w powieleniu
+  ponowne warzenie poz. 2/3 byłoby niemożliwe.

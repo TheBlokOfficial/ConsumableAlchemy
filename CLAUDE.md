@@ -146,7 +146,7 @@ README.md                            strona moda dla gracza
 |---|---|---|
 | `CLAUDE.md` | słownik, zasady produktu, sposób pracy, pułapki | ok. 150 linii |
 | `README.md` | strona dla gracza (PL, bez technikaliów, styl Nexusa), lista zmian wersji | ok. 60 linii |
-| `docs/architecture.md` | jak mod działa: punkty zaczepienia, mechanika vanilli, degradacja | ok. 120 linii |
+| `docs/architecture.md` | jak mod działa: punkty zaczepienia, mechanika vanilli, degradacja | ok. 150 linii |
 | `docs/decisions.md` | rozstrzygnięcia z powodem, zwłaszcza odrzucone kierunki | wpis ok. 8 linii |
 | `docs/recipes.md` | dane receptur z gry, narzędzia `tools/recipes/`, kryteria balansu | ok. 100 linii |
 | `docs/testing.md` | checklista bieżącego wycinka, test dymny, pułapki testowe | ok. 80 linii |

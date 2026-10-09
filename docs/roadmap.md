@@ -1,72 +1,84 @@
 # Roadmapa — Consumable Alchemy
 
-Stan i kolejność pracy, otwarte kwestie, pomysły. Decyzje: [decisions.md](decisions.md).
+Co dalej: to, czego jeszcze nie zbudowano, i pytania czekające na autora. Rozstrzygnięcia:
+[decisions.md](decisions.md). Co już działa: kod i [README.md](../README.md#lista-zmian).
 
-## Historia wersji
+## Stan
 
-| Wersja | Sesja | Zakres |
-|---|---|---|
-| v0.1 | 1–2 | blokada odnawiania, ponowne warzenie (1 dawka), limit stałe 3; loot: nowa 1 dawka, posiadana +1 |
-| v0.2 | 2 | limit „baza 3 + bonusy vanilli”; potwierdzone „wszystko działa” (2026-10-06) |
-| v0.3 | 4 | receptura powielania (v2 + połowa ilości), wywary w systemie (limit 1), wyłączenie przedmiotów questowych, naprawa ponownego warzenia poz. 2/3 |
-| v0.4 | 6 (plan), 7 (kod) | warzenie = pełna kieszeń, limity vanilli, pozyskanie poza warzeniem = vanilla; commit `b2be4c2` (wypchnięty); kompiluje się i wczytuje |
-| (tabela) | 7 | receptury z generowanej tabeli zamiast reguły w grze (= v0.3 1:1); wgrane, nieprzetestowane |
+Mod w wersji v0.4 czyta receptury z generowanej tabeli (= poprzednia reguła 1:1). Kompiluje się i wczytuje;
+reszta checklisty ([testing.md](testing.md)) czeka na test.
 
-(Sesja 3: dane receptur i narzędzia; sesja 5: repo publiczne, „chyba działa” dla v0.3; sesja 6: projekt v0.4 + audyt receptur.)
+## Następne kroki
 
-## Kolejność pracy
+1. **Test v0.4 i tabeli w grze** według [testing.md](testing.md), razem z degradacją (obietnica w README).
+   Etap receptur buduje na tym stanie, więc idzie pierwszy.
+2. **`tools/check.ps1`** — szybka bramka przed grą: `generate.py` w trybie sprawdzania (tabela zgodna
+   z wygenerowanym `.ws`), lint pułapek kompilatora z CLAUDE.md (drugie `wrappedMethod` w funkcji, deklaracja
+   zmiennej po instrukcji), dane gry (`tools/recipes/x/`, `data.json`) poza commitem.
+3. **Katalog składników** `tools/recipes/ingredients.py` → `ingredient_catalog.json`: dla każdego składnika
+   cena, typ, sklepy (liczba, region), zbieranie w świecie, **drop z potworów** (tabele lootu potworów w XML,
+   szansa, potwór, odradzanie) i poziom wysiłku 1–5 (kryteria w `_meta`). Dane do D22 i walidatora. Bez zmian
+   w `draft.py`, `generate.py` i tabeli.
+4. **Walidator** `validate.py` (po katalogu): kolizje (identyczne zbiory i różnica 1 składnika), brak
+   sygnatury, monotoniczność wysiłku w rodzinie, wysiłek wg rangi (podstawowe ≤ zaawansowane), powielenie
+   tańsze od pełnej, składniki istnieją, alkohol w miksturach i wywarach, proszek w bombach, brak niższego
+   poziomu w powieleniu (D28).
+5. **Spec szlifowania receptur** (`docs/spec/receptury.md`) — kryteria z [recipes.md](recipes.md#kryteria-balansu)
+   i wyniki katalogu zebrane w jedną koncepcję do akceptacji autora; wymaga rozstrzygnięcia D22 i pytania
+   o mutagen w wywarach.
+6. **Szlifowanie receptur partiami** (mikstury → bomby → wywary): propozycja per rodzina (pełna + powielenie
+   + uzasadnienie + wynik walidatora) → akceptacja autora → `generate.py` → wdrożenie → test. README (opis
+   krótszej receptury i przykład) zmienia się razem z tabelą.
 
-1. ~~Kod v0.4 (pełna kieszeń + limity vanilli)~~ ✔ sesja 7 — czeka na test w grze ([testing.md](testing.md)).
-2. Narzędzia receptur ([recipes.md](recipes.md#kierunek-ręcznie-dopracowana-tabela-sesja-6)):
-   - 2a-B ✔ sesja 7: `recipes_table.json` (93 receptury: 41 mikstur, 24 bomby, 28 wywarów; = v0.3 1:1) → `draft.py` (szkic, bez `--force` nie nadpisuje) → `generate.py` → `consumableAlchemy_recipes_table.ws`; mod czyta tabelę (fallback: vanilla). Wgrane, czeka na test ([testing.md](testing.md)).
-   - 2a-A ✗ przerwane (budżet, sesja 7), brak wyników: `tools/recipes/ingredients.py` → `ingredient_catalog.json` — dla każdego składnika cena, typ, sklepy (liczba/region), zbieranie w świecie, **drop z potworów** (tabele lootu potworów w XML, szansa, powiązanie z potworem, respawn) i poziom wysiłku pospolity/średni/rzadki (effort 1–5, kryteria w `_meta`). Dane do D22 i walidatora. Nie edytować `draft.py`/`generate.py`/tabeli przy tej pracy.
-   - 2b — walidator `validate.py` (po 2a-A): kolizje (identyczne zbiory i różnica 1 składnika), brak sygnatury, monotoniczność wysiłku w rodzinie, wysiłek wg rangi (podstawowe ≤ zaawansowane), powielenie < pełna, składniki istnieją, alkohol w miksturach/wywarach, proszek w bombach, brak niższego poziomu w powieleniu.
-3. Szlifowanie receptur partiami (mikstury → bomby → wywary): szkic propozycji per rodzina (pełna + powielenie + uzasadnienie + wynik walidatora) → akceptacja użytkownika → `generate.py` → deploy → test. Przed startem: decyzja D22 (rekomendacja architekta: pospolite części potworów — `Ghoul blood`, `Drowner brain`, `Drowned dead tongue`, `Nekker heart` — zostają jako składnik wysiłku, jeśli dane dropu potwierdzą; rzadkie → tematyczny zamiennik) i pytanie, czy powielenie wywaru zawiera mutagen.
+## Do decyzji autora
 
-(Wcześniejszy plan sesji 3 — reguła odblokowania, tabela receptur, akceptacja reguły, kod v0.3 — wykonany; jego krok „strojenie progu/dzielnika” zastąpiony ręczną tabelą, D19.)
+- **D22. Części potworów w powieleniu.** Zależy od łatwości zdobycia (odradzanie, drop); punkt odniesienia:
+  W1 ([recipes.md](recipes.md#części-potworów)). Rekomendacja architekta: pospolite części (`Ghoul blood`,
+  `Drowner brain`, `Drowned dead tongue`, `Nekker heart`) zostają jako składnik wysiłku, jeśli katalog
+  potwierdzi drop; rzadkie → tematyczny zamiennik.
+- **Mutagen w powieleniu wywaru** — zostaje czy wypada (dziś wypada; wywar = alkohol + zioła).
+- **D23. Samodzielne starty dodatków (HoS / B&W)** — ok. 20 przedmiotów startowych jest w modzie jednorazowych
+  (dane: [architecture.md](architecture.md#samodzielne-starty-dodatków-hos--bw)). Rekomendacja:
+  `@wrapMethod(W3PlayerWitcher)` na `StandaloneEp1_1` / `StandaloneEp2_1` → po oryginale dla każdego
+  posiadanego consumable bez znanej receptury `AddAlchemyRecipe(r, true, true)`; dla istniejących zapisów to
+  samo w wrapperze `ApplyPatchFixes` przy `FactsQuerySum('standalone_ep1' / 'standalone_ep2') > 0` (odczyt
+  vanillowych faktów, idempotentne, mod dalej nic nie zapisuje). Ok. 40 linii; zwykła gra i NG+ bez zmian.
+  Skutki: osiągnięcia za znane receptury, Nabyta Tolerancja — jak przy każdej poznanej recepturze.
+  Niesprawdzone: czy quest startu woła owiniętą metodę. Odrzucone: poznawanie receptury przy inicjalizacji
+  przedmiotu poz. ≥ 2 (nie pokrywa poz. 1 i wywarów); warzenie bez znajomości receptury (zmienia projekt,
+  ryzyko niespójności menu i tooltipów, mod-smell). Pytanie: cały zestaw (także poz. 1 i wywary) czy tylko poz. 2.
+- **D26. Dwuznaczny komunikat „Już masz ten przedmiot”** (`EAE_CannotCookMore` →
+  `panel_alchemy_exception_already_cooked`): w vanilli znaczy „uwarzone na zawsze”, w modzie także „pełna
+  kieszeń — uwarzysz po zużyciu”. Warianty: (0) zostaje; (i) inny tekst pozycji tylko przy pełnej kieszeni —
+  istniejący klucz lokalizacji albo nowy wpis PL + EN, przez `cantCookReason` w skrypcie (filtr „Już wykonane”
+  bez zmian — jego nazwa pasuje do obu znaczeń); (ii) dodatkowo nowy filtr „Uzupełniono” (pomysł autora), jeśli
+  etykiety filtrów przychodzą ze skryptu — jeśli są zaszyte we Flashu menu, to edycja `.redswf`, duży koszt
+  i ryzyko przy aktualizacjach gry. Do zbadania przed decyzją: enum `EAlchemyExceptions`,
+  `AlchemyExceptionToString`, kandydaci kluczy (crafting, ekwipunek, medytacja) z brzmieniem PL/EN
+  z `*.w3strings`, źródło etykiet filtrów. Status pozycji się nie zmienia (pułapka 4 w CLAUDE.md).
+- **D27. `Pops Antidote`** (q303) nie ma tagu `Quest`, więc jest consumable (jest w tabeli). Rekomendacja:
+  wyłączyć z systemu (vanilla). Przy okazji sprawdzić w XML inne zwykłe mikstury/bomby bez tagu `Quest`
+  i przedmioty specjalne (feromony, `Killer Whale 1`, `Trial Potion Kit`).
+- **Wywar Wodnej Baby** — darmowa dawka przy nałożeniu, utrata opłaconej przy wygaśnięciu
+  ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)). README opisuje to jako zachowanie
+  gry; zostawić czy zmienić.
+- **Alkohol** zużywa się szybciej niż w vanilli ([recipes.md](recipes.md#alkohol)). Pomysł: w powieleniu
+  podstawiać najtańszy posiadany alkohol, jak medytacja.
 
-## Odłożone na kiedyś (sesja 7, decyzja użytkownika — research przerwany, brak wyników)
+## Odłożone
 
-- **Widoczność moda na liście modów w menu gry 5.0** — sygnatura, że mod się wczytał. Założenie z sesji 2: brak manifestu/metadanych w modzie z samych skryptów. Do ustalenia: na jakiej podstawie gra buduje listę (manifest, `metadata.store`, bundle?), czy da się to zrobić bez RedKitu, skutki uboczne (osiągnięcia, ostrzeżenia).
-- **Oleje jako zużywalne** — luźny pomysł użytkownika: przedmiot oleju ma dawki = liczba nałożeń na miecz, każde nałożenie zużywa 1, warzenie uzupełnia do max, medytacja nie odnawia; ładunki powłoki na ciosy bez zmian (`W3Effect_Oil.ReduceAmmo`, `r4Player.ws:~1009`; `S_Alchemy_s06`). Do ustalenia: czy olej jest singletonem z `ammo`, funkcja nakładania, UI (tooltip x/y, blokada przy 0 bez nowych stringów), limit dawek, oleje questowe/auto-nakładanie, koszt.
+- **Widoczność moda na liście modów w menu gry** — znak, że mod się wczytał. Założenie: mod z samych skryptów
+  nie ma manifestu ani metadanych. Do ustalenia: z czego gra buduje listę (manifest, `metadata.store`,
+  bundle), czy da się bez RedKitu, skutki uboczne (osiągnięcia, ostrzeżenia).
+- **Oleje jako zużywalne** — przedmiot oleju ma dawki = liczba nałożeń, nałożenie zużywa 1, warzenie
+  uzupełnia, medytacja nie; ładunki powłoki na ciosy bez zmian (`W3Effect_Oil.ReduceAmmo`). Do ustalenia: czy
+  olej jest singletonem z `ammo`, funkcja nakładania, UI (tooltip x/y, blokada przy 0), limit, oleje questowe
+  i auto-nakładanie, koszt. Dziś oleje są vanilla (D9).
+- **Stół alchemiczny w Corvo Bianco** — inna rola niż premia przy odnawianiu (D17), np. warzenie przy stole
+  → max + `QUANTITY_INCREASED_BY_ALCHEMY_TABLE` (vanillowa stała, +1).
+- **Tańsze zioła u kupców, więcej ziół w lootcie** (wymaga zmian w XML).
+- **Paczka do wydania** — archiwum zip dla Nexusa, numer wersji w paczce.
 
-## Research w toku
+## Szlif
 
-- Części potworów w powieleniu — research W1 + analiza dropu w W3; decyzja otwarta (D22, [recipes.md](recipes.md#części-potworów--research-sesja-6)).
-
-## Samodzielne starty dodatków (HoS / B&W) — odłożone (decyzja użytkownika, sesja 7)
-
-**Problem:** w modzie medytacja nie odnawia, a starty samodzielne dają przedmioty bez znanej receptury → ok. 20 pozycji startowych to jednorazówki (w vanilli medytacja je odnawiała). Por. [testing.md](testing.md#pułapki-testowe).
-
-**Dane (research sesja 7, `playerWitcher.ws`):**
-- HoS `StandaloneEp1_1` (`:11428`, woła `_2`; fakt `StandAloneEP1`; `RemoveAllAlchemyRecipes` `:11595`; przedmioty `:11662-11709`; fakt końcowy `standalone_ep1` `:11916`): receptury poz. 1 mikstur Cat, Maribor, Petri, Swallow, Tawny Owl, White Honey, Raffard; bomb Dancing Star, Dimeritium, Grapeshot, Samum, White Frost; alkohole, oleje 1–2.
-- B&W `StandaloneEp2_1` (`:11930`, przedmioty `:12090-12207`, fakt `standalone_ep2` `:12488`): receptury mikstur tylko Petri 2, Swallow 1, Tawny Owl 1; bomby/oleje jak HoS; dodatkowo przedmioty Golden Oriole 1, Killer Whale 1, Petri 2.
-- Przedmiot bez receptury na ten sam poziom:
-  - poz. 2 z recepturą tylko poz. 1 — Swallow 2, Tawny Owl 2, Grapeshot 2, Samum 2, White Frost 2, Dancing Star 2 (+ Cat 2, White Honey 2 w HoS);
-  - poz. 2 bez żadnej receptury — Thunderbolt 2, Devils Puffball 2 (+ Cat 2, White Honey 2 w B&W);
-  - poz. 1 bez receptury — Black Blood 1, Blizzard 1, Full Moon 1, Dragons Dream 1, Silver Dust Bomb 1 (+ w B&W Maribor 1, Raffard 1, Golden Oriole 1, Killer Whale 1);
-  - wywary `Mutagen 17/19/26/27`.
-  - OK (receptura jest): Dimeritium 1; HoS Maribor 1, Petri 1, Raffard 1; B&W Petri 2.
-- Gdzie później receptury: B&W — `_EP2_store__Alchemist` (Toussaint) ma poz. 2 i 3 wszystkich; HoS — sklepy EP1 tylko poz. 3; podstawka `Oxenfurt_Herbalist` / `Druid_Herbalist` mają m.in. Swallow 2, Tawny Owl 2, White Honey 2, Grapeshot 2, Samum 2, Blizzard 2, Full Moon 2; Thunderbolt 2, Cat 2, White Frost 2, Devils Puffball 2 głównie Skellige / `_store__Poor_Dist_Herbs_Trader`; skrzynie od poz. gracza ~10.
-- API: `AddAlchemyRecipe(nam, optional isSilent, optional skipTutorialUpdate) : bool` (`playerWitcher.ws:4851`), znane receptury w `private saved var alchemyRecipes` (`:44`); idempotentne (znana → `false`). `isSilent = true` pomija HUD (`AddAlchemyHudNotification` `:4046`). Skutki nawet w trybie cichym: statystyki `ES_KnownPotionRecipes` / `ES_KnownBombRecipes` → osiągnięcia `EA_BreakingBad` / `EA_Bombardier` (`gamerProfile.ws:62`); skill `S_Alchemy_s18` (Nabyta Tolerancja) — ability na każdą recepturę (+toksyczność); zdarzenie `SEC_AlchemyRecipe` (warunki questów `playerKnowsRecipe.ws`). Brak funkcji przedmiot → receptura: iteracja `dm.GetCustomDefinition('alchemy_recipes')` po `cookedItem_name` (jak `alchemyManager.ws:69`).
-
-**Rekomendacja (wariant a):** `@wrapMethod(W3PlayerWitcher)` na `StandaloneEp1_1` i `StandaloneEp2_1` (public final) → po oryginale dla każdego posiadanego consumable bez znanej receptury `AddAlchemyRecipe(r, true, true)`. Cały zestaw startowy (także poz. 1 i wywary) staje się odnawialny jak w vanilli, tylko za składniki (pierwsze warzenie od razu tanie, bo przedmiot jest posiadany). Istniejące zapisy: dodatkowo wrapper na `ApplyPatchFixes` (`private final`, `playerWitcher.ws:738`, wołane przy każdym wczytaniu `:365`) z warunkiem `FactsQuerySum('standalone_ep1' / 'standalone_ep2') > 0` — odczyt vanillowych faktów, mod dalej nic nie zapisuje, idempotentne. Koszt ~40 linii. Zwykła gra i NG+ bez zmian. Skutki uboczne: osiągnięcia za znane receptury, Nabyta Tolerancja (zgodne z vanillą — tak działa każda poznana receptura). Niesprawdzone: czy quest wywołujący `StandaloneEp*_1` trafia w owiniętą metodę (powinien).
-
-**Odrzucone:**
-- (b) „posiadany consumable poz. ≥ 2 bez receptury → poznaj” w gałęzi inicjalizacji `SingletonItemRefillAmmo` — nie pokrywa poz. 1 i wywarów.
-- (c) warzenie kopii bez znajomości receptury (wirtualna receptura w `GetRecipes`) — zmiana projektu (loot też by odblokowywał), ryzyko niespójności menu/tooltipów, mod-smell.
-
-**Otwarte pytanie do użytkownika przy realizacji:** objąć cały zestaw (także poz. 1 i wywary) czy tylko poz. 2.
-
-## Otwarte kwestie
-
-- **Wywar Wodnej Baby** — darmowa dawka przy nałożeniu / utrata opłaconej przy wygaśnięciu ([testing.md](testing.md#znane-skutki-uboczne)). Do decyzji.
-- **Alkohol** — szybsze zużycie niż w vanilli; pomysł: w powieleniu podstawiać najtańszy posiadany alkohol ([recipes.md](recipes.md#alkohol)).
-
-## Pomysły / TODO
-
-- Stół alchemiczny w Corvo Bianco — sensowna rola, np. warzenie przy stole → max + `QUANTITY_INCREASED_BY_ALCHEMY_TABLE` (vanillowa stała, +1). Obecnie `ManageSingletonItemsBonus` tylko odmawia.
-- Tańsze zioła u kupców; więcej ziół w lootcie (wymagałoby XML).
-- Oleje: nałożenie zużywa dawkę (jak w W1) — ewentualnie później (odłożone, wyżej).
-- ~~Przenoszenie dawek przy ulepszaniu poziomu~~ — rozwiązane w v0.4 (nowy poziom dostaje max).
-- ~~Powiadomienie HUD przy dobraniu dawki z lootu~~ — nieaktualne od v0.4 (loot = vanilla, nie ma dobierania dawek).
+(pusto)

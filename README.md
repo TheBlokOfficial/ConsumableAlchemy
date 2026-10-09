@@ -53,3 +53,23 @@ Można instalować w trakcie rozgrywki. Mod nie pojawia się na liście modów w
 - Jeśli wczytasz stary zapis z większą liczbą sztuk niż limit, nadwyżka zostaje, dopóki jej nie zużyjesz.
 - Stół alchemiczny w Corvo Bianco nie daje premii do mikstur i bomb.
 - Wywar Wodnej Baby działa jak w grze: po wypiciu daje +1 sztukę każdej mikstury i bomby, a po wygaśnięciu ją zabiera.
+
+## Lista zmian
+
+**0.4**
+- Warzenie napełnia miksturę, bombę lub wywar do pełna (wcześniej: jedna sztuka na warzenie).
+- Limity jak w podstawowej grze.
+- Mikstury i bomby z łupów, od kupców i z nagród działają jak w grze: nowe dostajesz w pełnym limicie.
+
+**0.3**
+- Kolejne warzenia za krótszą, tańszą recepturę.
+- Wywary też trzeba warzyć — medytacja ich nie uzupełnia, alkohol jest zwykłym składnikiem.
+- Przedmioty z zadań działają jak w grze.
+- Naprawione ponowne warzenie wersji Wzmocnionych i Doskonałych.
+
+**0.2**
+- Limit 3 sztuk, powiększany przez umiejętności i zestawy jak w grze.
+
+**0.1**
+- Pierwsza wersja: medytacja nie uzupełnia mikstur ani bomb; uwarzoną miksturę można warzyć ponownie
+  (jedna sztuka na warzenie, limit 3).
