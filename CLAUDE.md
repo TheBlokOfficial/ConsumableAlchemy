@@ -1,75 +1,170 @@
-# CLAUDE.md — Consumable Alchemy (Witcher 3 Remastered mod, gra v5.0)
+# Consumable Alchemy
 
-Mod zamienia alchemię z singletonów odnawianych medytacją na system zużywalny: medytacja nie uzupełnia mikstur, bomb ani wywarów; dawki uzupełnia się wyłącznie warzeniem (pełna kieszeń za składniki). Pierwsze warzenie = pełna receptura („odblokowanie”), kolejne = krótsza, tańsza („powielenie”). Opis dla gracza: [README.md](README.md). Szczegóły w `docs/` (indeks na końcu).
+Mod do Wiedźmina 3 (Remastered, gra 5.0): alchemia zużywalna zamiast singletonów odnawianych medytacją.
+Mikstury, bomby i wywary uzupełnia wyłącznie warzenie, za składniki. Opis dla gracza: [README.md](README.md).
+Stan prac i następny krok: [docs/roadmap.md](docs/roadmap.md).
 
-## Współpraca (model pracy ustalony przez użytkownika, sesja 7)
+## Słownik
 
-- **Użytkownik** — właściciel decyzji projektowych; testuje w grze; daje zielone światło na implementację.
-- **Claude — architekt:**
-  - nie pisze kodu ręcznie — zleca zadania subagentom (asynchronicznie, w tle), czyta ich raporty i diffy;
-  - podejmuje decyzje techniczne (projektowe zostawia użytkownikowi);
-  - oszczędza własny kontekst: nie czyta długich plików (XML-e gry, pełne skrypty vanilli) — używa subagentów albo poleceń z krótkim wynikiem;
-  - przed implementacją opisuje plan i czeka na zielone światło.
-- **Commit** lokalnie po potwierdzeniu użytkownika (np. że się kompiluje / działa). **Push tylko na wyraźne polecenie** (repo publiczne).
-- **Wdrożenie:** Claude uruchamia `deploy.ps1`; test w grze robi użytkownik wg [docs/testing.md](docs/testing.md).
-- **Po sesji:** aktualizacja `docs/` (decyzje z numerem sesji, wyniki researchu, checklisty) i sekcji „Status” poniżej.
+- **Consumable** — przedmiot objęty systemem: mikstura, bomba albo wywar, singleton, bez tagu `Quest`
+  (pełne kryterium: `CA_IsConsumableItemName`). Wszystko inne jest vanilla.
+- **Dawki** i **limit** — vanillowe `ammo_current` i `SingletonItemGetMaxAmmo`. **Pełna kieszeń** = dawki ≥ limit.
+- **Odblokowanie** — pierwsze warzenie przedmiotu, za **recepturę pełną**. Przedmiot odblokowany = posiadany
+  w ekwipunku, także z 0 dawek.
+- **Powielenie** — każde kolejne warzenie, za krótszą **recepturę powielania** (w kodzie `copy` / `isCopy`).
+- **Poziom** — 1–3 jak w vanilli (np. Jaskółka → Wzmocniona → Doskonała).
+- **Tabela receptur** — `tools/recipes/recipes_table.json`, źródło prawdy obu receptur każdego consumable.
 
-## Twarde wymogi (szczegóły i uzasadnienia: [docs/decisions.md](docs/decisions.md))
+## Zasady produktu
 
-- **Pełna „vanillowość”** — żadnego mod-smellu: zero własnego renderowania napisów/nakładek UI. **Dozwolone** (doprecyzowanie użytkownika, sesja 7): nowy element w istniejącym systemie gry wyglądający jak vanilla — np. nowy wpis lokalizacji (PL + EN) w istniejącym miejscu UI, nowa pozycja filtra. Najpierw i tak szukaj istniejącego klucza lokalizacji (obecnie reużywamy `panel_alchemy_exception_already_cooked`).
-- **Kompatybilność z innymi modami nie jest wymogiem** (użytkownik nie gra z innymi).
-- **Zakres:** mikstury + bomby + wywary. Oleje i przedmioty questowe — vanilla. Alkohol wyłącznie składnikiem.
-- Limity dawek i pozyskanie poza warzeniem (loot, zakup, questy) — jak w vanilli (od v0.4).
-- `README.md` = strona dla gracza (PL, bez technikaliów, styl Nexusa). Szczegóły techniczne tylko w CLAUDE.md / `docs/`.
+Mod zmienia jedno: skąd biorą się dawki. Resztę gracz ma dostać taką, jaką zna z vanilli. Czytaj według
+intencji (alchemia jako rzemiosło, jak w Wiedźminie 1; powielenie nie boli, nie żal rzucić bomby, która
+chybi); gdy litera i intencja się rozjeżdżają, powiedz to autorowi.
 
-## Środowisko
+1. **Dawki daje tylko warzenie.** Medytacja, łóżko, stół, alkohol ani nic innego nie odnawia consumables.
+   Warzenie napełnia do limitu. Alkohol jest wyłącznie składnikiem.
+2. **Odblokowanie i powielenie.** Jedynym sygnałem dla gracza jest lista składników w menu alchemii — po
+   odblokowaniu krótsza. Każde miejsce, które pokazuje albo pobiera składniki receptury (menu, warzenie,
+   tooltip, przypięta receptura), daje tę samą listę.
+3. **Wygląda jak vanilla.** Zero własnego renderowania i nakładek. Wolno dodać element do istniejącego
+   systemu gry, jeśli wygląda jak vanilla (nowy wpis lokalizacji PL + EN w istniejącym miejscu UI, nowa
+   pozycja filtra) — ale najpierw szukaj istniejącego klucza lokalizacji.
+4. **Poza dawkami — vanilla.** Limity i ich bonusy, pozyskanie poza warzeniem (loot, zakup, questy), poziomy,
+   blokada w walce, oleje, przedmioty questowe.
+5. **Save bez śladu moda.** Mod nie zapisuje nic własnego (tylko vanillowe `ammo_current` / `is_initialized`);
+   po usunięciu moda gra działa. Mechanizm: [docs/architecture.md](docs/architecture.md).
+6. **Zgodność z innymi modami nie jest wymogiem** (autor gra bez innych modów).
 
-- **Gra:** `D:\gry\steam\steamapps\common\the witcher 3` (Steam, Remastered; `witcher3.exe` w `bin\x64_dx12` raportuje **5.0.0.1044392**). To nowsze niż next-gen 4.0 (2022) — nie zakładaj, że wiedza o 4.x jest aktualna; weryfikuj w skryptach vanilla z tej instalacji.
-- **Skrypty vanilla** (referencja, tylko do odczytu): `<gra>\content\content0\scripts\game\...` (numery linii w `docs/` dotyczą tej instalacji).
-- **Dane gry (XML):** depot RedKit usunięty przez użytkownika (sesja 2), niepotrzebny — XML-e wyciągamy z bundli narzędziem `tools\recipes\bundle.py` (opis narzędzi: [docs/recipes.md](docs/recipes.md#narzędzia-toolsrecipes-python)). Jest tylko `content\content0` (dodatki w nim, brak katalogu `dlc`).
-- **Kompilacja:** gra kompiluje skrypty przy starcie; błędy pokazuje w oknie przy uruchomieniu.
-- **Instalacja moda:** `deploy.bat` (dwuklik; nakładka na `deploy.ps1`, opcjonalny argument: ścieżka gry) → `<gra>\mods\modConsumableAlchemy`.
-- Mod nie pojawia się na liście modów w menu gry — założenie: normalne dla moda z samych skryptów (zbadanie odłożone, [docs/roadmap.md](docs/roadmap.md)).
+## Jak pracujemy
 
-## Repozytorium
+- **Autor** (właściciel projektu) **mówi, co ma powstać, i sprawdza wynik w grze.** Pytaj go wyłącznie
+  o decyzje projektowe: mechanika, balans, co widzi gracz. Implementację wybierasz sam i krótko raportujesz.
+- **Jedna sesja to jeden wycinek** (zmiana widoczna w grze albo zamknięty etap narzędzi), od planu do
+  scalenia; następny wycinek to nowa sesja. Najpierw 5–10 linii planu: co autor zobaczy w grze, co się
+  zmieni w kodzie — i czekasz na zielone światło. To, co zobaczy gracz (receptury, teksty komunikatów),
+  uzgadniasz z autorem na piśmie, w tabeli albo z brzmieniem PL/EN, zanim powstanie kod.
+- **Architekt** (główna sesja) rozmawia z autorem, czyta kod potrzebny do decyzji i zlecenia, przegląda
+  diffy, scala i wdraża. Drobne, lokalne zmiany (dokumenty, kilka linii kodu) robi sam. Długich plików nie
+  czyta w całości (skrypty vanilli, XML-e gry, generowana tabela): Grep z wąskim wzorcem albo agent Explore,
+  który zwraca wniosek z `plik:linia`. Autorowi pokazuje wynik, który sam by przyjął.
+- **Wykonawca** (Agent `general-purpose`, `model: "sonnet"`, w tle, `isolation: "worktree"`) dostaje
+  zamkniętą część pracy. Zlecenie z adresami: cel, nazwa gałęzi, pliki i miejsca w nich (także `plik:linia`
+  w vanilli), znane fakty i pułapki (sekcja niżej), kryteria odbioru, czego nie robić, punkt zatrzymania.
+  Przed zleceniem commit — worktree powstaje z HEAD. Opus (`model: "opus"`) tylko do zadania bez gotowego
+  projektu albo szukania nieznanej przyczyny. Niezależne obszary — równolegle.
+- **Research** (kod vanilli, dane z bundli) zlecasz tak samo, z poleceniem zapisu wyników do pliku
+  w trakcie pracy, nie tylko w raporcie końcowym — przerwany agent nie może zabrać wyników ze sobą.
+  Wniosek trafia do właściwego dokumentu, zanim sesja się skończy.
+- **Kolejna runda:** pracę przyjętą po przeglądzie scalasz; drobne poprawki robisz sam w worktree wykonawcy
+  (ścieżki bezwzględne i `git -C`, bez `cd` — sesja przeniosłaby się do worktree), dłuższą listę dostaje
+  nowy wykonawca ze ścieżkami i hashami. Wykonawcy z dużym kontekstem nie wznawiaj — każdy jego krok
+  wysyła cały dotychczasowy kontekst.
+- **Test w grze:** architekt uruchamia `deploy.ps1` — z worktree, żeby sprawdzić gałąź przed scaleniem
+  (skrypt wgrywa `src/` z własnego katalogu), albo z głównego katalogu po scaleniu. Autor testuje według
+  [docs/testing.md](docs/testing.md); błędy kompilacji przepisuje z okna gry.
+- **Uwagi autora** po teście poprawiasz od razu, gdy to błąd; szlif (działa, ale mogłoby być lepiej) idzie
+  jednym zdaniem do „Szlif” w roadmapie.
+- **Dokumenty przy pracy:** roadmapę i rozstrzygnięcia aktualizujesz raz na wycinek, przy scaleniu, jednym
+  commitem; `docs/architecture.md` i checklistę w `docs/testing.md` — w gałęzi, która zmienia kod. Zmiana
+  tego, co widzi gracz, aktualizuje `README.md` w tym samym wycinku.
+- **Git:** każdy wykonawca pracuje we własnej gałęzi i worktree; główny katalog stoi zawsze na `main`.
+  Scalenie do `main` po potwierdzeniu autora (co najmniej: kompiluje się w grze), potem usunięcie worktree
+  i gałęzi. **Push tylko na wyraźne polecenie autora** — repo jest publiczne
+  (https://github.com/TheBlokOfficial/consumable-alchemy), wszystko, co commitujesz, jest jawne. Commity
+  małe i logiczne, po angielsku. Autor commitów: `TheBlokOfficial <tomasznosal.mail@proton.me>` (lokalny
+  config repo, wspólny dla worktree). Danych gry nie commituj (`tools/recipes/x/`, `data.json`).
+- **Raport na koniec:** 3–6 zdań prostym językiem, co się zmieniło i dlaczego, plus 2–4 rzeczy do
+  sprawdzenia w grze (gdzie pójść, co uwarzyć, na co patrzeć). Bez nazw funkcji, chyba że autor zapyta.
 
-- git, gałąź `main`; **publiczne** repo GitHub https://github.com/TheBlokOfficial/consumable-alchemy (od sesji 5 — wszystko, co commitujesz, jest jawne).
-- Autor commitów: `TheBlokOfficial <tomasznosal.mail@proton.me>` (lokalny config repo).
-- **Nie commitować danych gry:** `tools/recipes/x/` (wypakowane XML-e CDPR) i `data.json` są w `.gitignore`; odtwarzać przez `bundle.py extract` + `recipes.py`.
+## Środowisko, wdrożenie, narzędzia
 
-```
+- **Gra:** `D:\gry\steam\steamapps\common\the witcher 3` — Steam, Remastered, `bin\x64_dx12\witcher3.exe`
+  w wersji **5.0.0.1044392**. Nowsza niż next-gen 4.0 — wiedzy o 4.x nie zakładaj, sprawdzaj w skryptach
+  vanilli tej instalacji: `<gra>\content\content0\scripts\game\...` (tylko do odczytu; `plik:linia`
+  w dokumentach dotyczą tej instalacji). Dodatki są w `content0`, katalogu `dlc` nie ma.
+- **Kompilacja:** kompilatora poza grą nie ma. Gra kompiluje skrypty przy starcie i pokazuje błędy w oknie.
+  Ostrzeżenia `[content0] ... not marked as abstract` / `has no autostate` są z vanilli — ignoruj.
+- **Wdrożenie:** `powershell -ExecutionPolicy Bypass -File deploy.ps1 [-GameDir <ścieżka>]` (albo
+  `deploy.bat`) → `<gra>\mods\modConsumableAlchemy`.
+- **Receptury:** zmieniasz `tools/recipes/recipes_table.json`, potem `python tools/recipes/generate.py`
+  (waliduje i generuje `consumableAlchemy_recipes_table.ws`). Wygenerowanego pliku nie edytuj ręcznie.
+- **Dane gry (XML):** wyciągane z bundli przez `tools/recipes/bundle.py` + `recipes.py` — opis narzędzi
+  w [docs/recipes.md](docs/recipes.md).
+- Pliki czytaj i zmieniaj narzędziami Read/Edit/Write — PowerShell 5.1 psuje polskie znaki
+  (`Set-Content` zapisuje w ANSI).
+
+## Struktura
+
+```text
 src/modConsumableAlchemy/content/scripts/local/
-  consumableAlchemy_common.ws     – klasyfikacja przedmiotów
-  consumableAlchemy_inventory.ws  – blokada odnawiania, alkohol/powiadomienia, Corvo Bianco
-  consumableAlchemy_alchemy.ws    – menedżer i menu alchemii (warzenie)
-  consumableAlchemy_recipes.ws    – receptura powielania
-tools/recipes/                    – narzędzia do danych receptur (Python)
-docs/                             – dokumentacja techniczna (indeks niżej)
-deploy.bat / deploy.ps1           – instalacja do folderu gry
-README.md                         – strona moda dla gracza
+  consumableAlchemy_common.ws        klasyfikacja consumables
+  consumableAlchemy_inventory.ws     blokada odnawiania, alkohol i powiadomienia, stół w Corvo Bianco
+  consumableAlchemy_alchemy.ws       menedżer i menu alchemii (warzenie, blokada, odświeżanie listy)
+  consumableAlchemy_recipes.ws       wybór receptury: pełna albo powielania
+  consumableAlchemy_recipes_table.ws GENEROWANY z tabeli receptur — nie edytować
+tools/recipes/                       Python: bundle → dane → tabela receptur → generator .ws
+docs/                                dokumentacja techniczna (tabela niżej)
+deploy.bat / deploy.ps1              instalacja do folderu gry
+README.md                            strona moda dla gracza
 ```
 
-## Konwencje kodu i ograniczenia kompilatora
+## Konwencje
 
-- Adnotacje kompilatora (`@wrapMethod`, `@replaceMethod`, `@addMethod`; od 4.0, działają w 5.0, także na metodach `private`/`final`) w **nowych** plikach w `content\scripts\local\` — nie nadpisujemy plików vanilla, nie trzeba Script Mergera.
-- **W funkcji z `@wrapMethod` słowo `wrappedMethod` może wystąpić tylko raz** — każde kolejne daje błąd „Could not find function 'wrappedMethod'”. Najpierw ustal, co robić, potem jedno wywołanie.
-- Ostrzeżenia `[content0] ... not marked as abstract` / `has no autostate` przy kompilacji pochodzą z vanilli — ignorować.
-- Wszystko własne ma prefiks `CA_`.
-- Styl vanilli: taby, `if(...)`, **deklaracje zmiennych na początku funkcji** (wymóg WitcherScript).
-- Mod nie zapisuje w save'ie nic własnego (tylko vanillowe `ammo_current` / `is_initialized`) — utrzymać; patrz [docs/architecture.md](docs/architecture.md#degradacja-sprawdzone-w-kodzie-sesja-6).
+- Adnotacje kompilatora (`@wrapMethod`, `@replaceMethod`, `@addMethod`; działają też na metodach `private`
+  i `final`) tylko w **nowych** plikach w `content\scripts\local\`. Plików vanilli nie nadpisujemy — mod
+  nie wymaga Script Mergera.
+- Wszystko własne ma prefiks `CA_`. Styl vanilli: taby, `if(...)`.
+- Każdy punkt zaczepienia w vanilli ma wiersz w tabeli „Punkty zaczepienia” w `docs/architecture.md`.
+- **Komentarz mówi, dlaczego kod jest taki. Nigdy nie mówi, skąd się wziął** (sesja, wersja, „wcześniej
+  było…”) — historia jest w gicie.
+- Kod, komentarze i commity po angielsku; dokumenty i README po polsku. Tekst w grze: istniejący klucz
+  lokalizacji albo nowy wpis PL + EN.
+- Nie kasuj danych, których nie rozumiesz.
 
-## Status (2026-10-07, sesja 7)
+## Pułapki, których nie widać w kodzie
 
-- **v0.4** (sesja 7, wypchnięte): warzenie napełnia do max, limity vanilli, pozyskanie poza warzeniem = vanilla. Kompiluje się i wczytuje; reszta checklisty: [docs/testing.md](docs/testing.md).
-- **Tabela receptur** (sesja 7): mod czyta receptury z generowanego `consumableAlchemy_recipes_table.ws` (źródło: `tools/recipes/recipes_table.json`, = reguła v0.3 1:1). Wgrane, **nieprzetestowane w grze**.
-- Następny etap wg [docs/roadmap.md](docs/roadmap.md) („Kolejność pracy”): katalog składników z dropem potworów (przerwany, do wznowienia) → walidator → szlifowanie receptur. Otwarte decyzje: D22 (części potworów), D26 (komunikat „Już masz ten przedmiot”), D27 (`Pops Antidote`); odłożone: D23 (starty dodatków), lista modów, oleje. Odłożone na kiedyś: widoczność na liście modów, oleje jako zużywalne.
+1. W funkcji z `@wrapMethod` słowo `wrappedMethod` może wystąpić tylko raz — każde kolejne daje „Could not
+   find function 'wrappedMethod'”. Najpierw ustal, co robić, potem jedno wywołanie.
+2. Zmienne deklaruje się na początku funkcji — deklaracja po instrukcji to błąd kompilacji.
+3. Kompilator vanilli nie mieści dużych funkcji (vanilla obchodzi to `HACK_NO_MEMORY_TO_COMPILE_*`) — stąd
+   generator tnie tabelę na jedną małą funkcję na recepturę.
+4. Status z `CanCookRecipe` steruje też filtrem menu („Już wykonane”, `canCookStatusForFilter`). Zmiana
+   statusu zmienia, co menu ukrywa; żeby zmienić tylko tekst pozycji, zmieniaj `cantCookReason`.
+5. Nadmiaru dawek ponad limit nie przycinaj przy odczycie: przy wczytywaniu zapisu skille i buffy podnoszące
+   limit mogą być jeszcze nieprzywrócone → trwała utrata dawek.
+6. Nagrody questowe i przedmioty startowe dostają pełne dawki z pominięciem wrappera odnawiania
+   (`SingletonItemSetAmmo` wprost) — zgodne z zasadą 4, nie łataj.
+7. Samodzielne starty dodatków (nowa gra z HoS / B&W) czyszczą receptury i dają przedmioty bez receptury —
+   nie nadają się do testów alchemii. Testuj na zwykłym zapisie.
+8. Mod nie pojawia się na liście modów w menu gry — to nie znaczy, że się nie wczytał.
+9. Wywar Wodnej Baby (`EET_Mutagen03`) dodaje +1 dawkę każdej miksturze i bombie przy nałożeniu i zabiera
+   ją przy wygaśnięciu — vanilla, nie błąd moda.
 
-## Dokumentacja (`docs/`)
+## Dokumenty
 
-| Plik | Zawartość |
-|---|---|
-| [architecture.md](docs/architecture.md) | Architektura moda: klasyfikacja przedmiotów, punkty zaczepienia w vanilli (v0.4 i wcześniej), receptura powielania, mechanika vanilli, degradacja, ścieżki z pełnymi dawkami. |
-| [decisions.md](docs/decisions.md) | Rejestr decyzji użytkownika (D1–D24, z sesją i uzasadnieniem) oraz odrzucone warianty z powodem. |
-| [recipes.md](docs/recipes.md) | Balans kosztu warzenia: dane receptur z bundli, narzędzia `tools/recipes/`, historia reguł powielania, audyt, research części potworów, alkohol. |
-| [testing.md](docs/testing.md) | Checklisty testów w grze (v0.4 na górze), pułapki testowe, znane skutki uboczne. |
-| [roadmap.md](docs/roadmap.md) | Historia wersji, kolejność pracy, research w toku, samodzielne starty dodatków, otwarte kwestie, TODO. |
+| Plik | Co zawiera | Zalecana długość |
+|---|---|---|
+| `CLAUDE.md` | słownik, zasady produktu, sposób pracy, pułapki | ok. 150 linii |
+| `README.md` | strona dla gracza (PL, bez technikaliów, styl Nexusa), lista zmian wersji | ok. 60 linii |
+| `docs/architecture.md` | jak mod działa: punkty zaczepienia, mechanika vanilli, degradacja | ok. 120 linii |
+| `docs/decisions.md` | rozstrzygnięcia z powodem, zwłaszcza odrzucone kierunki | wpis ok. 8 linii |
+| `docs/recipes.md` | dane receptur z gry, narzędzia `tools/recipes/`, kryteria balansu | ok. 100 linii |
+| `docs/testing.md` | checklista bieżącego wycinka, test dymny, pułapki testowe | ok. 80 linii |
+| `docs/roadmap.md` | co dalej: to, czego nie zbudowano; pytania do autora; Szlif | ok. 80 linii |
+| `docs/spec/` | uzgodniona koncepcja etapu przed budową | — |
+| `docs/archive/` | nieobowiązujące; tylko przez odsyłacz z decisions.md albo roadmapy | — |
+
+Kod jest źródłem prawdy; dokument jest tam, gdzie kod nie wystarcza. Wiedza o projekcie mieszka tylko
+w tych plikach, nie w pamięci asystenta. Długość (wiersze łamane ok. 110 znaków) jest wskazówką, nie
+granicą: przekroczenie to sygnał do przeglądu — usuń powtórzenia, historię i treść, która należy do innego
+dokumentu. Nie skracaj kosztem jasności, powodu ani informacji.
+- Stan, nie historia: bez dat, numerów sesji, słów „dziś”, „na razie”, „dawny”, „wcześniej”, „do v0.3”
+  i bez tego, kto co powiedział. Rola autora w procesie (decyduje, testuje) to nie historia. Zmiany
+  w wersjach opisuje lista zmian w README, resztę — git.
+- Rzecz ma jedno miejsce: mechanizm w architekturze, powód w rozstrzygnięciach, plan w roadmapie, dane
+  receptur w recipes.md; gdzie indziej tylko odsyłacz. Zmieniając regułę, szukaj jej słów we wszystkich
+  dokumentach.
+- Pojęcie ma jedną nazwę ze słownika; nowy termin wchodzi razem z wpisem w słowniku.
+- „X nie ma” podaje powód albo odsyła do rozstrzygnięcia. Punkt to jedna myśl, do ok. 60 słów.
+- Odwołanie do vanilli: nazwa funkcji (da się ją znaleźć Grepem) plus `plik:linia` jako podpowiedź —
+  numery linii zmienią się przy aktualizacji gry.
