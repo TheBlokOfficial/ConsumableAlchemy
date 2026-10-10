@@ -47,11 +47,11 @@ chybi); gdy litera i intencja się rozjeżdżają, powiedz to autorowi.
   diffy, scala i wdraża. Drobne, lokalne zmiany (dokumenty, kilka linii kodu) robi sam. Długich plików nie
   czyta w całości (skrypty vanilli, XML-e gry, generowana tabela): Grep z wąskim wzorcem albo agent Explore,
   który zwraca wniosek z `plik:linia`. Autorowi pokazuje wynik, który sam by przyjął.
-- **Wykonawca** (Agent `general-purpose`, `model: "sonnet"`, w tle, `isolation: "worktree"`) dostaje
+- **Wykonawca** (Agent `wykonawca` z `.claude/agents/`: sonnet, w tle, własny worktree) dostaje
   zamkniętą część pracy. Zlecenie z adresami: cel, nazwa gałęzi, pliki i miejsca w nich (także `plik:linia`
   w vanilli), znane fakty i pułapki (sekcja niżej), kryteria odbioru, czego nie robić, punkt zatrzymania.
-  Przed zleceniem commit; worktree agenta powstaje z `origin/main`, nie z lokalnego `main` (push tylko na
-  polecenie), więc zlecenie każe zacząć od `git checkout -b <gałąź> main`. Opus (`model: "opus"`) tylko do zadania bez gotowego
+  Przed zleceniem commit: worktree powstaje z bieżącego HEAD (`worktree.baseRef` w `.claude/settings.json`),
+  agent sam nadaje gałęzi nazwę ze zlecenia. Opus (`model: "opus"`) tylko do zadania bez gotowego
   projektu albo szukania nieznanej przyczyny. Niezależne obszary — równolegle.
 - **Research** (kod vanilli, dane z bundli) zlecasz tak samo, z poleceniem zapisu wyników do pliku
   w trakcie pracy — przerwany agent nie może zabrać wyników ze sobą. Wniosek trafia do właściwego

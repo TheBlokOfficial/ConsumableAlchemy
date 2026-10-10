@@ -1,0 +1,46 @@
+{
+  "autoMemoryEnabled": false,
+  "worktree": {
+    "baseRef": "head"
+  },
+  "permissions": {
+    "deny": [
+      "Artifact",
+      "ArtifactComments",
+      "ArtifactData",
+      "DesignSync",
+      "NotebookEdit",
+      "SendUserFile",
+      "PushNotification",
+      "ScheduleWakeup",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "RemoteTrigger",
+      "SearchPlugins",
+      "SuggestPluginInstall",
+      "SuggestSkills",
+      "ListPlugins",
+      "ListSkills",
+      "SearchSkills",
+      "mcp__Claude_Browser",
+      "mcp__claude-in-chrome",
+      "mcp__1a59c906-04da-521d-bda7-7f71b9f9e01c",
+      "mcp__visualize",
+      "mcp__6f616b42-0ed8-571e-823f-ee4aca6b7ce9",
+      "mcp__scheduled-tasks",
+      "mcp__mcp-registry",
+      "mcp__ccd_sidebar",
+      "mcp__ccd_window",
+      "mcp__ccd_session_mgmt",
+      "mcp__ccd_pr",
+      "mcp__ccd_session__spawn_task",
+      "mcp__ccd_session__dismiss_task",
+      "mcp__ccd_session__read_widget_context",
+      "mcp__ccd_session__move_to_cloud",
+      "mcp__terminal__open_terminal_tab",
+      "mcp__terminal__run_in_terminal",
+      "mcp__terminal__stop_terminal_tab"
+    ]
+  }
+}
