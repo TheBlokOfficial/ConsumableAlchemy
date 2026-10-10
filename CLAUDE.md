@@ -73,6 +73,9 @@ chybi); gdy litera i intencja się rozjeżdżają, powiedz to autorowi.
   (https://github.com/TheBlokOfficial/consumable-alchemy), wszystko, co commitujesz, jest jawne. Commity
   małe i logiczne, po angielsku. Autor commitów: `TheBlokOfficial <tomasznosal.mail@proton.me>` (lokalny
   config repo, wspólny dla worktree). Danych gry nie commituj (`tools/recipes/x/`, `data.json`).
+- **Odpowiedzi w trakcie:** po zielonym świetle i po zleceniu — tylko jedno zdanie potwierdzenia, bez
+  powtarzania planu. Raport dopiero, gdy jest coś nowego (wynik agenta, błąd, decyzja do podjęcia); przy kilku
+  agentach naraz — jeden raport, gdy wrócą wszyscy.
 - **Raport na koniec:** 3–6 zdań prostym językiem, co się zmieniło i dlaczego, plus 2–4 rzeczy do
   sprawdzenia w grze (gdzie pójść, co uwarzyć, na co patrzeć). Bez nazw funkcji, chyba że autor zapyta.
 
