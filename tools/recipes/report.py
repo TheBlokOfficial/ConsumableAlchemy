@@ -1,56 +1,23 @@
-"""HTML comparison report of the recipe table: vanilla vs full vs copy, cost, effort, flags.
+"""HTML comparison report of the recipe table: vanilla vs full vs copy, cost, effort, rule findings.
 
   python tools/recipes/report.py [--base <git-ref>] [--out <file>]
 
---base also loads recipes_table.json from <git-ref> and shows the base full/copy under rows that differ.
+Findings come from rules.py (error / warn / info), the same rules validate.py prints. Effort = sum((e-1)*qty) / max.
+--base also loads recipes_table.json from <git-ref> and shows the base full/copy and their numbers under rows that differ.
 Reads recipes_table.json, data.json (vanilla recipes) and ingredient_catalog.json (run ingredients.py first).
 Output: report.html (single file, inline CSS + JS, gitignored).
 """
 import argparse, datetime, json, os, subprocess, sys
 
+import rules
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 TABLE = 'tools/recipes/recipes_table.json'
-KIND_ORDER = {'potion': 0, 'bomb': 1, 'decoction': 2}
-
-
-# --- flags: each takes a row context and returns a message or None; add new ones to FLAGS -------------------
-# context: ctx['full'|'copy'] = {'cost', 'effort_sum', 'effort_max'}, ctx['missing'], ctx['full_diff_vanilla']
-def flag_copy_costs_more(ctx):
-    if ctx['copy']['cost'] > ctx['full']['cost']:
-        return 'copy costs more than full (%d > %d)' % (ctx['copy']['cost'], ctx['full']['cost'])
-
-
-def flag_copy_effort_higher(ctx):
-    if ctx['copy']['effort_max'] > ctx['full']['effort_max']:
-        return 'copy max effort %d > full max effort %d' % (ctx['copy']['effort_max'], ctx['full']['effort_max'])
-
-
-def flag_missing_from_catalog(ctx):
-    if ctx['missing']:
-        return 'not in ingredient catalog: ' + ', '.join(ctx['missing'])
-
-
-def flag_full_differs_vanilla(ctx):
-    if ctx['full_diff_vanilla']:
-        return 'table full differs from vanilla'
-
-
-FLAGS = [  # (id, severity, function); severity 'warn' counts as flagged, 'info' is shown only
-    ('copy_costs_more', 'warn', flag_copy_costs_more),
-    ('copy_effort_higher', 'warn', flag_copy_effort_higher),
-    ('missing_from_catalog', 'warn', flag_missing_from_catalog),
-    ('full_differs_vanilla', 'info', flag_full_differs_vanilla),
-]
 
 
 def as_map(lst):
     return {n: q for n, q in lst}
-
-
-def load_json(path):
-    with open(path, encoding='utf-8') as f:
-        return json.load(f)
 
 
 def git_table(ref):
@@ -61,41 +28,19 @@ def git_table(ref):
     return json.loads(r.stdout.decode('utf-8')), short.stdout.strip()
 
 
-def stats(lst, cat, items, excluded):
-    cost, effs, missing = 0, [], []
-    for n, q in lst:
-        cost += int(items[n]['price']) * q if n in items else 0
-        if n in cat:
-            effs.append(cat[n]['effort'])
-        elif n not in excluded:
-            missing.append(n)
-    return {'cost': cost, 'effort_sum': sum(effs), 'effort_max': max(effs) if effs else 0}, missing
-
-
 def build(base_ref):
-    table = load_json(os.path.join(HERE, 'recipes_table.json'))
-    data = load_json(os.path.join(HERE, 'data.json'))
-    cat_file = load_json(os.path.join(HERE, 'ingredient_catalog.json'))
-    cat, excluded = cat_file['ingredients'], set(cat_file['_meta']['excluded_lower_level_items'])
-    items, vanilla = data['items'], data['recipes']
+    ctx = rules.load_context()
+    table, cat, excluded, items, vanilla = ctx.table, ctx.catalog, ctx.excluded, ctx.items, ctx.vanilla
     base, base_hash = (git_table(base_ref) if base_ref else (None, ''))
+    found = rules.run(ctx)
 
     rows = []
-    for key, r in table.items():
+    for key in ctx.keys:
+        r = table[key]
         van = vanilla.get(key, {}).get('ings', [])
-        ctx = {}
-        ctx['full'], miss_f = stats(r['full'], cat, items, excluded)
-        ctx['copy'], miss_c = stats(r['copy'], cat, items, excluded)
-        ctx['missing'] = sorted(set(miss_f + miss_c))
-        ctx['full_diff_vanilla'] = as_map(r['full']) != as_map(van)
-        flags = []
-        for fid, sev, fn in FLAGS:
-            msg = fn(ctx)
-            if msg:
-                flags.append({'id': fid, 'severity': sev, 'text': msg})
         row = {'key': key, 'item': r['item'], 'family': r['family'], 'level': r['level'], 'kind': r['kind'],
                'note': r.get('note', ''), 'vanilla': van, 'full': r['full'], 'copy': r['copy'],
-               'fullStats': ctx['full'], 'copyStats': ctx['copy'], 'flags': flags,
+               'fullStats': ctx.stats(r['full'])[0], 'copyStats': ctx.stats(r['copy'])[0], 'flags': found[key],
                'inVanilla': key in vanilla}
         if base is not None:
             b = base.get(key)
@@ -103,11 +48,10 @@ def build(base_ref):
                 row['baseNew'] = True
             else:
                 if as_map(b['full']) != as_map(r['full']):
-                    row['baseFull'] = b['full']
+                    row['baseFull'], row['baseFullStats'] = b['full'], ctx.stats(b['full'])[0]
                 if as_map(b['copy']) != as_map(r['copy']):
-                    row['baseCopy'] = b['copy']
+                    row['baseCopy'], row['baseCopyStats'] = b['copy'], ctx.stats(b['copy'])[0]
         rows.append(row)
-    rows.sort(key=lambda x: (KIND_ORDER.get(x['kind'], 9), x['family'], x['level'], x['key']))
 
     used = {n for r in rows for fld in ('vanilla', 'full', 'copy', 'baseFull', 'baseCopy') for n, _ in r.get(fld, [])}
     info = {}
@@ -124,9 +68,7 @@ def build(base_ref):
         info[n] = d
     removed = sorted(set(base) - set(table)) if base is not None else []
     return {'rows': rows, 'info': info, 'generated': datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
-            'baseRef': base_ref or '', 'baseHash': base_hash, 'baseRemoved': removed,
-            'flagIds': [f[0] for f in FLAGS]}
-
+            'baseRef': base_ref or '', 'baseHash': base_hash, 'baseRemoved': removed}
 
 def render(payload):
     blob = json.dumps(payload, ensure_ascii=True).replace('</', '<\\/')
@@ -144,14 +86,14 @@ PAGE = r'''<!doctype html>
   color-scheme: light dark;
   --bg: #f6f5f1; --fg: #1d1d1b; --muted: #6b6a64; --line: #d9d6cc; --panel: #ffffff; --head: #ecebe4;
   --add: #d6f0d8; --add-fg: #14591d; --chg: #fff0c2; --chg-fg: #6b4e00; --rem: #f8d7d4; --rem-fg: #8a1c14;
-  --warn: #b3261e; --info: #3b6ea8;
+  --err: #b3261e; --warn: #9a6a00; --info: #6b6a64;
   --e1: #3f9142; --e2: #86a63a; --e3: #d2a21b; --e4: #d9742a; --e5: #c03a30; --e0: #8a8a82; --ebg: #fff;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #1a1a18; --fg: #e8e6df; --muted: #9a988f; --line: #3a3a36; --panel: #232321; --head: #2c2c29;
     --add: #1e3b22; --add-fg: #9ad7a1; --chg: #433812; --chg-fg: #f0cf72; --rem: #4a2220; --rem-fg: #f2a39d;
-    --warn: #f08a82; --info: #7fb0e6;
+    --err: #f08a82; --warn: #e0b33a; --info: #9a988f;
     --e1: #4fae52; --e2: #98b84a; --e3: #e0b33a; --e4: #e8863c; --e5: #de5a50; --e0: #8a8a82; --ebg: #111;
   }
 }
@@ -174,7 +116,8 @@ th { background: var(--head); position: sticky; top: 46px; z-index: 2; cursor: p
 th.nosort { cursor: default; }
 th .arr { color: var(--muted); }
 tr.group td { background: var(--head); font-weight: 600; color: var(--muted); padding: 3px 6px; }
-tr.flagged > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
+tr.sev-error > td:first-child { box-shadow: inset 3px 0 0 var(--err); }
+tr.sev-warn > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
 .rname { font-weight: 600; }
 .rmeta { color: var(--muted); font-size: 12px; }
 .ing { display: flex; width: fit-content; align-items: center; gap: 3px; margin: 1px 0; padding: 0 3px;
@@ -191,9 +134,10 @@ tr.flagged > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
 .base { margin-top: 3px; padding-top: 2px; border-top: 1px dashed var(--line); opacity: .65; }
 .base .lbl { display: block; font-size: 11px; color: var(--muted); }
 .base .ing.gone { text-decoration: line-through; }
+.base.nums { margin-top: 3px; }
 .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .flag { display: block; max-width: 220px; }
-.flag.warn { color: var(--warn); } .flag.info { color: var(--info); }
+.flag.error { color: var(--err); font-weight: 600; } .flag.warn { color: var(--warn); } .flag.info { color: var(--info); }
 .empty { padding: 24px; color: var(--muted); }
 .legend { color: var(--muted); font-size: 12px; margin-top: 4px; }
 </style>
@@ -204,13 +148,13 @@ tr.flagged > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
   <div class="sum" id="sum"></div>
   <div class="legend">Ingredient badge = effort 1-5 (hover for catalog details). Full recipe: <span class="ing add">added</span>
     <span class="ing chg">quantity changed</span> <span class="ing rem">removed</span> vs vanilla.
-    Effort sum = sum of ingredient levels (not weighted by quantity); lower-level items count in cost only.</div>
+    Effort = sum of (ingredient effort - 1) x quantity / highest ingredient effort; lower-level items count in cost only. Findings: <span class="flag error" style="display:inline">error</span> <span class="flag warn" style="display:inline">warn</span> <span class="flag info" style="display:inline">info</span>.</div>
 </header>
 <div class="controls">
   <label>Kind <select id="fKind"></select></label>
   <label>Family <select id="fFam"></select></label>
   <label>Search <input type="search" id="fText" placeholder="recipe or ingredient"></label>
-  <label><input type="checkbox" id="fFlag"> only rows with flags</label>
+  <label><input type="checkbox" id="fFlag"> only rows with errors or warnings</label>
   <span class="sum" id="count"></span>
 </div>
 <div class="wrap"><table id="tbl"><thead></thead><tbody></tbody></table><div class="empty" id="empty" hidden>No rows.</div></div>
@@ -225,15 +169,16 @@ tr.flagged > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
     {id: 'full', label: 'Full (table)', nosort: true},
     {id: 'copy', label: 'Copy (table)', nosort: true},
     {id: 'fcost', label: 'Full cost', get: function (r) { return r.fullStats.cost; }, num: true},
-    {id: 'feff', label: 'Full effort Σ / max', get: function (r) { return r.fullStats.effort_max * 1000 + r.fullStats.effort_sum; }, num: true},
+    {id: 'feff', label: 'Full effort (Σ(e−1)×q) / max', get: function (r) { return r.fullStats.effort_max * 1000 + r.fullStats.effort; }, num: true},
     {id: 'ccost', label: 'Copy cost', get: function (r) { return r.copyStats.cost; }, num: true},
-    {id: 'ceff', label: 'Copy effort Σ / max', get: function (r) { return r.copyStats.effort_max * 1000 + r.copyStats.effort_sum; }, num: true},
-    {id: 'flags', label: 'Flags', get: function (r) { return warns(r).length * 100 + r.flags.length; }, num: true}
+    {id: 'ceff', label: 'Copy effort (Σ(e−1)×q) / max', get: function (r) { return r.copyStats.effort_max * 1000 + r.copyStats.effort; }, num: true},
+    {id: 'flags', label: 'Findings', get: function (r) { return nsev(r, 'error') * 1000 + nsev(r, 'warn') * 10 + nsev(r, 'info'); }, num: true}
   ];
   rows.forEach(function (r, i) { r.__idx = i; });
   var sortId = 'default', sortDir = 1;
 
-  function warns(r) { return r.flags.filter(function (f) { return f.severity === 'warn'; }); }
+  function nsev(r, s) { return r.flags.filter(function (f) { return f.severity === s; }).length; }
+  function flagged(r) { return nsev(r, 'error') + nsev(r, 'warn') > 0; }
   function el(tag, cls, text) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
@@ -289,9 +234,13 @@ tr.flagged > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
     b.forEach(function (x) { d.appendChild(ing(x[0], x[1], c[x[0]] === x[1] ? '' : 'gone')); });
     return d;
   }
-  function statCells(tr, s) {
-    tr.appendChild(el('td', 'num', s.cost));
-    tr.appendChild(el('td', 'num', s.effort_sum + ' / ' + s.effort_max));
+  function statCells(tr, s, b) {
+    var c = el('td', 'num', s.cost), e = el('td', 'num', s.effort + ' / ' + s.effort_max);
+    if (b) {
+      c.appendChild(el('div', 'base nums', 'base ' + b.cost));
+      e.appendChild(el('div', 'base nums', 'base ' + b.effort + ' / ' + b.effort_max));
+    }
+    tr.appendChild(c); tr.appendChild(e);
   }
 
   function filtered() {
@@ -301,7 +250,7 @@ tr.flagged > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
     return rows.filter(function (r) {
       if (k && r.kind !== k) return false;
       if (f && r.family !== f) return false;
-      if (only && !warns(r).length) return false;
+      if (only && !flagged(r)) return false;
       if (q) {
         var hay = (r.key + ' ' + r.family + ' ' + r.full.concat(r.copy, r.vanilla).map(function (x) { return x[0]; }).join(' ')).toLowerCase();
         if (hay.indexOf(q) < 0) return false;
@@ -324,7 +273,7 @@ tr.flagged > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
         var g = el('tr', 'group'), gt = el('td', null, r.kind + ' → ' + r.family);
         gt.colSpan = cols.length; g.appendChild(gt); tb.appendChild(g);
       }
-      var tr = el('tr', warns(r).length ? 'flagged' : '');
+      var tr = el('tr', nsev(r, 'error') ? 'sev-error' : nsev(r, 'warn') ? 'sev-warn' : '');
       var t0 = el('td');
       t0.appendChild(el('div', 'rname', r.item));
       t0.appendChild(el('div', 'rmeta', 'level ' + r.level + ' · ' + r.kind + ' · ' + r.family +
@@ -334,10 +283,10 @@ tr.flagged > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
       var tv = plain(r.vanilla); tr.appendChild(tv);
       tr.appendChild(fullCell(r));
       tr.appendChild(copyCell(r));
-      statCells(tr, r.fullStats);
-      statCells(tr, r.copyStats);
+      statCells(tr, r.fullStats, r.baseFullStats);
+      statCells(tr, r.copyStats, r.baseCopyStats);
       var tf = el('td');
-      r.flags.forEach(function (f) { tf.appendChild(el('span', 'flag ' + f.severity, f.text)); });
+      r.flags.forEach(function (f) { var sp = el('span', 'flag ' + f.severity, f.text); sp.title = f.id; tf.appendChild(sp); });
       tr.appendChild(tf);
       tb.appendChild(tr);
     });
@@ -379,14 +328,15 @@ tr.flagged > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
     ['fKind', 'fFam', 'fFlag'].forEach(function (id) { document.getElementById(id).addEventListener('change', render); });
     document.getElementById('fText').addEventListener('input', render);
 
-    var counts = {}, flagged = 0;
-    rows.forEach(function (r) { counts[r.kind] = (counts[r.kind] || 0) + 1; if (warns(r).length) flagged++; });
+    var counts = {}, withErr = 0, withWarn = 0;
+    rows.forEach(function (r) { counts[r.kind] = (counts[r.kind] || 0) + 1; if (nsev(r, 'error')) withErr++; if (nsev(r, 'warn')) withWarn++; });
     var s = document.getElementById('sum');
     s.innerHTML = '';
     function part(label, val) { var b = document.createElement('b'); b.textContent = val; s.appendChild(document.createTextNode(label + ' ')); s.appendChild(b); s.appendChild(document.createTextNode(' · ')); }
     part('rows', rows.length);
     kinds.forEach(function (k) { part(k, counts[k]); });
-    part('flagged rows', flagged);
+    part('rows with errors', withErr);
+    part('rows with warnings', withWarn);
     part('generated', D.generated);
     if (D.baseRef) {
       part('base', D.baseRef + (D.baseHash ? ' (' + D.baseHash + ')' : ''));
