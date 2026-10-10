@@ -22,7 +22,7 @@ do gracza. Limit jest vanillowy (D7): mod nie ma własnej stałej ani nie zmieni
 | Nadmiar ponad limit (stary zapis, wygasły bonus) | przycina tylko przy zmianie skilla/zestawu (`SkillReduceBombAmmoBonus`, `r4Player.ws:11743`) | bez zmian; nie przycinać przy odczycie (D16) |
 | Alkohol i powiadomienia: `SingletonItemsRefillAmmo` (`:3641`) / `NoAlco`, sterowane prywatnym `HasNotFilledSingletonItem` (`:3712`) | | `@replaceMethod HasNotFilledSingletonItem`: pomija consumables |
 | Tutorial „uzupełnij alkoholem”: `SingletonItemRemoveAmmo` (`:3749`) dodaje fakt `tut_alch_refill` | | `@replaceMethod`: nie dla consumables |
-| Stół w Corvo Bianco: `ManageSingletonItemsBonus` (`:3832`), wołane z `ApplyAlchemyTableBuff` (`quest_function.ws:7921`) | +1 ponad max | `@replaceMethod`: tylko dźwięk odmowy (D17) |
+| Stół w Corvo Bianco: `ManageSingletonItemsBonus` (`:3832`), wołane z `ApplyAlchemyTableBuff` (`quest_function.ws:7927`) | +1 ponad max | `@replaceMethod`: tylko dźwięk odmowy (D17) |
 | Loot i zakup: `GiveItemTo` (`:745`) | posiadany singleton → odmowa „already cooked” | bez zmian (D14) |
 | Czy wolno warzyć: `W3AlchemyManager.CanCookRecipe` (`alchemyManager.ws:141`) | `EAE_CannotCookMore` dla posiadanych | `@replaceMethod`: posiadany consumable zablokowany tylko przy pełnej kieszeni |
 | Warzenie: `CookItem` (`alchemyManager.ws:208`) | nowy przedmiot dostaje max, posiadany bez zmian | `@wrapMethod`: po vanilli każdy egzemplarz uwarzonego consumable poniżej limitu → `SingletonItemSetAmmo(max)`; nadmiar ponad max nietknięty |
@@ -43,7 +43,7 @@ i `GetItemQuantityByName > 0`, także 0 dawek) → receptura powielania, inaczej
 `name` na rodzaj (`_Potion` / `_Bomb` / `_Decoction`) → po jednej małej funkcji na recepturę
 (`CA_TableRecipe_*`, gałąź powielania / pełna) → `CA_AddTableIngredient`. Małe funkcje, bo kompilator
 vanilli nie mieści dużych (`HACK_NO_MEMORY_TO_COMPILE_*` w `gameEffectManager.ws:201`,
-`OutOfMemoryHack_*` w `quest_function.ws:7363`); `switch` na `name` jak w vanilli (`temp.ws:9197`,
+`OutOfMemoryHack_*` w `quest_function.ws:7369`); `switch` na `name` jak w vanilli (`temp.ws:9197`,
 `definitionsManager.ws:76`).
 
 **Każde miejsce, które czyta składniki receptury, idzie przez `CA_GetRecipeIngredients`** — inaczej
@@ -60,6 +60,14 @@ rozbieżność list zdradzi moda:
   się przeliczyć także dla poziomu 1.
 - `guiTooltipComponent.GetRecipeDataFromXML` (`guiTooltipComponent.ws:~2020`) pominięty: szuka
   `'alchemy_recipies'` (literówka w vanilli), więc zawsze zwraca pusto.
+
+Dwa miejsca czytają pełną recepturę wprost z XML (`alchemy_recipes`), z pominięciem moda. Nie łatane, póki
+pełna receptura w tabeli = vanilla; zmiana takiej receptury wymaga zaczepienia:
+- tutorial alchemii `AddThunderBoltIngredients` (`quests\tutorialManager\UITutorials\alchemy.ws:195`) daje
+  składniki pełnej receptury Pioruna 1 — po zmianie tutorialowego warzenia nie da się dokończyć. Metoda
+  stanu (`state`), zaczepienie niesprawdzone.
+- stół do rozkładania mutagenów (B&W, `gameplay\interactive\mutagenDismantlingTable.ws:17-60`) podświetla
+  składniki pełnej receptury wywarów, których gracz nie ma.
 
 W3 nie ma zamienników składników: `CanCookRecipe` sprawdza po nazwie, a uśpione API kategorii składników
 (`GetIngredientCategoryElements`, `commonGame.ws:32-35`) nie ma danych w XML.

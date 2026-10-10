@@ -2,13 +2,13 @@
 /** 	Consumable Alchemy - inventory (doses, refills)
 /***********************************************************************/
 
-// Single choke point for every refill (meditation, bed, alchemy table, quests, NG+).
+// Every regular refill (meditation, bed, alchemy table, NG+) goes through here; quest rewards
+// and the Water Hag decoction set doses directly and stay vanilla.
 // Vanilla also calls it from OnItemAdded to initialize a newly acquired item;
 // that first call stays vanilla (full doses), every later call is ignored for consumables.
 @wrapMethod(CInventoryComponent)
 function SingletonItemRefillAmmo(id : SItemUniqueId, optional alchemyTableUsed : bool)
 {
-	// wrappedMethod may appear only once per wrapper.
 	if(CA_IsConsumableItem(id) && GetItemModifierInt(id, 'is_initialized', 0) != 0)
 		return;
 
@@ -80,8 +80,9 @@ function SingletonItemRemoveAmmo(itemID : SItemUniqueId, optional quantity : int
 	theGame.GetGlobalEventsManager().OnScriptedEvent( SEC_OnAmmoChanged );
 }
 
-// Corvo Bianco alchemy table: its bonus only ever affected potions, decoctions
-// and bombs, which are now consumables, so it has nothing to do.
+// Corvo Bianco alchemy table: its bonus only affects potions, decoctions and bombs.
+// The vanilla body would announce a buff although consumables are not refilled,
+// so the table does nothing (quest-tagged potions and bombs lose the bonus too).
 @replaceMethod(CInventoryComponent)
 function ManageSingletonItemsBonus()
 {

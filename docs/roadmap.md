@@ -12,22 +12,20 @@ reszta checklisty ([testing.md](testing.md)) czeka na test.
 
 1. **Test v0.4 i tabeli w grze** według [testing.md](testing.md), razem z degradacją (obietnica w README).
    Etap receptur buduje na tym stanie, więc idzie pierwszy.
-2. **`tools/check.ps1`** — szybka bramka przed grą: `generate.py` w trybie sprawdzania (tabela zgodna
-   z wygenerowanym `.ws`), lint pułapek kompilatora z CLAUDE.md (drugie `wrappedMethod` w funkcji, deklaracja
-   zmiennej po instrukcji), dane gry (`tools/recipes/x/`, `data.json`) poza commitem.
-3. **Katalog składników** `tools/recipes/ingredients.py` → `ingredient_catalog.json`: dla każdego składnika
+2. **Katalog składników** `tools/recipes/ingredients.py` → `ingredient_catalog.json`: dla każdego składnika
    cena, typ, sklepy (liczba, region), zbieranie w świecie, **drop z potworów** (tabele lootu potworów w XML,
    szansa, potwór, odradzanie) i poziom wysiłku 1–5 (kryteria w `_meta`). Dane do D22 i walidatora. Bez zmian
    w `draft.py`, `generate.py` i tabeli.
-4. **Walidator** `validate.py` (po katalogu): kolizje (identyczne zbiory i różnica 1 składnika), brak
+3. **Walidator** `validate.py` (po katalogu): kolizje (identyczne zbiory i różnica 1 składnika), brak
    sygnatury, monotoniczność wysiłku w rodzinie, wysiłek wg rangi (podstawowe ≤ zaawansowane), powielenie
    tańsze od pełnej, składniki istnieją, alkohol w miksturach i wywarach, proszek w bombach, brak niższego
    poziomu w powieleniu (D28).
-5. **Spec szlifowania receptur** — [spec/receptury.md](spec/receptury.md) uzupełniony wynikami katalogu
+4. **Spec szlifowania receptur** — [spec/receptury.md](spec/receptury.md) uzupełniony wynikami katalogu
    i walidatora, do akceptacji autora; wymaga rozstrzygnięcia D22 i pytania o mutagen w wywarach.
-6. **Szlifowanie receptur partiami** (mikstury → bomby → wywary): propozycja per rodzina (pełna + powielenie
+5. **Szlifowanie receptur partiami** (mikstury → bomby → wywary): propozycja per rodzina (pełna + powielenie
    + uzasadnienie + wynik walidatora) → akceptacja autora → `generate.py` → wdrożenie → test. README (opis
-   krótszej receptury i przykład) zmienia się razem z tabelą.
+   krótszej receptury i przykład) zmienia się razem z tabelą. Zmiana pełnej receptury Pioruna 1 albo wywaru
+   wymaga zaczepienia tutorialu / stołu mutagenów ([architecture.md](architecture.md#receptury--recipesws-i-tabela)).
 
 ## Do decyzji autora
 
@@ -58,6 +56,9 @@ reszta checklisty ([testing.md](testing.md)) czeka na test.
 - **Wywar Wodnej Baby** — darmowa dawka przy nałożeniu, utrata opłaconej przy wygaśnięciu
   ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)). README opisuje to jako zachowanie
   gry; zostawić czy zmienić.
+- **Stół w Corvo Bianco a mikstury questowe** — wyłączony stół zabiera premię +1 także questowym miksturom
+  i bombom (zasada 4: vanilla), a gracz słyszy tylko dźwięk odmowy, bez tekstu. Zostawić czy przywrócić
+  premię dla questowych / dodać istniejący komunikat (D17).
 - **Alkohol** zużywa się szybciej niż w vanilli ([recipes.md](recipes.md#alkohol)). Pomysł: w powieleniu
   podstawiać najtańszy posiadany alkohol, jak medytacja.
 
