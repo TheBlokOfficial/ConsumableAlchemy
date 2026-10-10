@@ -12,27 +12,25 @@ reszta checklisty ([testing.md](testing.md)) czeka na test.
 
 1. **Test v0.4 i tabeli w grze** według [testing.md](testing.md), razem z degradacją (obietnica w README).
    Etap receptur buduje na tym stanie, więc idzie pierwszy.
-2. **Katalog składników** `tools/recipes/ingredients.py` → `ingredient_catalog.json`: dla każdego składnika
-   cena, typ, sklepy (liczba, region), zbieranie w świecie, **drop z potworów** (tabele lootu potworów w XML,
-   szansa, potwór, odradzanie) i poziom wysiłku 1–5 (kryteria w `_meta`). Dane do D22 i walidatora. Bez zmian
-   w `draft.py`, `generate.py` i tabeli.
-3. **Walidator** `validate.py` (po katalogu): kolizje (identyczne zbiory i różnica 1 składnika), brak
+2. **Walidator** `validate.py` (dane z `ingredient_catalog.json`, flagi także w kolumnie raportu `report.py`): kolizje (identyczne zbiory i różnica 1 składnika), brak
    sygnatury, monotoniczność wysiłku w rodzinie, wysiłek wg rangi (podstawowe ≤ zaawansowane), powielenie
    tańsze od pełnej, składniki istnieją, alkohol w miksturach i wywarach, proszek w bombach, brak niższego
    poziomu w powieleniu (D28).
-4. **Spec szlifowania receptur** — [spec/receptury.md](spec/receptury.md) uzupełniony wynikami katalogu
+3. **Spec szlifowania receptur** — [spec/receptury.md](spec/receptury.md) uzupełniony wynikami katalogu
    i walidatora, do akceptacji autora; wymaga rozstrzygnięcia D22 i pytania o mutagen w wywarach.
-5. **Szlifowanie receptur partiami** (mikstury → bomby → wywary): propozycja per rodzina (pełna + powielenie
-   + uzasadnienie + wynik walidatora) → akceptacja autora → `generate.py` → wdrożenie → test. README (opis
+4. **Szlifowanie receptur partiami** (mikstury → bomby → wywary): propozycja per rodzina (pełna + powielenie
+   + uzasadnienie + wynik walidatora) na gałęzi, autor przegląda `report.py --base main` → akceptacja autora → `generate.py` → wdrożenie → test. README (opis
    krótszej receptury i przykład) zmienia się razem z tabelą. Zmiana pełnej receptury Pioruna 1 albo wywaru
    wymaga zaczepienia tutorialu / stołu mutagenów ([architecture.md](architecture.md#receptury--recipesws-i-tabela)).
 
 ## Do decyzji autora
 
 - **D22. Części potworów w powieleniu.** Zależy od łatwości zdobycia (odradzanie, drop); dane:
-  [spec/receptury.md](spec/receptury.md#części-potworów). Rekomendacja: pospolite części (`Ghoul blood`,
-  `Drowner brain`, `Drowned dead tongue`, `Nekker heart`) zostają jako składnik wysiłku, jeśli katalog
-  potwierdzi drop; rzadkie → tematyczny zamiennik.
+  [spec/receptury.md](spec/receptury.md#części-potworów), `ingredient_catalog.json`. Rekomendacja: części
+  z wysiłkiem 3 w katalogu (`Ghoul blood`, `Drowner brain`, `Drowned dead tongue`, `Nekker heart`, także
+  `Arachas venom`, `Alghoul bone marrow`, mutageny południcy i nocnicy) zostają jako składnik wysiłku;
+  wysiłek 4–5 → tematyczny zamiennik.
+- **Wysiłek receptury** w raporcie = suma poziomów składników, bez ilości. Do ustalenia przed walidatorem.
 - **Mutagen w powieleniu wywaru** — zostaje czy wypada (dziś wypada; wywar = alkohol + zioła).
 - **D23. Samodzielne starty dodatków (HoS / B&W)** — ok. 20 przedmiotów startowych jest w modzie jednorazowych
   ([architecture.md](architecture.md#samodzielne-starty-dodatków-hos--bw)). Rekomendacja: wrapper na
