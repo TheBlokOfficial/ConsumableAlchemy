@@ -89,6 +89,9 @@ chybi); gdy litera i intencja się rozjeżdżają, powiedz to autorowi.
   Ostrzeżenia `[content0] ... not marked as abstract` / `has no autostate` są z vanilli — ignoruj.
 - **Wdrożenie:** `powershell -ExecutionPolicy Bypass -File deploy.ps1 [-GameDir <ścieżka>]` (albo
   `deploy.bat`) → `<gra>\mods\modConsumableAlchemy`.
+- **Bramka przed grą:** przed każdym `deploy.ps1` uruchom `powershell -ExecutionPolicy Bypass -File
+  tools/check.ps1` — sprawdza, czy wygenerowana tabela receptur jest aktualna, lint `.ws` (`wrappedMethod`
+  raz, `var` na początku funkcji) i brak danych gry w gitcie.
 - **Receptury:** zmieniasz `tools/recipes/recipes_table.json`, potem `python tools/recipes/generate.py`
   (waliduje i generuje `consumableAlchemy_recipes_table.ws`). Wygenerowanego pliku nie edytuj ręcznie.
 - **Dane gry (XML):** wyciągane z bundli przez `tools/recipes/bundle.py` + `recipes.py` — opis narzędzi
@@ -106,6 +109,8 @@ src/modConsumableAlchemy/content/scripts/local/
   consumableAlchemy_recipes.ws       wybór receptury: pełna albo powielania
   consumableAlchemy_recipes_table.ws GENEROWANY z tabeli receptur — nie edytować
 tools/recipes/                       Python: bundle → dane → tabela receptur → generator .ws
+tools/check.ps1                      bramka przed grą (tabela, lint, dane gry w gicie)
+tools/lint_ws.py                     lint .ws: pułapki 1 i 2 kompilatora
 docs/                                dokumentacja techniczna (tabela niżej)
 deploy.bat / deploy.ps1              instalacja do folderu gry
 README.md                            strona moda dla gracza

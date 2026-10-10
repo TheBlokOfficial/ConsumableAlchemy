@@ -24,7 +24,8 @@ Materiał do szlifowania receptur (dostępność składników, wady tabeli, kryt
 - `draft.py` → szkic tabeli z danych vanilli: `full` = receptura z XML, `copy` = `rule.py 16 2`. Bez `--force`
   nie nadpisuje istniejącej tabeli; `--diff` porównuje tabelę ze świeżym szkicem (pokazuje ręczne zmiany).
 - `generate.py` → waliduje tabelę (pola, ilości > 0, niepuste listy, brak duplikatu składnika i klucza,
-  bezpieczne nazwy) i generuje `src/.../consumableAlchemy_recipes_table.ws`.
+  bezpieczne nazwy) i generuje `src/.../consumableAlchemy_recipes_table.ws`. `--check` niczego nie zapisuje:
+  kończy się błędem, gdy plik na dysku różni się od wygenerowanego (końce linii CRLF/LF są pomijane).
 - `x/` i `data.json` są w `.gitignore` (dane CDPR) — odtwarzać przez `bundle.py extract` + `recipes.py`.
 
 ## Dane receptur z gry
