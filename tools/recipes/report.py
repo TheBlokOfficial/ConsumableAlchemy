@@ -286,7 +286,19 @@ tr.sev-warn > td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
       statCells(tr, r.fullStats, r.baseFullStats);
       statCells(tr, r.copyStats, r.baseCopyStats);
       var tf = el('td');
-      r.flags.forEach(function (f) { var sp = el('span', 'flag ' + f.severity, f.text); sp.title = f.id; tf.appendChild(sp); });
+      // Rules with several findings per recipe (near collisions) collapse to one line; the list is in the tooltip.
+      var byId = {};
+      r.flags.forEach(function (f) { (byId[f.id] = byId[f.id] || []).push(f); });
+      Object.keys(byId).forEach(function (id) {
+        var fs = byId[id], sp;
+        if (fs.length === 1) { sp = el('span', 'flag ' + fs[0].severity, fs[0].text); sp.title = id; }
+        else {
+          sp = el('span', 'flag ' + fs[0].severity, id.replace(/_/g, ' ') + ' ×' + fs.length);
+          sp.title = fs.map(function (f) { return f.text; }).join('\n');
+          sp.style.cursor = 'help';
+        }
+        tf.appendChild(sp);
+      });
       tr.appendChild(tf);
       tb.appendChild(tr);
     });
