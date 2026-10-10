@@ -26,10 +26,10 @@ Materiał do szlifowania receptur (dostępność składników, wady tabeli, kryt
   `info`. Błędy: składnik spoza `data.json`; mikstura / wywar bez alkoholu (`StrongAlcohol`) albo bomba bez proszku
   (`full` i `copy` osobno); `copy` z przedmiotem niższego poziomu (D28); `copy` droższe od `full`, o większym
   wysiłku lub większym `effort_max`; składnik spoza katalogu. Ostrzeżenia: kolizja (te same zbiory nazw składników;
-  porównania copy–copy, full–full i copy–cudzy full); prawie-kolizja (zbiory różnią się o 1 składnik: jeden dodatkowy
-  albo jeden podmieniony); brak sygnatury (żaden składnik `copy` nie jest unikatowy wśród `copy` innych rodzin tego
+  porównania copy–copy, full–full i copy–cudzy full; błędem po szlifowaniu, D30); brak sygnatury (żaden składnik `copy` nie jest unikatowy wśród `copy` innych rodzin tego
   samego rodzaju; alkohole i proszki nie liczą się); wysiłek `copy` maleje między poziomami rodziny; wysiłek `copy`
-  ponad progiem poziomu (`COPY_EFFORT_MAX` = 2 / 4 / 6, stała do strojenia na danych). `info`: `full` różni się od vanilli.
+  ponad progiem poziomu (`COPY_EFFORT_MAX` = 2 / 4 / 6, stała do strojenia na danych). `info`: `full` różni się od vanilli; prawie-kolizja (zbiory różnią się o 1 składnik: jeden dodatkowy albo
+  jeden podmieniony).
 - `validate.py [--errors-only] [--table <plik>]` — uruchamia `rules.py` na `recipes_table.json`; wypisuje
   `ERROR|WARN <klucz>: [id] komunikat` recepturę po recepturze i podsumowanie (liczby wg reguły i wagi). Kod wyjścia 1
   tylko przy błędach. `tools/check.ps1` uruchamia go z `--errors-only`.

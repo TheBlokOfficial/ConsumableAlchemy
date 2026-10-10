@@ -46,6 +46,8 @@ wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm
 - **D17. Stół alchemiczny w Corvo Bianco bez premii:** `ManageSingletonItemsBonus` tylko odmawia, warzenie
   przy stole też bez premii. Powód: vanillowa premia (+1 ponad max) działa przy odnawianiu, czyli dawałaby
   dawkę bez warzenia (zasada 1). Pomysł na inną rolę stołu: [roadmap.md](roadmap.md#odłożone).
+- **D27. `Pops Antidote` poza systemem** (vanilla), jak `Snow Ball` / `Village drink`: przedmiot zadania q303
+  bez tagu `Quest` i bez alkoholu w recepturze. Wyłączenie po nazwie w `CA_IsConsumableItemName` i w `draft.py`.
 - **D18. Dwa poziomy naraz na liście menu zostają:** posiadana niepełna Jaskółka 1 (dolewka) i znana receptura
   Jaskółki 2 (ulepszenie) widoczne obok siebie; w ekwipunku nigdy obie (ulepszenie zużywa poz. 1, a poz. 1 jest
   zablokowany przy posiadanym poz. 2). Odrzucone: ukrywanie niższego poziomu przy znanej wyższej recepturze
@@ -69,3 +71,11 @@ wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm
 - **D28. Receptura powielania nie zawiera przedmiotu niższego poziomu.** Powód: pełna receptura poz. 2/3
   zużywa przedmiot niższego poziomu, a niższego nie wolno warzyć, mając wyższy (D8) — z nim w powieleniu
   ponowne warzenie poz. 2/3 byłoby niemożliwe.
+- **D29. Wysiłek receptury = Σ (wysiłek składnika − 1) × ilość**, obok maksimum. Wysiłek składnika 1–5 liczy
+  skrypt z danych gry (`ingredients.py`), bez ręcznych wyjątków. Powód: składnik z każdego sklepu nie kosztuje
+  wysiłku niezależnie od ilości, a każda sztuka części potwora to kolejne zabicie. Odrzucone: suma poziomów bez
+  ilości.
+- **D30. Unikatowość = składnik sygnaturowy:** powielenie każdej rodziny ma składnik, którego nie ma
+  w powieleniu żadnej innej rodziny tego rodzaju (alkohol i proszek się nie liczą); identyczny zestaw dwóch
+  rodzin jest błędem. Różnica o jeden składnik — tylko informacja. Powód: wymóg różnicy > 1 składnika
+  wydłużałby powielenie do alkoholu + 3 składników, a powielenie ma nie boleć.

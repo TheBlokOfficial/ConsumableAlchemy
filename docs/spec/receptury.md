@@ -24,7 +24,7 @@ jest jeszcze uzgodnioną koncepcją. Po zakończeniu etapu idzie do archiwum. Da
   / `Quicksilver solution` / `Powdered pearl`; części średnio pospolitych potworów).
 - Mikstury podstawowe nie mogą być droższe w powieleniu od zaawansowanych — walidator ma pokazywać poziom
   wysiłku.
-- Każda receptura ma sygnaturowy składnik i różni się od innych o więcej niż 1 składnik (D19).
+- Każda receptura ma sygnaturowy składnik; identyczny zestaw dwóch rodzin jest błędem (D30).
 
 ## Dostępność składników
 
