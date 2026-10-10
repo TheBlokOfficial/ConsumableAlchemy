@@ -1,13 +1,9 @@
-# Receptury i balans — Consumable Alchemy
+# Receptury — Consumable Alchemy
 
-Dane receptur z gry, narzędzia `tools/recipes/` i kryteria balansu kosztu warzenia. Decyzje: D10, D11,
-D19–D21, D28 w [decisions.md](decisions.md). Jak mod czyta tabelę:
-[architecture.md](architecture.md#receptury--recipesws-i-tabela). Plan szlifowania:
-[roadmap.md](roadmap.md#następne-kroki).
-
-Problem: w vanilli jedno warzenie daje praktycznie nieskończony zapas (odnawiany alkoholem). W modzie każde
-warzenie kosztuje składniki, więc bez zmian w recepturach mikstura byłaby kilkukrotnie droższa (części
-potworów, rzadkie minerały, mutageny). Rozwiązanie: odblokowanie za pełną recepturę, powielenie za krótszą.
+Dane receptur z gry, narzędzia `tools/recipes/` i obecna tabela. Decyzje: D10, D11, D19–D21, D28
+w [decisions.md](decisions.md). Jak mod czyta tabelę: [architecture.md](architecture.md#receptury--recipesws-i-tabela).
+Materiał do szlifowania receptur (dostępność składników, wady tabeli, kryteria balansu, części potworów):
+[spec/receptury.md](spec/receptury.md).
 
 ## Narzędzia (`tools/recipes/`, Python)
 
@@ -52,19 +48,6 @@ potworów, rzadkie minerały, mutageny). Rozwiązanie: odblokowanie za pełną r
   cyklicznie, więc wartości potwierdza test w grze ([testing.md](testing.md)).
 - Mikstur poz. 2/3 nie ma w tabelach lootu ani u kupców (tylko w zestawach samodzielnych startów dodatków).
 
-## Dostępność składników
-
-Z `availability.py`:
-- Wszystko o cenie bazowej ≤ 16 to zioła (14–17 sklepów + krzaki w świecie) i minerały (16–31 sklepów).
-  `Buckthorn` nie jest w sklepach, ale rośnie w świecie.
-- Rzadkie minerały poz. 3 (`Quebrith` 18, `Aether`, `Vitriol`, `Rebis`, `Rubedo`, `Vermilion`, `Nigredo`)
-  sprzedaje tylko 1 sklep (`_EP2_store__Alchemist`).
-- Powszechne mimo ceny > 16: `Optima mater` (32 sklepy), `Powdered pearl` (29), `Quicksilver solution` (18),
-  `Water essence` (11, zielarze); pół-powszechny `Specter dust` (5 sklepów, głównie z potworów).
-- Części potworów i mutageny: 0 sklepów, tylko z potworów i gniazd.
-- Gra nie daje skryptom dostępu do asortymentu sklepów — dostępność może być tylko kryterium przy
-  projektowaniu tabeli.
-
 ## Obecna tabela
 
 Pełna receptura = vanilla (kolejność składników z XML). Powielenie = reguła z `rule.py 16 2`: zostaje baza
@@ -75,44 +58,8 @@ alkohol zawsze 1. Koszt powielenia (ceny bazowe): poz. 1 ok. 30, poz. 2 ok. 30, 
 ok. 25. Przykład: Jaskółka 1 — pełna `Dwarven spirit`, 5× `Celandine`, `Drowner brain`; powielenie
 `Dwarven spirit`, 3× `Celandine`.
 
-## Znane wady obecnej tabeli
-
-- **Kolizje** (ten sam zbiór składników): Kot 1 = Maribor 1 = wywar Mutagen 5; Zamieć 1 = wywar Mutagen 2;
-  Zamieć 2 = Jaskółka 2; Dimeritium 1 = Księżycowy Pył (Silver Dust) 1 (sam `Saltpetre`); ok. 40 par różni się
-  1 składnikiem (poz. 1 = alkohol lub proszek + 1 zioło).
-- **Utrata symboliki:** mikstury poz. 1–2 tracą jedyny unikalny składnik (Czarna Krew — `Ghoul blood`,
-  Zamieć — `Golem heart`, Puszczyk — `Arachas venom`, Grom — `Endriag embryo` …); Księżycowy Pył traci
-  `Quicksilver solution` (18 sklepów), Dimeritium 1 — `Optima mater` (32 sklepy). Wywary tracą mutagen.
-  Jaskółka i Biały Miód bez zarzutu.
-- **Puste lub dziwne:** Mutagen 28 = sam alkohol; Biały Miód 1 i Feromon Niedźwiedzia: powielenie = pełna
-  receptura. Poz. 2 tańszy od poz. 1 w 11 rodzinach (`Alcohest` 10 < `Dwarven spirit` 20) — nieszkodliwe.
-
-## Kryteria balansu
-
-- **Odwrócenie trudności:** mikstura z pospolitą częścią potwora (Jaskółka — mózg topielca) byłaby trudniejsza
-  w powieleniu niż zaawansowana, której rzadka część wypada i zostają same zioła. Dlatego każda receptura
-  powielania ma **składnik wysiłku** dobrany do rangi mikstury: rzadka część potwora podmieniona na osiągalny,
-  tematycznie bliski zamiennik (np. esencje upiorów → `Specter dust`; drogie minerały ze sklepów `Optima mater`
-  / `Quicksilver solution` / `Powdered pearl`; części średnio pospolitych potworów).
-- Mikstury podstawowe nie mogą być droższe w powieleniu od zaawansowanych — walidator ma pokazywać poziom
-  wysiłku.
-- Każda receptura ma sygnaturowy składnik i różni się od innych o więcej niż 1 składnik (D19).
-
-## Części potworów
-
-Dane do D22 ([roadmap.md](roadmap.md#do-decyzji-autora)).
-- **W3:** pospolite — `Ghoul blood` (ghul, zawsze 1), `Drowner brain` (ok. 0,5 na zabicie), `Drowned dead
-  tongue` (topielec ok. 0,5, gniazdo zawsze), `Nekker heart` (nekker ok. 0,3, duże i gniazda zawsze); średnie —
-  `Endriag heart` / `embryo`; rzadkie (bez sensu w powieleniu) — esencje południcy i nocnicy, `Golem heart`,
-  `Fogling teeth`, `Arachas venom`, `Specter dust`. Brak tagu rozróżniającego → lista nazw. Wędrowne grupy
-  potworów odradzają się po ok. 2–4 dniach gry (źródło: poradniki, niesprawdzone w kodzie); nazwane i questowe nie.
-- **W1:** receptury na substancje (dowolny składnik z daną substancją, z ziół lub potworów), 1 alkohol =
-  1 mikstura, warzenie tylko w medytacji, limit tylko stosami po 10; części potworów wymagały wpisu
-  w bestiariuszu; potwory (utopce, ghule, barghesty) odradzały się → składniki tanie i zalegające, barierą była
-  logistyka, nie koszt. Punkt odniesienia autora: zdobycie części ≈ zebranie zioła.
-
 ## Alkohol
 
-Stały z receptury, ×1 (D10). Vanilla zużywa 1 sztukę najtańszego `StrongAlcohol` na całą medytację
-(w praktyce `Mahakam Spirit` 8 / `Alcohest` 10); mod — 1 na każde warzenie (np. 4 mikstury + 1 wywar = 5).
-Podaż dobra: `Dwarven spirit` w 20 sklepach, `Alcohest` w 21.
+Stały z receptury, ×1 (D10): mod zużywa 1 sztukę na każde warzenie (np. 4 mikstury + 1 wywar = 5), vanilla
+1 na całą medytację ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)). Podaż dobra:
+`Dwarven spirit` w 20 sklepach, `Alcohest` w 21.

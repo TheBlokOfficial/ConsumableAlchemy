@@ -40,9 +40,9 @@ chybi); gdy litera i intencja się rozjeżdżają, powiedz to autorowi.
 - **Autor** (właściciel projektu) **mówi, co ma powstać, i sprawdza wynik w grze.** Pytaj go wyłącznie
   o decyzje projektowe: mechanika, balans, co widzi gracz. Implementację wybierasz sam i krótko raportujesz.
 - **Jedna sesja to jeden wycinek** (zmiana widoczna w grze albo zamknięty etap narzędzi), od planu do
-  scalenia; następny wycinek to nowa sesja. Najpierw 5–10 linii planu: co autor zobaczy w grze, co się
-  zmieni w kodzie — i czekasz na zielone światło. To, co zobaczy gracz (receptury, teksty komunikatów),
-  uzgadniasz z autorem na piśmie, w tabeli albo z brzmieniem PL/EN, zanim powstanie kod.
+  scalenia. Najpierw 5–10 linii planu: co autor zobaczy w grze, co się zmieni w kodzie — i czekasz na
+  zielone światło. To, co zobaczy gracz (receptury, teksty komunikatów), uzgadniasz z autorem na piśmie,
+  w tabeli albo z brzmieniem PL/EN, zanim powstanie kod.
 - **Architekt** (główna sesja) rozmawia z autorem, czyta kod potrzebny do decyzji i zlecenia, przegląda
   diffy, scala i wdraża. Drobne, lokalne zmiany (dokumenty, kilka linii kodu) robi sam. Długich plików nie
   czyta w całości (skrypty vanilli, XML-e gry, generowana tabela): Grep z wąskim wzorcem albo agent Explore,
@@ -53,8 +53,8 @@ chybi); gdy litera i intencja się rozjeżdżają, powiedz to autorowi.
   Przed zleceniem commit — worktree powstaje z HEAD. Opus (`model: "opus"`) tylko do zadania bez gotowego
   projektu albo szukania nieznanej przyczyny. Niezależne obszary — równolegle.
 - **Research** (kod vanilli, dane z bundli) zlecasz tak samo, z poleceniem zapisu wyników do pliku
-  w trakcie pracy, nie tylko w raporcie końcowym — przerwany agent nie może zabrać wyników ze sobą.
-  Wniosek trafia do właściwego dokumentu, zanim sesja się skończy.
+  w trakcie pracy — przerwany agent nie może zabrać wyników ze sobą. Wniosek trafia do właściwego
+  dokumentu, zanim sesja się skończy.
 - **Kolejna runda:** pracę przyjętą po przeglądzie scalasz; drobne poprawki robisz sam w worktree wykonawcy
   (ścieżki bezwzględne i `git -C`, bez `cd` — sesja przeniosłaby się do worktree), dłuższą listę dostaje
   nowy wykonawca ze ścieżkami i hashami. Wykonawcy z dużym kontekstem nie wznawiaj — każdy jego krok
@@ -130,41 +130,33 @@ README.md                            strona moda dla gracza
    generator tnie tabelę na jedną małą funkcję na recepturę.
 4. Status z `CanCookRecipe` steruje też filtrem menu („Już wykonane”, `canCookStatusForFilter`). Zmiana
    statusu zmienia, co menu ukrywa; żeby zmienić tylko tekst pozycji, zmieniaj `cantCookReason`.
-5. Nadmiaru dawek ponad limit nie przycinaj przy odczycie: przy wczytywaniu zapisu skille i buffy podnoszące
-   limit mogą być jeszcze nieprzywrócone → trwała utrata dawek.
+5. Nadmiaru dawek ponad limit nie przycinaj przy odczycie — powód: D16 w [docs/decisions.md](docs/decisions.md).
 6. Nagrody questowe i przedmioty startowe dostają pełne dawki z pominięciem wrappera odnawiania
    (`SingletonItemSetAmmo` wprost) — zgodne z zasadą 4, nie łataj.
-7. Samodzielne starty dodatków (nowa gra z HoS / B&W) czyszczą receptury i dają przedmioty bez receptury —
-   nie nadają się do testów alchemii. Testuj na zwykłym zapisie.
-8. Mod nie pojawia się na liście modów w menu gry — to nie znaczy, że się nie wczytał.
-9. Wywar Wodnej Baby (`EET_Mutagen03`) dodaje +1 dawkę każdej miksturze i bombie przy nałożeniu i zabiera
-   ją przy wygaśnięciu — vanilla, nie błąd moda.
+7. Pułapki testowe (samodzielne starty dodatków, brak moda na liście modów, Wywar Wodnej Baby):
+   [docs/testing.md](docs/testing.md#pułapki-testowe).
 
 ## Dokumenty
 
 | Plik | Co zawiera | Zalecana długość |
 |---|---|---|
-| `CLAUDE.md` | słownik, zasady produktu, sposób pracy, pułapki | ok. 150 linii |
+| `CLAUDE.md` | słownik, zasady produktu, sposób pracy, pułapki | ok. 140 linii |
 | `README.md` | strona dla gracza (PL, bez technikaliów, styl Nexusa), lista zmian wersji | ok. 60 linii |
-| `docs/architecture.md` | jak mod działa: punkty zaczepienia, mechanika vanilli, degradacja | ok. 150 linii |
-| `docs/decisions.md` | rozstrzygnięcia z powodem, zwłaszcza odrzucone kierunki | wpis ok. 8 linii |
-| `docs/recipes.md` | dane receptur z gry, narzędzia `tools/recipes/`, kryteria balansu | ok. 100 linii |
-| `docs/testing.md` | checklista bieżącego wycinka, test dymny, pułapki testowe | ok. 80 linii |
-| `docs/roadmap.md` | co dalej: to, czego nie zbudowano; pytania do autora; Szlif | ok. 80 linii |
-| `docs/spec/` | uzgodniona koncepcja etapu przed budową | — |
+| `docs/architecture.md` | jak mod działa: punkty zaczepienia, mechanika vanilli, degradacja | ok. 100 linii |
+| `docs/decisions.md` | rozstrzygnięcia z powodem, zwłaszcza odrzucone kierunki | wpis ok. 6 linii |
+| `docs/recipes.md` | dane receptur z gry, narzędzia `tools/recipes/`, obecna tabela | ok. 70 linii |
+| `docs/testing.md` | checklista bieżącego wycinka, test dymny, pułapki testowe | ok. 60 linii |
+| `docs/roadmap.md` | co dalej: to, czego nie zbudowano; pytania do autora; Szlif | ok. 70 linii |
+| `docs/spec/` | koncepcja etapu przed budową: materiał, potem wersja uzgodniona z autorem | — |
 | `docs/archive/` | nieobowiązujące; tylko przez odsyłacz z decisions.md albo roadmapy | — |
 
 Kod jest źródłem prawdy; dokument jest tam, gdzie kod nie wystarcza. Wiedza o projekcie mieszka tylko
-w tych plikach, nie w pamięci asystenta. Długość (wiersze łamane ok. 110 znaków) jest wskazówką, nie
-granicą: przekroczenie to sygnał do przeglądu — usuń powtórzenia, historię i treść, która należy do innego
-dokumentu. Nie skracaj kosztem jasności, powodu ani informacji.
-- Stan, nie historia: bez dat, numerów sesji, słów „dziś”, „na razie”, „dawny”, „wcześniej”, „do v0.3”
-  i bez tego, kto co powiedział. Rola autora w procesie (decyduje, testuje) to nie historia. Zmiany
-  w wersjach opisuje lista zmian w README, resztę — git.
+w tych plikach, nie w pamięci asystenta. Długość (wiersze ok. 110 znaków) to wskazówka: przekroczenie to
+sygnał do przeglądu, nie powód do skracania kosztem jasności, powodu czy informacji.
+- Stan, nie historia: bez dat, numerów sesji i słów „dziś”, „na razie”, „wcześniej”. Zmiany wersji opisuje
+  lista zmian w README, resztę — git.
 - Rzecz ma jedno miejsce: mechanizm w architekturze, powód w rozstrzygnięciach, plan w roadmapie, dane
   receptur w recipes.md; gdzie indziej tylko odsyłacz. Zmieniając regułę, szukaj jej słów we wszystkich
-  dokumentach.
-- Pojęcie ma jedną nazwę ze słownika; nowy termin wchodzi razem z wpisem w słowniku.
-- „X nie ma” podaje powód albo odsyła do rozstrzygnięcia. Punkt to jedna myśl, do ok. 60 słów.
-- Odwołanie do vanilli: nazwa funkcji (da się ją znaleźć Grepem) plus `plik:linia` jako podpowiedź —
-  numery linii zmienią się przy aktualizacji gry.
+  dokumentach. Materiał etapu (spec) po jego zakończeniu idzie do archiwum.
+- Pojęcie ma jedną nazwę ze słownika. „X nie ma” podaje powód albo odsyła do rozstrzygnięcia. Punkt to jedna
+  myśl, do ok. 60 słów. Odwołanie do vanilli: nazwa funkcji plus `plik:linia` jako podpowiedź.

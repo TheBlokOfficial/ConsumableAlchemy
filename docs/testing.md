@@ -1,10 +1,8 @@
 # Testy w grze — Consumable Alchemy
 
-Test robi autor po wdrożeniu (`deploy.ps1`), na **zwykłym zapisie** z poznanymi recepturami — nie na
-samodzielnym starcie dodatku (pułapki niżej). Kompilacja: błędy moda pokazuje okno przy starcie gry;
-ostrzeżenia `[content0] ... not marked as abstract` / `has no autostate` są z vanilli. Checklistę bieżącego
-wycinka aktualizuje gałąź, która zmienia kod; zaliczony punkt, który opisuje trwałe zachowanie, przechodzi
-do „Potwierdzone”.
+Test robi autor po wdrożeniu (`deploy.ps1`), na **zwykłym zapisie** z poznanymi recepturami (pułapki niżej).
+Checklistę bieżącego wycinka aktualizuje gałąź, która zmienia kod; zaliczony punkt, który opisuje trwałe
+zachowanie, przechodzi do „Potwierdzone”.
 
 ## Test dymny (po każdym wdrożeniu)
 
@@ -62,5 +60,5 @@ Degradacja (README obiecuje, że zapisy po odinstalowaniu zostają sprawne):
   i daje przedmioty bez receptury na swój poziom; poziomu 1 nie można warzyć, bo posiadany jest wyższy (tak
   samo w vanilli) — [architecture.md](architecture.md#samodzielne-starty-dodatków-hos--bw).
 - Mod nie pojawia się na liście modów w menu gry — to nie znaczy, że się nie wczytał.
-- Wywar Wodnej Baby dodaje i zabiera dawki — przy teście limitów nie mieć go aktywnego
-  ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)).
+- Wywar Wodnej Baby dodaje i zabiera dawki — vanilla, nie błąd moda; przy teście limitów nie mieć go
+  aktywnego ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)).

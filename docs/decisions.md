@@ -1,33 +1,13 @@
 # Rozstrzygnięcia — Consumable Alchemy
 
 Rozstrzygnięcia autora z powodem. Odrzucone warianty są tu po to, żeby do nich nie wracać bez nowego
-argumentu. Numer nie zmienia się i nie wraca (wycofane: D24 — sposób pracy, jest w CLAUDE.md; D25 — scalone
-z D18). Pytania otwarte (D22, D23, D26, D27 i inne): [roadmap.md](roadmap.md#do-decyzji-autora).
-Mechanizm: [architecture.md](architecture.md), receptury: [recipes.md](recipes.md).
-
-## Cel
-
-Wzorzec: Wiedźmin 1 — każda butelka to składniki, a składniki są tanie i powszechne. Kryterium: wypicie
-mikstury i rzucenie bomby nie może boleć ani irytować przy powielaniu (nie żal rzucić, nawet przy pudle),
-a całość ma być bardziej immersyjna niż vanilla, w której medytacja odnawia wszystko. Bez odblokowania
-i powielenia (D11) mod nie miałby sensu: każde warzenie za pełną recepturę byłoby kilkukrotnie droższe niż
-jednorazowe warzenie w vanilli.
-
-## Twarde wymogi
-
-- **D1. Vanillowość.** Zero mod-smellu i własnego renderowania (nakładki, własne okna i przyciski). Wolno
-  dodać element do istniejącego systemu gry, jeśli wygląda jak vanilla: nowy wpis lokalizacji w istniejącym
-  miejscu UI, nowa pozycja filtra. Komunikat: najpierw istniejący klucz lokalizacji (obecnie reużywany
-  `panel_alchemy_exception_already_cooked`). Powód: mod ma nie wyglądać jak mod; granica dotyczy wyglądu,
-  nie tego, czy tekst jest nowy.
-- **D2. Języki PL + EN** — każdy nowy tekst w grze w obu.
-- **D3. Zgodność z innymi modami nie jest wymogiem** — autor gra bez innych modów.
-- **D4. README = strona dla gracza** (PL, bez technikaliów, styl Nexusa, lista zmian wersji); technikalia
-  w CLAUDE.md i `docs/`.
+argumentu. Numer nie zmienia się i nie wraca. Wymogi ogólne (vanillowość, PL + EN, zgodność z modami, nic
+poza warzeniem nie uzupełnia) są zasadami produktu w [CLAUDE.md](../CLAUDE.md) — stąd brak D1–D5; D24, D25
+wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm:
+[architecture.md](architecture.md), receptury: [recipes.md](recipes.md).
 
 ## Mechanika
 
-- **D5. Nic poza warzeniem nie uzupełnia** mikstur, bomb ani wywarów: medytacja, łóżko, stół, alkohol.
 - **D6. Warzenie napełnia do limitu**; uwarzony przedmiot można warzyć ponownie, gdy brakuje choć jednej
   dawki. Powody: dolewka przy 2/3 kosztuje tyle co przy 0/3 — tak samo jak medytacja w vanilli, to nie wada;
   skille limitu zyskują sens (większa pojemność = tańsza dawka); nowy poziom od razu ma max, więc nie ma
@@ -41,12 +21,14 @@ jednorazowe warzenie w vanilli.
   spójności. Przedmioty z tagiem `Quest` poza systemem.
 - **D10. Alkohol jest wyłącznie składnikiem**, w recepturze stały, ×1. Skutek: zużywa się szybciej niż
   w vanilli ([recipes.md](recipes.md#alkohol)).
-- **D11. Odblokowanie i powielenie:** pierwsze warzenie za pełną recepturę, każde kolejne za krótszą.
+- **D11. Odblokowanie i powielenie:** pierwsze warzenie za pełną recepturę, każde kolejne za krótszą. Powód:
+  bez tego każde warzenie za pełną recepturę (części potworów, rzadkie minerały) byłoby kilkukrotnie droższe
+  niż jednorazowe warzenie w vanilli, a powielenie ma nie boleć.
   1. Sygnałem jest sama lista składników w prawym panelu menu — precedens vanilli: poziomy 1/2/3 mają różne
      listy bez wyjaśnień.
-  2. Odblokowanie = posiadanie przedmiotu w ekwipunku, także z 0 dawek. Bez nowych danych w zapisie;
-     mikstur i bomb nie da się sprzedać ani wyrzucić, więc odblokowania nie da się stracić (poza wymianą na
-     wyższy poziom, który ma własne odblokowanie). Pozyskanie poza warzeniem też odblokowuje.
+  2. Odblokowanie = posiadanie przedmiotu, także z 0 dawek: bez nowych danych w zapisie, a mikstur i bomb nie
+     da się sprzedać ani wyrzucić, więc odblokowania nie da się stracić (poza wymianą na wyższy poziom, który
+     ma własne odblokowanie). Pozyskanie poza warzeniem też odblokowuje.
   3. Odrzucone: znacznik `isNew` na liście — menu alchemii go nie rysuje.
 - **D12. Mikstura z 0 dawek zostaje w ekwipunku** (jak w vanilli) — to znacznik odblokowania.
 - **D13. Warzenie tylko w menu alchemii.** Odrzucone: medytacja warzy z zapasu składników — ciche zabieranie
@@ -63,7 +45,7 @@ jednorazowe warzenie w vanilli.
   poniżej limitu.
 - **D17. Stół alchemiczny w Corvo Bianco bez premii:** `ManageSingletonItemsBonus` tylko odmawia, warzenie
   przy stole też bez premii. Powód: vanillowa premia (+1 ponad max) działa przy odnawianiu, czyli dawałaby
-  dawkę bez warzenia (D5). Pomysł na inną rolę stołu: [roadmap.md](roadmap.md#odłożone).
+  dawkę bez warzenia (zasada 1). Pomysł na inną rolę stołu: [roadmap.md](roadmap.md#odłożone).
 - **D18. Dwa poziomy naraz na liście menu zostają:** posiadana niepełna Jaskółka 1 (dolewka) i znana receptura
   Jaskółki 2 (ulepszenie) widoczne obok siebie; w ekwipunku nigdy obie (ulepszenie zużywa poz. 1, a poz. 1 jest
   zablokowany przy posiadanym poz. 2). Odrzucone: ukrywanie niższego poziomu przy znanej wyższej recepturze
@@ -74,9 +56,12 @@ jednorazowe warzenie w vanilli.
 - **D19. Receptury ręcznie dopracowane w tabeli**, nie liczone regułą w grze. Skrypt tworzy szkic; każdą
   recepturę poprawiamy pod kątem spójności między poziomami rodziny, unikatowości (brak kolizji) i oryginalności
   (sygnaturowy składnik). Do moda trafia generowany `.ws`. Powód: reguła dawała kolizje i odbierała miksturom
-  symbolikę ([recipes.md](recipes.md#znane-wady-obecnej-tabeli)). Odrzucone: strojenie reguły progiem
-  i dzielnikiem, reguła powszechności, „wyrzuć najdroższy składnik”
-  ([archive/recipe-rules.md](archive/recipe-rules.md)).
+  symbolikę ([spec/receptury.md](spec/receptury.md#wady-obecnej-tabeli)). Odrzucone reguły:
+  1. Próg ceny bez dzielnika ilości — poz. 3 był pułapką kosztową (zostawał `White Gull 1`), część bomb poz. 3
+     tańsza od poz. 1; dzielnik 1 — powielenie bomb poz. 1 = pełna receptura.
+  2. Reguła powszechności (zostają składniki z ≥ 7 sklepów albo zbierane) — nie tanieją receptury złożone
+     wyłącznie z powszechnych składników (Kot, Dimeritium, Biały Szron); w grze wymagałaby stałej listy.
+  3. „Wyrzuć najdroższy składnik” (`compare.py`) — zostawia rzadkie składniki, nierówne oszczędności.
 - **D20. Podmiany składników dozwolone, a nawet zalecane**, jeśli zachowują unikatowość; receptura powielania
   nie musi być podzbiorem pełnej. Odrzucone: dynamiczna podmiana składników wg ekwipunku — mod-smell.
 - **D21. Pełna receptura też może się zmienić:** obie receptury projektujemy razem, by powielenie było spójnym

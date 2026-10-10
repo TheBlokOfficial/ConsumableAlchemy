@@ -10,9 +10,7 @@ Consumable = singleton **i** (bomba (`category == petard`) **lub** tag `Potion` 
 `Mutagen`), z wyłączeniem: `Snow Ball`, `Tutorial Bomb`, `Village drink`, tag `Quest`, tag
 `NoAdditionalAmmo` (bomby z farbą `q703_paint_bomb_*` z Toussaint), `TAG_INFINITE_AMMO`.
 `CA_IsConsumableItem(id)` (`@addMethod` na `CInventoryComponent`) dodatkowo wymaga, by inwentarz należał
-do gracza.
-
-Limit jest vanillowy (D7): mod nie ma własnej stałej ani nie zmienia `SingletonItemGetMaxAmmo`.
+do gracza. Limit jest vanillowy (D7): mod nie ma własnej stałej ani nie zmienia `SingletonItemGetMaxAmmo`.
 
 ## Punkty zaczepienia
 
@@ -63,10 +61,8 @@ rozbieżność list zdradzi moda:
 - `guiTooltipComponent.GetRecipeDataFromXML` (`guiTooltipComponent.ws:~2020`) pominięty: szuka
   `'alchemy_recipies'` (literówka w vanilli), więc zawsze zwraca pusto.
 
-API danych przedmiotów: `dm.GetItemPrice(name)`, `dm.ItemHasTag`, `dm.GetItemCategory`
-(`definitionsManager.ws:29-37`). Uśpione API kategorii składników (`GetIngredientCategoryElements` /
-`IsIngredientCategorySpecified`, `commonGame.ws:32-35`) nie ma danych w XML — W3 nie ma zamienników
-składników (`CanCookRecipe` sprawdza po nazwie).
+W3 nie ma zamienników składników: `CanCookRecipe` sprawdza po nazwie, a uśpione API kategorii składników
+(`GetIngredientCategoryElements`, `commonGame.ws:32-35`) nie ma danych w XML.
 
 ## Mechanika vanilli istotna dla moda
 
@@ -77,59 +73,29 @@ składników (`CanCookRecipe` sprawdza po nazwie).
   `EAE_CannotCookMore` → pozycja ukryta pod filtrem „Już wykonane”. Filtry: „Posiadasz składniki / Brak
   składników / Już wykonane”, tylko przez skrót klawiszowy „Filtry”; „Już wykonane” domyślnie wyłączony.
   Mod zachowuje statusy → przy pełnej kieszeni pozycja chowa się jak w vanilli, poniżej limitu jest widoczna.
-- **Poznawanie receptur:** `AddAlchemyRecipe(nam, optional isSilent, optional skipTutorialUpdate) : bool`
-  (`playerWitcher.ws:4851`; znane receptury w `private saved var alchemyRecipes`, `:44`) — idempotentne
-  (znana → `false`), nie usuwa receptury niższego poziomu. `isSilent` pomija powiadomienie HUD
-  (`AddAlchemyHudNotification`, `:4046`), ale skutki zostają: statystyki `ES_KnownPotionRecipes` /
-  `ES_KnownBombRecipes` → osiągnięcia `EA_BreakingBad` / `EA_Bombardier` (`gamerProfile.ws:62`), ability
-  skilla `S_Alchemy_s18` (Nabyta Tolerancja) za każdą recepturę, zdarzenie `SEC_AlchemyRecipe` (warunki
-  questów, `playerKnowsRecipe.ws`). Funkcji przedmiot → receptura nie ma: iteracja
-  `dm.GetCustomDefinition('alchemy_recipes')` po `cookedItem_name` (jak `alchemyManager.ws:69`).
 - **Receptury od startu nowej gry** (`playerWitcher.ws:260`): Jaskółka 1, Kot 1, Biały Miód 1, Samum 1,
   Kartacz 1, oleje na upiory i trupojady, Alcohest.
 - **Walka:** warzenie zablokowane w walce (`EAE_InCombat`, `alchemyManager.ws:156`, `IsInCombat()`);
   medytacja surowiej (`CanMeditate` / `CanMeditateHere` → `IsThreatened()`, `playerWitcher.ws:10093/10157`).
 - **Alkohol w medytacji:** 1 sztuka najtańszego `StrongAlcohol` na całą medytację
   (`GetAlcoholForAlchemicalItemsRefill`, `playerWitcher.ws:5621`).
-- **Oleje:** przedmiot oleju nie zużywa się przy nakładaniu; powłoka ma ładunki na ciosy
-  (`W3Effect_Oil.ReduceAmmo`, `r4Player.ws:1009`; nieskończona ze skillem `S_Alchemy_s06` poz. 3,
-  `hudModuleBuffs.ws:314`). Medytacja ich nie dotyczy.
 - **Wywar Wodnej Baby** (`EET_Mutagen03`, `mutagen03.ws`): przy nałożeniu +1 dawka każdej miksturze i bombie
   (także z 0 dawek — darmowa dawka), przy wygaśnięciu −1 (także dawka opłacona składnikami, uwarzona ponad
   limit w trakcie działania).
-- Mikstur i bomb nie da się sprzedać ani wyrzucić → odblokowania nie da się stracić.
-
-## Ścieżki dające pełne dawki z pominięciem wrappera odnawiania
-
-Zgodne z D14 (pozyskanie poza warzeniem = vanilla):
-- `quest_function.ws:2016/2053/2135/5958/6004` (`AddItemQuest`, `AddItemQuestExt` itd.) — po `AddAnItem`
-  wołają wprost `SingletonItemSetAmmo(max)`;
-- `r4Player.ws:15482` (przedmioty startowe nowej gry) i `:15547` (debug) — to samo;
-- samodzielne starty dodatków — niżej.
+- **Pełne dawki z pominięciem wrappera odnawiania** (zgodne z D14): `AddItemQuest`, `AddItemQuestExt` itd.
+  (`quest_function.ws:2016/2053/2135/5958/6004`) i przedmioty startowe nowej gry (`r4Player.ws:15482`)
+  po `AddAnItem` wołają wprost `SingletonItemSetAmmo(max)`.
 
 ## Samodzielne starty dodatków (HoS / B&W)
 
-`StandaloneEp1_1` (HoS, `playerWitcher.ws:11428`, woła `_2`; fakt `StandAloneEP1`; fakt końcowy
-`standalone_ep1` `:11916`) i `StandaloneEp2_1` (B&W, `:11930`; fakt końcowy `standalone_ep2` `:12488`)
-czyszczą receptury (`RemoveAllAlchemyRecipes`, `:11595`) i dają zestaw startowy (HoS `:11662-11709`,
-B&W `:12090-12207`).
-- Receptury HoS: poz. 1 mikstur Cat, Maribor, Petri, Swallow, Tawny Owl, White Honey, Raffard; bomb Dancing
-  Star, Dimeritium, Grapeshot, Samum, White Frost. B&W: mikstury Petri 2, Swallow 1, Tawny Owl 1; bomby jak
-  HoS. Oba: alkohole, oleje 1–2; ziół nie dają.
-- Przedmioty bez receptury na swój poziom (ok. 20): poz. 2 przy recepturze tylko poz. 1 — Swallow 2, Tawny
-  Owl 2, Grapeshot 2, Samum 2, White Frost 2, Dancing Star 2 (+ Cat 2, White Honey 2 w HoS); poz. 2 bez
-  receptury — Thunderbolt 2, Devils Puffball 2 (+ Cat 2, White Honey 2 w B&W); poz. 1 bez receptury — Black
-  Blood 1, Blizzard 1, Full Moon 1, Dragons Dream 1, Silver Dust Bomb 1 (+ w B&W Maribor 1, Raffard 1, Golden
-  Oriole 1, Killer Whale 1); wywary `Mutagen 17/19/26/27`. Receptura jest dla: Dimeritium 1; HoS Maribor 1,
-  Petri 1, Raffard 1; B&W Petri 2.
-- W vanilli medytacja odnawia je bez receptury; w modzie są jednorazowe. Poziomu 1 nie da się warzyć, gdy
-  posiadany jest poziom 2 (także w vanilli).
-- Receptury do kupienia później: B&W — `_EP2_store__Alchemist` (Toussaint, poz. 2 i 3 wszystkich); HoS —
-  sklepy EP1 tylko poz. 3; podstawka — `Oxenfurt_Herbalist` / `Druid_Herbalist` (m.in. Swallow 2, Tawny Owl 2,
-  White Honey 2, Grapeshot 2, Samum 2, Blizzard 2, Full Moon 2), Thunderbolt 2, Cat 2, White Frost 2, Devils
-  Puffball 2 głównie Skellige / `_store__Poor_Dist_Herbs_Trader`; skrzynie od poziomu gracza ok. 10.
-- Przy każdym wczytaniu zapisu woła się `ApplyPatchFixes` (`private final`, `playerWitcher.ws:738`,
-  wywołanie `:365`) — miejsce na poprawkę dla istniejących zapisów (D23).
+`StandaloneEp1_1` (HoS, `playerWitcher.ws:11428`; fakt końcowy `standalone_ep1` `:11916`) i `StandaloneEp2_1`
+(B&W, `:11930`; fakt `standalone_ep2` `:12488`) czyszczą receptury (`RemoveAllAlchemyRecipes`, `:11595`)
+i dają zestaw startowy (HoS `:11662-11709`, B&W `:12090-12207`): kilka receptur poz. 1 i ok. 20 przedmiotów
+bez receptury na swój poziom (poz. 2 przy recepturze poz. 1, poz. 1 i wywary bez receptury). W vanilli
+medytacja je odnawia; w modzie są jednorazowe. Receptury poz. 2 da się później kupić (Toussaint
+`_EP2_store__Alchemist`, zielarze `Oxenfurt_Herbalist` / `Druid_Herbalist`). Przy każdym wczytaniu zapisu
+woła się `ApplyPatchFixes` (`private final`, `playerWitcher.ws:738`) — miejsce na poprawkę dla istniejących
+zapisów (D23).
 
 ## Degradacja
 
