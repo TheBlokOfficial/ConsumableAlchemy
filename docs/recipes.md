@@ -14,6 +14,15 @@ Materiał do szlifowania receptur (dostępność składników, wady tabeli, kryt
 - `recipes.py` → `data.json` (przedmioty + receptury).
 - `table.py` → tabela receptur mikstur i bomb z cenami.
 - `availability.py` — bez argumentu: źródła składników (sklepy, świat); `copies`: koszt powielenia wg dostępności.
+- `loot.py` — wspólny czytnik tabel lootu z `x/` (sklepy, zioła, potwory, kontenery; region = `base` / `ep1` / `bob`).
+- `ingredients.py` → `ingredient_catalog.json` (commitowany): każdy składnik z list `full` / `copy` tabeli
+  (poza przedmiotami niższego poziomu, wymienionymi w `_meta`) z ceną, typem, sklepami (liczba, regiony),
+  światem (krzaki, kontenery), potworami (tabela lootu, szansa, ilość) i **poziomem wysiłku 1–5**. Wysiłek liczą
+  wyłącznie reguły w skrypcie (bez ręcznych wyjątków, najłatwiejsze źródło); progi i uzasadnienia są stałymi
+  w skrypcie i kopią w `_meta`. Respawn nie jest modelowany. Deterministyczny: drugie uruchomienie nie zmienia pliku.
+- `report.py [--base <ref>]` → `report.html` (gitignorowany): raport HTML do porównania receptur — vanilla, `full`
+  i `copy` z tabeli (różnice względem vanilli podświetlone), koszt, wysiłek (suma i maksimum), flagi. Z `--base`
+  pod zmienionymi wierszami pokazuje wersję z tabeli w danym ref-ie git. Wymaga `ingredient_catalog.json`.
 - `rule.py [próg] [dzielnik]` → reguła powielania, z której powstała obecna tabela; używa jej `draft.py`.
 - `compare.py` → porównanie reguły z wariantem „wyrzuć najdroższy składnik” (odrzucony, D19).
 - **`recipes_table.json` — tabela receptur, źródło prawdy dla moda** (D19), edytowana ręcznie, commitowana
