@@ -1,5 +1,5 @@
 ﻿"""Where can each potion/bomb/decoction ingredient be obtained? (shops, herb nodes, monsters, containers)."""
-import json, os, re, glob, collections
+import json, os, collections
 here = os.path.dirname(os.path.abspath(__file__))
 d = json.load(open(os.path.join(here, 'data.json')))
 items, recipes = d['items'], d['recipes']
@@ -21,17 +21,10 @@ for r in recipes.values():
 
 # loot tables: name -> set(entries); grouped by source file kind
 src = collections.defaultdict(lambda: collections.defaultdict(set))   # ingredient -> kind -> loot names
-base = os.path.join(here, 'x')
-for f in glob.glob(os.path.join(base, '**', 'def_loot*.xml'), recursive=True) + glob.glob(os.path.join(base, '**', '*shop*.xml'), recursive=True):
-    if 'items_plus' in f: continue
-    fn = os.path.basename(f)
-    kind = ('shop' if 'shop' in fn else 'herb' if 'herb' in fn else 'monster' if 'monster' in fn or 'animal' in fn or 'actor' in fn
-            else 'container' if 'container' in fn or 'treasure' in fn or 'unique' in fn else 'other')
-    t = re.sub(r'<!--.*?-->', '', open(f, encoding='utf-8', errors='replace').read(), flags=re.S)
-    for m in re.finditer(r'<loot\s+name="([^"]+)"[^>]*>(.*?)</loot>', t, re.S):
-        for e in re.findall(r'<loot_entry\s+name="([^"]+)"', m.group(2)):
-            if e in used:
-                src[e][kind].add(m.group(1))
+import loot
+for e in loot.entries():
+    if e['item'] in used:
+        src[e['item']][e['kind']].add(e['table'])
 
 def short(s, k=4):
     s = sorted(s)
