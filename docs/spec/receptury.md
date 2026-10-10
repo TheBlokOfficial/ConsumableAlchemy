@@ -2,7 +2,7 @@
 
 Materiał wejściowy etapu szlifowania receptur ([roadmap.md](../roadmap.md#następne-kroki), kroki 2–6); nie
 jest jeszcze uzgodnioną koncepcją. Po zakończeniu etapu idzie do archiwum. Dane z gry i narzędzia:
-[recipes.md](../recipes.md); decyzje D19–D21, D28: [decisions.md](../decisions.md).
+[recipes.md](../recipes.md); decyzje D19–D22, D28–D31: [decisions.md](../decisions.md).
 
 ## Wady obecnej tabeli
 
@@ -41,7 +41,7 @@ przy projektowaniu tabeli.
 
 ## Części potworów
 
-Dane do D22 ([roadmap.md](../roadmap.md#do-decyzji-autora)).
+Rozstrzygnięcie: D22, dla mutagenów w wywarach D31 ([decisions.md](../decisions.md#receptury)).
 - **W3:** pospolite — `Ghoul blood` (ghul, zawsze 1), `Drowner brain` (ok. 0,5 na zabicie), `Drowned dead
   tongue` (topielec ok. 0,5, gniazdo zawsze), `Nekker heart` (nekker ok. 0,3, duże i gniazda zawsze), także
   `Arachas venom` i `Alghoul bone marrow` (wysiłek 3 w katalogu); rzadsze (wysiłek 4) — `Endriag heart` /

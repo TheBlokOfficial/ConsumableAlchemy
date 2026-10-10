@@ -68,6 +68,12 @@ wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm
   nie musi być podzbiorem pełnej. Odrzucone: dynamiczna podmiana składników wg ekwipunku — mod-smell.
 - **D21. Pełna receptura też może się zmienić:** obie receptury projektujemy razem, by powielenie było spójnym
   okrojeniem pełnej. Tabela = pełna + powielenie dla każdego consumable.
+- **D22. Części potworów w powieleniu według wysiłku z katalogu:** część z wysiłkiem 3 (`Ghoul blood`,
+  `Drowner brain`, `Drowned dead tongue`, `Nekker heart`, `Arachas venom`, `Alghoul bone marrow`, mutageny
+  południcy i nocnicy) zostaje jako składnik wysiłku; wysiłek 4–5 → tematyczny zamiennik (D20). Powód:
+  pospolita część to logistyka jak zebranie zioła (punkt odniesienia W1), rzadka byłaby osobnym polowaniem
+  przy każdym powieleniu; bez części mikstura podstawowa byłaby droższa od zaawansowanej
+  ([spec/receptury.md](spec/receptury.md#kryteria-balansu)).
 - **D28. Receptura powielania nie zawiera przedmiotu niższego poziomu.** Powód: pełna receptura poz. 2/3
   zużywa przedmiot niższego poziomu, a niższego nie wolno warzyć, mając wyższy (D8) — z nim w powieleniu
   ponowne warzenie poz. 2/3 byłoby niemożliwe.
@@ -79,3 +85,7 @@ wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm
   w powieleniu żadnej innej rodziny tego rodzaju (alkohol i proszek się nie liczą); identyczny zestaw dwóch
   rodzin jest błędem. Różnica o jeden składnik — tylko informacja. Powód: wymóg różnicy > 1 składnika
   wydłużałby powielenie do alkoholu + 3 składników, a powielenie ma nie boleć.
+- **D31. Mutagen w powieleniu wywaru według D22:** mutageny południcy i nocnicy (wysiłek 3) zostają, pozostałe
+  (wysiłek 4–5) → tematyczny zamiennik, który jest składnikiem sygnaturowym wywaru (D30). Powód: wywar z samego
+  alkoholu i ziół nie ma sygnatury i traci symbolikę, a rzadki mutagen przy każdym powieleniu to kolejna walka
+  z rzadkim potworem. Odrzucone: mutagen zawsze wypada; mutagen zawsze zostaje.

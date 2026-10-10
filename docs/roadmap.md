@@ -13,7 +13,7 @@ v0.4 czyta receptury z generowanej tabeli; kompiluje się i wczytuje, reszta che
 - [ ] **1. Test v0.4 w grze** według [testing.md](testing.md), z degradacją (obietnica w README). Idzie pierwszy:
   etap receptur buduje na tym stanie. Gotowe, gdy: checklista odhaczona, wyniki w „Potwierdzone w grze”.
 - [ ] **2. Spec szlifowania receptur** — [spec/receptury.md](spec/receptury.md) jako koncepcja uzgodniona.
-  Gotowe, gdy: autor zaakceptował kryteria balansu i zasady zamienników. Czeka na: D22, mutagen w wywarach.
+  Gotowe, gdy: autor zaakceptował kryteria balansu i zasady zamienników (D22, D31).
 - [ ] **3. Szlif receptur: mikstury.** Zmiana pełnej receptury Pioruna 1 wymaga zaczepienia tutorialu
   ([architecture.md](architecture.md#receptury--recipesws-i-tabela)).
 - [ ] **4. Szlif receptur: bomby.**
@@ -27,15 +27,7 @@ autor zaakceptował, test w grze przeszedł, README (opis krótszej receptury, p
 
 ## Do decyzji autora
 
-Blokują kolejny krok:
-- **D22. Które części potworów zostają w recepturach powielania?** Rekomendacja: części z wysiłkiem 3
-  w katalogu (`Ghoul blood`, `Drowner brain`, `Drowned dead tongue`, `Nekker heart`, `Arachas venom`,
-  `Alghoul bone marrow`, mutageny południcy i nocnicy) zostają jako składnik wysiłku; wysiłek 4–5 →
-  tematyczny zamiennik. Tło: [spec/receptury.md](spec/receptury.md#części-potworów), `ingredient_catalog.json`.
-  Blokuje krok 2.
-- **Mutagen w powieleniu wywaru — zostaje czy wypada?** Obecnie wypada (wywar = alkohol + zioła). Blokuje krok 2.
-
-Nie blokują:
+Żadne nie blokuje kolejnego kroku.
 - **D23. Samodzielne starty dodatków (HoS / B&W): receptury dla całego zestawu startowego czy tylko poz. 2?**
   Ok. 20 przedmiotów startowych jest w modzie jednorazowych. Rekomendacja: poprawka z cichą recepturą
   dla posiadanych przedmiotów; mechanizm, skutki i odrzucone warianty:
