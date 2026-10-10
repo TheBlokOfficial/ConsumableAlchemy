@@ -47,7 +47,8 @@ chybi); gdy litera i intencja się rozjeżdżają, powiedz to autorowi.
   diffy, scala i wdraża. Drobne, lokalne zmiany (dokumenty, kilka linii kodu) robi sam. Długich plików nie
   czyta w całości (skrypty vanilli, XML-e gry, generowana tabela): Grep z wąskim wzorcem albo agent Explore,
   który zwraca wniosek z `plik:linia`. Autorowi pokazuje wynik, który sam by przyjął.
-- **Wykonawca** (Agent `wykonawca` z `.claude/agents/`: sonnet, w tle, własny worktree) dostaje
+- **Wykonawca** (Agent `wykonawca`, deklaracja w `.claude/agents/wykonawca.md`: sonnet, w tle, własny
+  worktree; zasady pracy i format raportu są tam, zlecenie ich nie powtarza) dostaje
   zamkniętą część pracy. Zlecenie z adresami: cel, nazwa gałęzi, pliki i miejsca w nich (także `plik:linia`
   w vanilli), znane fakty i pułapki (sekcja niżej), kryteria odbioru, czego nie robić, punkt zatrzymania.
   Przed zleceniem commit: worktree powstaje z bieżącego HEAD (`worktree.baseRef` w `.claude/settings.json`),
@@ -115,6 +116,8 @@ tools/lint_ws.py                     lint .ws: pułapki 1 i 2 kompilatora
 docs/                                dokumentacja techniczna (tabela niżej)
 deploy.bat / deploy.ps1              instalacja do folderu gry
 README.md                            strona moda dla gracza
+.claude/agents/wykonawca.md          deklaracja subagenta wykonawcy (model, narzędzia, zasady pracy, raport)
+.claude/settings.json                worktree z HEAD, wyłączone narzędzia głównej sesji, bez auto-memory
 ```
 
 ## Konwencje
