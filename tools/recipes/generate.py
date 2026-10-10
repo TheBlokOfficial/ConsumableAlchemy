@@ -1,8 +1,9 @@
 """recipes_table.json -> consumableAlchemy_recipes_table.ws (decision D19).
 
-python generate.py
+python generate.py [--check]
 
 Validates the table (exits with an error on a problem) and writes the generated script.
+--check writes nothing: exit 1 if the generated script differs from the file on disk.
 One small function per recipe and one switch per kind: vanilla splits big functions
 because the script compiler runs out of memory (HACK_NO_MEMORY_TO_COMPILE_* in
 gameEffectManager.ws, OutOfMemoryHack_* in quest_function.ws).
@@ -155,6 +156,16 @@ if __name__ == '__main__':
     validate(table)
     text = generate(table)
     out = os.path.normpath(OUT)
+    if '--check' in sys.argv[1:]:
+        try:
+            with open(out, encoding='utf-8', newline='') as f:
+                current = f.read().replace('\r\n', '\n')    # git autocrlf checks files out as CRLF
+        except OSError:
+            current = None
+        if current != text:
+            sys.exit('%s is out of date - run python tools/recipes/generate.py' % os.path.basename(out))
+        print('%s is up to date' % os.path.basename(out))
+        sys.exit(0)
     with open(out, 'w', encoding='utf-8', newline='\n') as f:
         f.write(text)
     counts = {k: sum(1 for e in table.values() if e['kind'] == k) for k in KINDS}
