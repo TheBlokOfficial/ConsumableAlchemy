@@ -1,7 +1,7 @@
 # Fast pre-game gate: run before deploy.ps1.
 #   powershell -ExecutionPolicy Bypass -File tools/check.ps1
 # Checks: generated recipe table is up to date, .ws lint (wrappedMethod once, vars first),
-# no game data tracked or staged in git. Prints CHECK OK / CHECK FAILED (n), exit 0 / 1.
+# recipe rule errors (validate.py), no game data tracked or staged in git. Prints CHECK OK / CHECK FAILED (n), exit 0 / 1.
 
 $Root = Split-Path -Parent $PSScriptRoot
 $failed = 0
@@ -13,6 +13,11 @@ if ($LASTEXITCODE -ne 0) { $failed++ }
 Write-Host ""
 Write-Host "== WitcherScript lint =="
 & python (Join-Path $Root "tools\lint_ws.py") (Join-Path $Root "src")
+if ($LASTEXITCODE -ne 0) { $failed++ }
+
+Write-Host ""
+Write-Host "== Recipe rules (errors only) =="
+& python (Join-Path $Root "tools\recipes\validate.py") --errors-only
 if ($LASTEXITCODE -ne 0) { $failed++ }
 
 Write-Host ""

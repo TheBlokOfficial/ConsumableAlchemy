@@ -32,7 +32,7 @@ Materiał do szlifowania receptur (dostępność składników, wady tabeli, kryt
   ponad progiem poziomu (`COPY_EFFORT_MAX` = 2 / 4 / 6, stała do strojenia na danych). `info`: `full` różni się od vanilli.
 - `validate.py [--errors-only] [--table <plik>]` — uruchamia `rules.py` na `recipes_table.json`; wypisuje
   `ERROR|WARN <klucz>: [id] komunikat` recepturę po recepturze i podsumowanie (liczby wg reguły i wagi). Kod wyjścia 1
-  tylko przy błędach. Do `tools/check.ps1` wejdzie, gdy tabela będzie bez błędów.
+  tylko przy błędach. `tools/check.ps1` uruchamia go z `--errors-only`.
 - `report.py [--base <ref>]` → `report.html` (gitignorowany): raport HTML do porównania receptur — vanilla, `full`
   i `copy` z tabeli (różnice względem vanilli podświetlone), koszt, wysiłek (Σ(e−1)×q / maksimum), wyniki reguł
   z `rules.py` (błąd czerwony, ostrzeżenie żółte, `info` szare; filtr „tylko błędy i ostrzeżenia”). Z `--base`
@@ -43,7 +43,7 @@ Materiał do szlifowania receptur (dostępność składników, wady tabeli, kryt
   (same nazwy przedmiotów i ilości). Klucz = nazwa receptury (`Recipe for Swallow 1`); pola: `item`, `family`,
   `level` (1–3), `kind` (`potion` / `bomb` / `decoction`), `full` i `copy` (listy `[nazwa, ilość]`), `note`.
   Sortowanie: rodzaj → rodzina → poziom. Obejmuje każdą recepturę, której przedmiot jest consumable
-  (93: 41 mikstur, 24 bomby, 28 wywarów).
+  (92: 40 mikstur, 24 bomby, 28 wywarów).
 - `draft.py` → szkic tabeli z danych vanilli: `full` = receptura z XML, `copy` = `rule.py 16 2`. Bez `--force`
   nie nadpisuje istniejącej tabeli; `--diff` porównuje tabelę ze świeżym szkicem (pokazuje ręczne zmiany).
 - `generate.py` → waliduje tabelę (pola, ilości > 0, niepuste listy, brak duplikatu składnika i klucza,

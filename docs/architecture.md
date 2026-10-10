@@ -7,7 +7,7 @@ Jak mod działa i na czym opiera się w vanilli. Pojęcia: słownik w [CLAUDE.md
 ## Klasyfikacja — `CA_IsConsumableItemName` (common.ws)
 
 Consumable = singleton **i** (bomba (`category == petard`) **lub** tag `Potion` — także wywary z tagiem
-`Mutagen`), z wyłączeniem: `Snow Ball`, `Tutorial Bomb`, `Village drink`, tag `Quest`, tag
+`Mutagen`), z wyłączeniem: `Snow Ball`, `Tutorial Bomb`, `Village drink`, `Pops Antidote` (q303, D27), tag `Quest`, tag
 `NoAdditionalAmmo` (bomby z farbą `q703_paint_bomb_*` z Toussaint), `TAG_INFINITE_AMMO`.
 `CA_IsConsumableItem(id)` (`@addMethod` na `CInventoryComponent`) dodatkowo wymaga, by inwentarz należał
 do gracza. Limit jest vanillowy (D7): mod nie ma własnej stałej ani nie zmienia `SingletonItemGetMaxAmmo`.

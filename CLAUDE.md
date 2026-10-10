@@ -50,7 +50,8 @@ chybi); gdy litera i intencja się rozjeżdżają, powiedz to autorowi.
 - **Wykonawca** (Agent `general-purpose`, `model: "sonnet"`, w tle, `isolation: "worktree"`) dostaje
   zamkniętą część pracy. Zlecenie z adresami: cel, nazwa gałęzi, pliki i miejsca w nich (także `plik:linia`
   w vanilli), znane fakty i pułapki (sekcja niżej), kryteria odbioru, czego nie robić, punkt zatrzymania.
-  Przed zleceniem commit — worktree powstaje z HEAD. Opus (`model: "opus"`) tylko do zadania bez gotowego
+  Przed zleceniem commit; worktree agenta powstaje z `origin/main`, nie z lokalnego `main` (push tylko na
+  polecenie), więc zlecenie każe zacząć od `git checkout -b <gałąź> main`. Opus (`model: "opus"`) tylko do zadania bez gotowego
   projektu albo szukania nieznanej przyczyny. Niezależne obszary — równolegle.
 - **Research** (kod vanilli, dane z bundli) zlecasz tak samo, z poleceniem zapisu wyników do pliku
   w trakcie pracy — przerwany agent nie może zabrać wyników ze sobą. Wniosek trafia do właściwego
@@ -90,7 +91,7 @@ chybi); gdy litera i intencja się rozjeżdżają, powiedz to autorowi.
 - **Wdrożenie:** `powershell -ExecutionPolicy Bypass -File deploy.ps1 [-GameDir <ścieżka>]` (albo
   `deploy.bat`) → `<gra>\mods\modConsumableAlchemy`.
 - **Bramka przed grą:** przed każdym `deploy.ps1` uruchom `powershell -ExecutionPolicy Bypass -File
-  tools/check.ps1` — sprawdza, czy wygenerowana tabela receptur jest aktualna, lint `.ws` (`wrappedMethod`
+  tools/check.ps1` — sprawdza, czy wygenerowana tabela receptur jest aktualna, błędy reguł receptur, lint `.ws` (`wrappedMethod`
   raz, `var` na początku funkcji) i brak danych gry w gitcie.
 - **Receptury:** zmieniasz `tools/recipes/recipes_table.json`, potem `python tools/recipes/generate.py`
   (waliduje i generuje `consumableAlchemy_recipes_table.ws`). Wygenerowanego pliku nie edytuj ręcznie.

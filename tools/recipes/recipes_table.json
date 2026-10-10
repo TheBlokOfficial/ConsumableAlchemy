@@ -224,15 +224,6 @@
     "copy": [["Dwarven spirit", 1], ["Green mold", 1], ["Moleyarrow", 1]],
     "note": ""
   },
-  "Recipe for Pops Antidote": {
-    "item": "Pops Antidote",
-    "family": "Pops Antidote",
-    "level": 1,
-    "kind": "potion",
-    "full": [["White myrtle", 4], ["Celandine", 1], ["Hellebore petals", 1]],
-    "copy": [["White myrtle", 2], ["Celandine", 1], ["Hellebore petals", 1]],
-    "note": ""
-  },
   "Recipe for Swallow 1": {
     "item": "Swallow 1",
     "family": "Swallow",

@@ -27,7 +27,7 @@ def is_consumable(n):
     t = it['tags']
     if 'SingletonItem' not in t:
         return False
-    if n in ('Snow Ball', 'Tutorial Bomb', 'Village drink'):
+    if n in ('Snow Ball', 'Tutorial Bomb', 'Village drink', 'Pops Antidote'):
         return False
     if 'Quest' in t or 'NoAdditionalAmmo' in t or 'InfiniteAmmo' in t:
         return False

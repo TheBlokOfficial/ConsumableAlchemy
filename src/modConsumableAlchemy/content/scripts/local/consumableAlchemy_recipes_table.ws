@@ -110,9 +110,6 @@ function CA_GetTableIngredients_Potion(recipeName : name, isCopy : bool, out ing
 		case 'Recipe for Nekker Pheromone Potion 1':
 			CA_TableRecipe_Nekker_Pheromone_Potion_1(isCopy, ingredients);
 			return true;
-		case 'Recipe for Pops Antidote':
-			CA_TableRecipe_Pops_Antidote(isCopy, ingredients);
-			return true;
 		case 'Recipe for Swallow 1':
 			CA_TableRecipe_Swallow_1(isCopy, ingredients);
 			return true;
@@ -814,23 +811,6 @@ function CA_TableRecipe_Nekker_Pheromone_Potion_1(isCopy : bool, out ingredients
 		CA_AddTableIngredient(ingredients, 'Green mold', 1);
 		CA_AddTableIngredient(ingredients, 'Drowner brain', 1);
 		CA_AddTableIngredient(ingredients, 'Moleyarrow', 1);
-	}
-}
-
-// Pops Antidote
-function CA_TableRecipe_Pops_Antidote(isCopy : bool, out ingredients : array<SItemParts>)
-{
-	if(isCopy)
-	{
-		CA_AddTableIngredient(ingredients, 'White myrtle', 2);
-		CA_AddTableIngredient(ingredients, 'Celandine', 1);
-		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
-	}
-	else
-	{
-		CA_AddTableIngredient(ingredients, 'White myrtle', 4);
-		CA_AddTableIngredient(ingredients, 'Celandine', 1);
-		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
 	}
 }
 

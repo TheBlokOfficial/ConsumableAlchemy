@@ -60,6 +60,7 @@ Można instalować w trakcie rozgrywki. Mod nie pojawia się na liście modów w
 - Warzenie napełnia miksturę, bombę lub wywar do pełna (wcześniej: jedna sztuka na warzenie).
 - Limity jak w podstawowej grze.
 - Mikstury i bomby z łupów, od kupców i z nagród działają jak w grze: nowe dostajesz w pełnym limicie.
+- Antidotum Popsa (przedmiot z zadania) działa jak w grze.
 
 **0.3**
 - Kolejne warzenia za krótszą, tańszą recepturę.

@@ -17,8 +17,9 @@ function CA_IsConsumableItemName(itemName : name) : bool
 	if(!dm.IsItemSingletonItem(itemName))
 		return false;
 
-	// Quest / tutorial items that vanilla expects to be refilled.
-	if(itemName == 'Snow Ball' || itemName == 'Tutorial Bomb' || itemName == 'Village drink')
+	// Quest / tutorial items without the Quest tag: vanilla expects them to be refilled
+	// or handed out by the quest (Pops Antidote, q303).
+	if(itemName == 'Snow Ball' || itemName == 'Tutorial Bomb' || itemName == 'Village drink' || itemName == 'Pops Antidote')
 		return false;
 
 	if(dm.ItemHasTag(itemName, 'Quest') || dm.ItemHasTag(itemName, 'NoAdditionalAmmo') || dm.ItemHasTag(itemName, theGame.params.TAG_INFINITE_AMMO))
