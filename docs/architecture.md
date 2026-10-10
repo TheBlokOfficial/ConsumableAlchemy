@@ -103,7 +103,17 @@ bez receptury na swój poziom (poz. 2 przy recepturze poz. 1, poz. 1 i wywary be
 medytacja je odnawia; w modzie są jednorazowe. Receptury poz. 2 da się później kupić (Toussaint
 `_EP2_store__Alchemist`, zielarze `Oxenfurt_Herbalist` / `Druid_Herbalist`). Przy każdym wczytaniu zapisu
 woła się `ApplyPatchFixes` (`private final`, `playerWitcher.ws:738`) — miejsce na poprawkę dla istniejących
-zapisów (D23).
+zapisów.
+
+Możliwa poprawka (D23, do decyzji autora: [roadmap.md](roadmap.md#do-decyzji-autora)): wrapper na
+`StandaloneEp1_1` / `StandaloneEp2_1`, a dla istniejących zapisów na `ApplyPatchFixes` przy fakcie
+`standalone_ep1` / `_ep2`: każdy posiadany consumable bez znanej receptury → `AddAlchemyRecipe(r, true, true)`
+(`playerWitcher.ws:4851`, idempotentne; przedmiot → receptura przez iterację `alchemy_recipes` po
+`cookedItem_name`, jak `alchemyManager.ws:69`). Mod dalej nic nie zapisuje; ok. 40 linii. Skutki jak przy
+każdej poznanej recepturze, także cichej: statystyki i osiągnięcia `EA_BreakingBad` / `EA_Bombardier`, ability
+Nabytej Tolerancji (`S_Alchemy_s18`), zdarzenie `SEC_AlchemyRecipe`. Niesprawdzone: czy quest startu woła
+owiniętą metodę. Odrzucone: receptura przy inicjalizacji przedmiotu poz. ≥ 2 (nie pokrywa poz. 1 i wywarów);
+warzenie bez receptury (niespójność menu i tooltipów).
 
 ## Degradacja
 

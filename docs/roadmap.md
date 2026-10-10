@@ -5,57 +5,59 @@ Co dalej: to, czego jeszcze nie zbudowano, i pytania czekające na autora. Rozst
 
 ## Stan
 
-Mod w wersji v0.4 czyta receptury z generowanej tabeli (= poprzednia reguła 1:1). Kompiluje się i wczytuje;
-reszta checklisty ([testing.md](testing.md)) czeka na test.
+v0.4 czyta receptury z generowanej tabeli; kompiluje się i wczytuje, reszta checklisty
+([testing.md](testing.md)) czeka na test. Tabela nie jest szlifowana — wady: [spec/receptury.md](spec/receptury.md).
 
 ## Następne kroki
 
-1. **Test v0.4 i tabeli w grze** według [testing.md](testing.md), razem z degradacją (obietnica w README).
-   Etap receptur buduje na tym stanie, więc idzie pierwszy.
-2. **Spec szlifowania receptur** — [spec/receptury.md](spec/receptury.md) uzupełniony wynikami katalogu
-   i walidatora (obecna tabela: 6 par identycznych zestawów, 46 receptur bez sygnatury), do akceptacji autora;
-   wymaga rozstrzygnięcia D22 i pytania o mutagen w wywarach.
-3. **Szlifowanie receptur partiami** (mikstury → bomby → wywary): propozycja per rodzina (pełna + powielenie
-   + uzasadnienie + wynik walidatora) na gałęzi, autor przegląda `report.py --base main` → akceptacja autora
-   → `generate.py` → wdrożenie → test. README (opis krótszej receptury i przykład) zmienia się razem z tabelą.
-   Zmiana pełnej receptury Pioruna 1 albo wywaru wymaga zaczepienia tutorialu / stołu mutagenów
-   ([architecture.md](architecture.md#receptury--recipesws-i-tabela)). Na koniec: reguła `collision` jako błąd
-   (D30), progi wysiłku powielenia `COPY_EFFORT_MAX` (2 / 4 / 6) sprawdzone na danych.
+- [ ] **1. Test v0.4 w grze** według [testing.md](testing.md), z degradacją (obietnica w README). Idzie pierwszy:
+  etap receptur buduje na tym stanie. Gotowe, gdy: checklista odhaczona, wyniki w „Potwierdzone w grze”.
+- [ ] **2. Spec szlifowania receptur** — [spec/receptury.md](spec/receptury.md) jako koncepcja uzgodniona.
+  Gotowe, gdy: autor zaakceptował kryteria balansu i zasady zamienników. Czeka na: D22, mutagen w wywarach.
+- [ ] **3. Szlif receptur: mikstury.** Zmiana pełnej receptury Pioruna 1 wymaga zaczepienia tutorialu
+  ([architecture.md](architecture.md#receptury--recipesws-i-tabela)).
+- [ ] **4. Szlif receptur: bomby.**
+- [ ] **5. Szlif receptur: wywary.** Zmiana pełnej receptury wywaru wymaga zaczepienia stołu mutagenów.
+- [ ] **6. Zamknięcie etapu receptur:** reguła `collision` jako błąd (D30), progi wysiłku powielenia
+  `COPY_EFFORT_MAX` (2 / 4 / 6) sprawdzone na danych, spec do archiwum.
+
+Każda partia (kroki 3–5): propozycja per rodzina (pełna + powielenie + uzasadnienie + wynik walidatora) na
+gałęzi → autor przegląda `report.py --base main` → akceptacja → `generate.py` → wdrożenie → test. Gotowe, gdy:
+autor zaakceptował, test w grze przeszedł, README (opis krótszej receptury, przykład) zgodny z tabelą.
 
 ## Do decyzji autora
 
-- **D22. Części potworów w powieleniu.** Zależy od łatwości zdobycia (odradzanie, drop); dane:
-  [spec/receptury.md](spec/receptury.md#części-potworów), `ingredient_catalog.json`. Rekomendacja: części
-  z wysiłkiem 3 w katalogu (`Ghoul blood`, `Drowner brain`, `Drowned dead tongue`, `Nekker heart`, także
-  `Arachas venom`, `Alghoul bone marrow`, mutageny południcy i nocnicy) zostają jako składnik wysiłku;
-  wysiłek 4–5 → tematyczny zamiennik.
-- **Mutagen w powieleniu wywaru** — zostaje czy wypada (dziś wypada; wywar = alkohol + zioła).
-- **D23. Samodzielne starty dodatków (HoS / B&W)** — ok. 20 przedmiotów startowych jest w modzie jednorazowych
-  ([architecture.md](architecture.md#samodzielne-starty-dodatków-hos--bw)). Rekomendacja: wrapper na
-  `StandaloneEp1_1` / `StandaloneEp2_1`, a dla istniejących zapisów na `ApplyPatchFixes` przy fakcie
-  `standalone_ep1` / `_ep2`: każdy posiadany consumable bez znanej receptury → `AddAlchemyRecipe(r, true, true)`
-  (`playerWitcher.ws:4851`, idempotentne; przedmiot → receptura przez iterację `alchemy_recipes` po
-  `cookedItem_name`, jak `alchemyManager.ws:69`). Mod dalej nic nie zapisuje; ok. 40 linii. Skutki jak przy
-  każdej poznanej recepturze, także cichej: statystyki i osiągnięcia `EA_BreakingBad` / `EA_Bombardier`,
-  ability Nabytej Tolerancji (`S_Alchemy_s18`), zdarzenie `SEC_AlchemyRecipe`. Niesprawdzone: czy quest
-  startu woła owiniętą metodę. Odrzucone: receptura przy inicjalizacji przedmiotu poz. ≥ 2 (nie pokrywa poz. 1
-  i wywarów); warzenie bez receptury (niespójność menu i tooltipów). Pytanie: cały zestaw czy tylko poz. 2.
-- **D26. Dwuznaczny komunikat „Już masz ten przedmiot”** (`panel_alchemy_exception_already_cooked`):
-  w vanilli „uwarzone na zawsze”, w modzie także „pełna kieszeń”. Warianty: (0) zostaje; (i) inny tekst
-  tylko przy pełnej kieszeni przez `cantCookReason` (istniejący klucz albo nowy wpis PL + EN; status i filtr
-  bez zmian, pułapka 4); (ii) dodatkowo filtr „Uzupełniono” (pomysł autora) — tani, jeśli etykiety filtrów
-  przychodzą ze skryptu, drogi i ryzykowny, jeśli są we Flashu. Przed decyzją zbadać: `EAlchemyExceptions`,
-  `AlchemyExceptionToString`, kandydaci kluczy z brzmieniem PL/EN z `*.w3strings`, źródło etykiet filtrów.
+Blokują kolejny krok:
+- **D22. Które części potworów zostają w recepturach powielania?** Rekomendacja: części z wysiłkiem 3
+  w katalogu (`Ghoul blood`, `Drowner brain`, `Drowned dead tongue`, `Nekker heart`, `Arachas venom`,
+  `Alghoul bone marrow`, mutageny południcy i nocnicy) zostają jako składnik wysiłku; wysiłek 4–5 →
+  tematyczny zamiennik. Tło: [spec/receptury.md](spec/receptury.md#części-potworów), `ingredient_catalog.json`.
+  Blokuje krok 2.
+- **Mutagen w powieleniu wywaru — zostaje czy wypada?** Obecnie wypada (wywar = alkohol + zioła). Blokuje krok 2.
+
+Nie blokują:
+- **D23. Samodzielne starty dodatków (HoS / B&W): receptury dla całego zestawu startowego czy tylko poz. 2?**
+  Ok. 20 przedmiotów startowych jest w modzie jednorazowych. Rekomendacja: poprawka z cichą recepturą
+  dla posiadanych przedmiotów; mechanizm, skutki i odrzucone warianty:
+  [architecture.md](architecture.md#samodzielne-starty-dodatków-hos--bw).
+- **Wywar Wodnej Baby — zostawić czy zmienić?** Darmowa dawka przy nałożeniu, utrata opłaconej przy
+  wygaśnięciu ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)); README opisuje to jako
+  zachowanie gry.
+- **Stół w Corvo Bianco a mikstury questowe.** Wyłączony stół zabiera premię +1 także questowym miksturom
+  i bombom (zasada 4: vanilla), a gracz słyszy tylko dźwięk odmowy. Warianty: zostaje; premia dla questowych;
+  istniejący komunikat (D17).
+- **Alkohol** zużywa się szybciej niż w vanilli ([recipes.md](recipes.md#alkohol)). Zostaje czy powielenie
+  podstawia najtańszy posiadany alkohol, jak medytacja?
+
+## Do zbadania przed pytaniem do autora
+
+- **D26. Dwuznaczny komunikat „Już masz ten przedmiot”** (`panel_alchemy_exception_already_cooked`): w vanilli
+  „uwarzone na zawsze”, w modzie także „pełna kieszeń”. Zbadać: `EAlchemyExceptions`,
+  `AlchemyExceptionToString`, kandydaci kluczy z brzmieniem PL/EN z `*.w3strings`, czy etykiety filtrów
+  przychodzą ze skryptu, czy z Flasha. Potem pytanie z wariantami: (0) zostaje; (i) inny tekst tylko przy pełnej
+  kieszeni przez `cantCookReason` (status i filtr bez zmian, pułapka 4); (ii) dodatkowo filtr „Uzupełniono”.
 - **Inne przedmioty specjalne bez tagu `Quest`** (feromony, `Killer Whale 1`, `Trial Potion Kit`) — sprawdzić
   w XML, czy powinny zostać vanillowe jak `Pops Antidote` (D27).
-- **Wywar Wodnej Baby** — darmowa dawka przy nałożeniu, utrata opłaconej przy wygaśnięciu
-  ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)). README opisuje to jako zachowanie
-  gry; zostawić czy zmienić.
-- **Stół w Corvo Bianco a mikstury questowe** — wyłączony stół zabiera premię +1 także questowym miksturom
-  i bombom (zasada 4: vanilla), a gracz słyszy tylko dźwięk odmowy, bez tekstu. Zostawić czy przywrócić
-  premię dla questowych / dodać istniejący komunikat (D17).
-- **Alkohol** zużywa się szybciej niż w vanilli ([recipes.md](recipes.md#alkohol)). Pomysł: w powieleniu
-  podstawiać najtańszy posiadany alkohol, jak medytacja.
 
 ## Odłożone
 
@@ -66,7 +68,7 @@ reszta checklisty ([testing.md](testing.md)) czeka na test.
   uzupełnia, medytacja nie. W vanilli przedmiot oleju się nie zużywa, a powłoka ma ładunki na ciosy
   (`W3Effect_Oil.ReduceAmmo`, `r4Player.ws:1009`; nieskończona ze skillem `S_Alchemy_s06` poz. 3) — to
   zostaje. Do ustalenia: czy olej jest singletonem z `ammo`, funkcja nakładania, UI (tooltip x/y, blokada
-  przy 0), limit, oleje questowe i auto-nakładanie, koszt. Dziś oleje są vanilla (D9).
+  przy 0), limit, oleje questowe i auto-nakładanie, koszt. Oleje są vanilla (D9).
 - **Stół alchemiczny w Corvo Bianco** — inna rola niż premia przy odnawianiu (D17), np. warzenie przy stole
   → max + `QUANTITY_INCREASED_BY_ALCHEMY_TABLE` (vanillowa stała, +1).
 - **Tańsze zioła u kupców, więcej ziół w lootcie** (wymaga zmian w XML).
