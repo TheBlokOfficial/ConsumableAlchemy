@@ -11,7 +11,6 @@ Szczegóły (formaty, reguły, progi) są w docstringach skryptów; tu tylko do 
   `ep1.bundle` / `bob.bundle` → `dlc\ep1|bob\data\gameplay\items\*.xml`.
 - `recipes.py` → `data.json` (przedmioty + receptury).
 - `loot.py` — wspólny czytnik tabel lootu z `x/` (sklepy, zioła, potwory, kontenery).
-- `availability.py` — źródła składników (sklepy, świat); `copies`: koszt powielenia wg dostępności.
 - `ingredients.py` → `ingredient_catalog.json` (commitowany): każdy składnik tabeli z ceną, typem, sklepami,
   światem, potworami i **wysiłkiem 1–5** liczonym wyłącznie regułami skryptu; progi kopiuje do `_meta`.
 - `rules.py` — reguły walidatora i raportu (lista `RULES`, wagi `error` / `warn` / `info`) i [wysiłek receptury](decisions.md#wysiłek-receptury).
@@ -21,9 +20,6 @@ Szczegóły (formaty, reguły, progi) są w docstringach skryptów; tu tylko do 
   błędach. `tools/check.ps1` uruchamia go z `--errors-only`.
 - `report.py [--base <ref>]` → `report.html` (gitignorowany): vanilla, `full` i `copy` obok siebie, koszt,
   wysiłek, wyniki reguł; z `--base` pokazuje też stan tabeli w danym ref-ie git. Wymaga katalogu składników.
-- `draft.py` → szkic tabeli z danych vanilli (`full` = XML, `copy` = `rule.py 16 2`); `--diff` pokazuje ręczne
-  zmiany względem szkicu. `rule.py` — reguła powielania szkicu.
-- `table.py`, `compare.py` — dawne analizy (ceny receptur; odrzucona reguła „wyrzuć najdroższy”).
 - `generate.py [--check]` → waliduje tabelę i generuje `ConsumableAlchemy_recipes_table.ws`; `--check` niczego
   nie zapisuje i kończy się błędem, gdy plik na dysku jest nieaktualny.
 - **`recipes_table.json` — tabela receptur, źródło prawdy dla moda** ([receptury ręcznie w tabeli](decisions.md#receptury-ręcznie-w-tabeli)), edytowana ręcznie, commitowana

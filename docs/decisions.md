@@ -80,7 +80,7 @@ zestaw startowy byłby jednorazowy. Odrzucone: receptura tylko dla poz. ≥ 2 pr
 ### Przedmioty specjalne poza systemem
 `Pops Antidote` i `ReinaldsPhiltre` zostają vanilla, jak `Snow Ball` / `Village drink`: `Pops Antidote` to
 przedmiot zadania q303 bez tagu `Quest` i bez alkoholu w recepturze, `ReinaldsPhiltre` nie ma receptury.
-Wyłączenie po nazwie w `CA_IsConsumableItemName` i w `draft.py`. Feromony i `Killer Whale 1` (zwykłe
+Wyłączenie po nazwie w `CA_IsConsumableItemName`. Feromony i `Killer Whale 1` (zwykłe
 mikstury z recepturą z lootu i sklepów) zostają w systemie.
 
 ### Tekst przy pełnej kieszeni
@@ -97,15 +97,15 @@ Odrzucone: ukrywanie niższego poziomu przy znanej wyższej recepturze albo gdy 
 ## Receptury
 
 ### Receptury ręcznie w tabeli
-Receptury ręcznie dopracowane w tabeli, nie liczone regułą w grze. Skrypt tworzy szkic; każdą recepturę
-poprawiamy pod kątem spójności między poziomami rodziny, unikatowości (brak kolizji) i oryginalności
+Receptury ręcznie dopracowane w tabeli, nie liczone regułą w grze. Tabela powstała ze szkicu liczonego
+z danych vanilli; każdą recepturę poprawiono pod kątem spójności między poziomami rodziny, unikatowości (brak kolizji) i oryginalności
 (sygnaturowy składnik). Do moda trafia generowany `.ws`. Powód: reguła dawała kolizje i odbierała miksturom
 symbolikę (kolizje i brak sygnatury pokazuje `validate.py`). Odrzucone reguły:
 1. Próg ceny bez dzielnika ilości — poz. 3 był pułapką kosztową (zostawał `White Gull 1`), część bomb poz. 3
    tańsza od poz. 1; dzielnik 1 — powielenie bomb poz. 1 = pełna receptura.
 2. Reguła powszechności (zostają składniki z ≥ 7 sklepów albo zbierane) — nie tanieją receptury złożone
    wyłącznie z powszechnych składników (Kot, Dimeritium, Biały Szron); w grze wymagałaby stałej listy.
-3. „Wyrzuć najdroższy składnik” (`compare.py`) — zostawia rzadkie składniki, nierówne oszczędności.
+3. „Wyrzuć najdroższy składnik” — zostawia rzadkie składniki, nierówne oszczędności.
 
 ### Podmiany składników
 Dozwolone, a nawet zalecane, jeśli zachowują unikatowość; receptura powielania nie musi być podzbiorem
