@@ -1118,11 +1118,9 @@ function CA_TableRecipe_Dancing_Star_2(isCopy : bool, out ingredients : array<SI
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Stammelfords dust', 1);
-		CA_AddTableIngredient(ingredients, 'Phosphorus', 1);
 		CA_AddTableIngredient(ingredients, 'Sulfur', 1);
-		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
-		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
 		CA_AddTableIngredient(ingredients, 'Nostrix', 1);
+		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
 	}
 	else
 	{
@@ -1142,10 +1140,9 @@ function CA_TableRecipe_Dancing_Star_3(isCopy : bool, out ingredients : array<SI
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alchemists powder', 1);
-		CA_AddTableIngredient(ingredients, 'Phosphorus', 1);
-		CA_AddTableIngredient(ingredients, 'Sulfur', 1);
-		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
+		CA_AddTableIngredient(ingredients, 'Sulfur', 2);
 		CA_AddTableIngredient(ingredients, 'Nostrix', 1);
+		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
 	}
 	else
 	{
@@ -1180,7 +1177,6 @@ function CA_TableRecipe_Devils_Puffball_2(isCopy : bool, out ingredients : array
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Stammelfords dust', 1);
-		CA_AddTableIngredient(ingredients, 'Calcium equum', 1);
 		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
 		CA_AddTableIngredient(ingredients, 'Ginatia petals', 1);
 		CA_AddTableIngredient(ingredients, 'Green mold', 1);
@@ -1203,9 +1199,9 @@ function CA_TableRecipe_Devils_Puffball_3(isCopy : bool, out ingredients : array
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alchemists powder', 1);
-		CA_AddTableIngredient(ingredients, 'Calcium equum', 1);
 		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
 		CA_AddTableIngredient(ingredients, 'Ginatia petals', 1);
+		CA_AddTableIngredient(ingredients, 'Green mold', 1);
 	}
 	else
 	{
@@ -1242,7 +1238,6 @@ function CA_TableRecipe_Dragons_Dream_2(isCopy : bool, out ingredients : array<S
 		CA_AddTableIngredient(ingredients, 'Stammelfords dust', 1);
 		CA_AddTableIngredient(ingredients, 'Phosphorus', 1);
 		CA_AddTableIngredient(ingredients, 'Mistletoe', 1);
-		CA_AddTableIngredient(ingredients, 'Allspice root', 1);
 		CA_AddTableIngredient(ingredients, 'Bryonia', 1);
 	}
 	else
@@ -1284,7 +1279,8 @@ function CA_TableRecipe_Dwimeritium_Bomb_1(isCopy : bool, out ingredients : arra
 {
 	if(isCopy)
 	{
-		CA_AddTableIngredient(ingredients, 'Saltpetre', 3);
+		CA_AddTableIngredient(ingredients, 'Saltpetre', 1);
+		CA_AddTableIngredient(ingredients, 'Bloodmoss', 1);
 	}
 	else
 	{
@@ -1299,9 +1295,9 @@ function CA_TableRecipe_Dwimeritium_Bomb_2(isCopy : bool, out ingredients : arra
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Stammelfords dust', 1);
+		CA_AddTableIngredient(ingredients, 'Bloodmoss', 1);
 		CA_AddTableIngredient(ingredients, 'Blowbill', 1);
 		CA_AddTableIngredient(ingredients, 'Ginatia petals', 1);
-		CA_AddTableIngredient(ingredients, 'Bloodmoss', 1);
 	}
 	else
 	{
@@ -1321,8 +1317,8 @@ function CA_TableRecipe_Dwimeritium_Bomb_3(isCopy : bool, out ingredients : arra
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alchemists powder', 1);
-		CA_AddTableIngredient(ingredients, 'Pigskin puffball', 1);
 		CA_AddTableIngredient(ingredients, 'Bloodmoss', 1);
+		CA_AddTableIngredient(ingredients, 'Pigskin puffball', 1);
 	}
 	else
 	{
@@ -1358,7 +1354,6 @@ function CA_TableRecipe_Grapeshot_2(isCopy : bool, out ingredients : array<SItem
 	{
 		CA_AddTableIngredient(ingredients, 'Stammelfords dust', 1);
 		CA_AddTableIngredient(ingredients, 'Calcium equum', 1);
-		CA_AddTableIngredient(ingredients, 'Blowbill', 1);
 		CA_AddTableIngredient(ingredients, 'Crows eye', 1);
 		CA_AddTableIngredient(ingredients, 'Longrube', 1);
 	}
@@ -1380,7 +1375,6 @@ function CA_TableRecipe_Grapeshot_3(isCopy : bool, out ingredients : array<SItem
 	{
 		CA_AddTableIngredient(ingredients, 'Alchemists powder', 1);
 		CA_AddTableIngredient(ingredients, 'Calcium equum', 1);
-		CA_AddTableIngredient(ingredients, 'Sulfur', 1);
 		CA_AddTableIngredient(ingredients, 'Longrube', 1);
 		CA_AddTableIngredient(ingredients, 'Hop umbels', 1);
 	}
@@ -1417,7 +1411,6 @@ function CA_TableRecipe_Samum_2(isCopy : bool, out ingredients : array<SItemPart
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Stammelfords dust', 1);
-		CA_AddTableIngredient(ingredients, 'Phosphorus', 1);
 		CA_AddTableIngredient(ingredients, 'Celandine', 1);
 		CA_AddTableIngredient(ingredients, 'Blowbill', 1);
 	}
@@ -1438,7 +1431,6 @@ function CA_TableRecipe_Samum_3(isCopy : bool, out ingredients : array<SItemPart
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alchemists powder', 1);
-		CA_AddTableIngredient(ingredients, 'Phosphorus', 1);
 		CA_AddTableIngredient(ingredients, 'Celandine', 1);
 		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
 	}
@@ -1460,6 +1452,7 @@ function CA_TableRecipe_Silver_Dust_Bomb_1(isCopy : bool, out ingredients : arra
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Saltpetre', 1);
+		CA_AddTableIngredient(ingredients, 'Quicksilver solution', 1);
 	}
 	else
 	{
@@ -1474,9 +1467,8 @@ function CA_TableRecipe_Silver_Dust_Bomb_2(isCopy : bool, out ingredients : arra
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Stammelfords dust', 1);
-		CA_AddTableIngredient(ingredients, 'Sulfur', 1);
+		CA_AddTableIngredient(ingredients, 'Quicksilver solution', 1);
 		CA_AddTableIngredient(ingredients, 'Hop umbels', 1);
-		CA_AddTableIngredient(ingredients, 'Blowbill', 1);
 		CA_AddTableIngredient(ingredients, 'Honeysuckle', 1);
 	}
 	else
@@ -1497,7 +1489,7 @@ function CA_TableRecipe_Silver_Dust_Bomb_3(isCopy : bool, out ingredients : arra
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alchemists powder', 1);
-		CA_AddTableIngredient(ingredients, 'Sulfur', 1);
+		CA_AddTableIngredient(ingredients, 'Quicksilver solution', 1);
 		CA_AddTableIngredient(ingredients, 'Hop umbels', 1);
 		CA_AddTableIngredient(ingredients, 'Blowbill', 1);
 	}
@@ -1538,9 +1530,8 @@ function CA_TableRecipe_White_Frost_2(isCopy : bool, out ingredients : array<SIt
 	{
 		CA_AddTableIngredient(ingredients, 'Stammelfords dust', 1);
 		CA_AddTableIngredient(ingredients, 'Ducal water', 1);
-		CA_AddTableIngredient(ingredients, 'Fools parsley leaves', 1);
 		CA_AddTableIngredient(ingredients, 'Verbena', 1);
-		CA_AddTableIngredient(ingredients, 'Allspice root', 1);
+		CA_AddTableIngredient(ingredients, 'Fools parsley leaves', 1);
 	}
 	else
 	{
@@ -1562,7 +1553,7 @@ function CA_TableRecipe_White_Frost_3(isCopy : bool, out ingredients : array<SIt
 		CA_AddTableIngredient(ingredients, 'Saltpetre', 1);
 		CA_AddTableIngredient(ingredients, 'Ducal water', 2);
 		CA_AddTableIngredient(ingredients, 'Verbena', 1);
-		CA_AddTableIngredient(ingredients, 'Allspice root', 2);
+		CA_AddTableIngredient(ingredients, 'Allspice root', 1);
 	}
 	else
 	{

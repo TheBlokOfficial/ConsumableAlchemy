@@ -366,7 +366,7 @@
     "kind": "bomb",
     "full": [["Saltpetre", 1], ["Sulfur", 2]],
     "copy": [["Saltpetre", 1], ["Sulfur", 1]],
-    "note": ""
+    "note": "Sygnatura: siarka — zapalnik gwiezdnej petardy, nie ma jej w powieleniu innych bomb."
   },
   "Recipe for Dancing Star 2": {
     "item": "Dancing Star 2",
@@ -374,8 +374,8 @@
     "level": 2,
     "kind": "bomb",
     "full": [["Stammelfords dust", 1], ["Dancing Star 1", 1], ["Phosphorus", 1], ["Sulfur", 1], ["Sewant mushrooms", 1], ["Hellebore petals", 1], ["Nostrix", 1]],
-    "copy": [["Stammelfords dust", 1], ["Phosphorus", 1], ["Sulfur", 1], ["Sewant mushrooms", 1], ["Hellebore petals", 1], ["Nostrix", 1]],
-    "note": ""
+    "copy": [["Stammelfords dust", 1], ["Sulfur", 1], ["Nostrix", 1], ["Hellebore petals", 1]],
+    "note": "Sygnatura: siarka — zapalnik gwiezdnej petardy, nie ma jej w powieleniu innych bomb."
   },
   "Recipe for Dancing Star 3": {
     "item": "Dancing Star 3",
@@ -383,8 +383,8 @@
     "level": 3,
     "kind": "bomb",
     "full": [["Alchemists powder", 1], ["Dancing Star 2", 1], ["Phosphorus", 2], ["Sulfur", 2], ["Sewant mushrooms", 2], ["Nostrix", 2], ["Nigredo", 1]],
-    "copy": [["Alchemists powder", 1], ["Phosphorus", 1], ["Sulfur", 1], ["Sewant mushrooms", 1], ["Nostrix", 1]],
-    "note": ""
+    "copy": [["Alchemists powder", 1], ["Sulfur", 2], ["Nostrix", 1], ["Hellebore petals", 1]],
+    "note": "Sygnatura: siarka — zapalnik gwiezdnej petardy, nie ma jej w powieleniu innych bomb."
   },
   "Recipe for Devils Puffball 1": {
     "item": "Devils Puffball 1",
@@ -393,7 +393,7 @@
     "kind": "bomb",
     "full": [["Saltpetre", 1], ["Sewant mushrooms", 2]],
     "copy": [["Saltpetre", 1], ["Sewant mushrooms", 1]],
-    "note": ""
+    "note": "Sygnatura: grzyb sewant — zarodniki purchawki, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Devils Puffball 2": {
     "item": "Devils Puffball 2",
@@ -401,8 +401,8 @@
     "level": 2,
     "kind": "bomb",
     "full": [["Stammelfords dust", 1], ["Devils Puffball 1", 1], ["Calcium equum", 1], ["Endriag heart", 1], ["Sewant mushrooms", 1], ["Ginatia petals", 1], ["Green mold", 1]],
-    "copy": [["Stammelfords dust", 1], ["Calcium equum", 1], ["Sewant mushrooms", 1], ["Ginatia petals", 1], ["Green mold", 1]],
-    "note": ""
+    "copy": [["Stammelfords dust", 1], ["Sewant mushrooms", 1], ["Ginatia petals", 1], ["Green mold", 1]],
+    "note": "Sygnatura: grzyb sewant — zarodniki purchawki, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Devils Puffball 3": {
     "item": "Devils Puffball 3",
@@ -410,8 +410,8 @@
     "level": 3,
     "kind": "bomb",
     "full": [["Alchemists powder", 1], ["Devils Puffball 2", 1], ["Calcium equum", 2], ["Endriag heart", 2], ["Sewant mushrooms", 2], ["Ginatia petals", 2], ["Rebis", 1]],
-    "copy": [["Alchemists powder", 1], ["Calcium equum", 1], ["Sewant mushrooms", 1], ["Ginatia petals", 1]],
-    "note": ""
+    "copy": [["Alchemists powder", 1], ["Sewant mushrooms", 1], ["Ginatia petals", 1], ["Green mold", 1]],
+    "note": "Sygnatura: grzyb sewant — zarodniki purchawki, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Dragons Dream 1": {
     "item": "Dragons Dream 1",
@@ -420,7 +420,7 @@
     "kind": "bomb",
     "full": [["Saltpetre", 1], ["Phosphorus", 2]],
     "copy": [["Saltpetre", 1], ["Phosphorus", 1]],
-    "note": ""
+    "note": "Sygnatura: fosfor — smoczy ogień, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Dragons Dream 2": {
     "item": "Dragons Dream 2",
@@ -428,8 +428,8 @@
     "level": 2,
     "kind": "bomb",
     "full": [["Stammelfords dust", 1], ["Dragons Dream 1", 1], ["Phosphorus", 1], ["Optima mater", 1], ["Mistletoe", 1], ["Allspice root", 1], ["Bryonia", 1]],
-    "copy": [["Stammelfords dust", 1], ["Phosphorus", 1], ["Mistletoe", 1], ["Allspice root", 1], ["Bryonia", 1]],
-    "note": ""
+    "copy": [["Stammelfords dust", 1], ["Phosphorus", 1], ["Mistletoe", 1], ["Bryonia", 1]],
+    "note": "Sygnatura: fosfor — smoczy ogień, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Dragons Dream 3": {
     "item": "Dragons Dream 3",
@@ -438,7 +438,7 @@
     "kind": "bomb",
     "full": [["Alchemists powder", 1], ["Dragons Dream 2", 1], ["Phosphorus", 2], ["Optima mater", 2], ["Allspice root", 2], ["Bryonia", 2], ["Aether", 1]],
     "copy": [["Alchemists powder", 1], ["Phosphorus", 1], ["Allspice root", 1], ["Bryonia", 1]],
-    "note": ""
+    "note": "Sygnatura: fosfor — smoczy ogień, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Dwimeritium Bomb 1": {
     "item": "Dwimeritium Bomb 1",
@@ -446,8 +446,8 @@
     "level": 1,
     "kind": "bomb",
     "full": [["Saltpetre", 5], ["Optima mater", 2]],
-    "copy": [["Saltpetre", 3]],
-    "note": ""
+    "copy": [["Saltpetre", 1], ["Bloodmoss", 1]],
+    "note": "Sygnatura: krwawnik (Bloodmoss) — tani zamiennik drogiej Optima mater, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Dwimeritium Bomb 2": {
     "item": "Dwimeritium Bomb 2",
@@ -455,8 +455,8 @@
     "level": 2,
     "kind": "bomb",
     "full": [["Stammelfords dust", 1], ["Dwimeritium Bomb 1", 1], ["Optima mater", 1], ["Powdered pearl", 1], ["Blowbill", 1], ["Ginatia petals", 1], ["Bloodmoss", 1]],
-    "copy": [["Stammelfords dust", 1], ["Blowbill", 1], ["Ginatia petals", 1], ["Bloodmoss", 1]],
-    "note": ""
+    "copy": [["Stammelfords dust", 1], ["Bloodmoss", 1], ["Blowbill", 1], ["Ginatia petals", 1]],
+    "note": "Sygnatura: krwawnik (Bloodmoss) — tani zamiennik drogiej Optima mater, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Dwimeritium Bomb 3": {
     "item": "Dwimeritium Bomb 3",
@@ -464,8 +464,8 @@
     "level": 3,
     "kind": "bomb",
     "full": [["Alchemists powder", 1], ["Dwimeritium Bomb 2", 1], ["Optima mater", 2], ["Powdered pearl", 2], ["Pigskin puffball", 2], ["Bloodmoss", 2], ["Nigredo", 1]],
-    "copy": [["Alchemists powder", 1], ["Pigskin puffball", 1], ["Bloodmoss", 1]],
-    "note": ""
+    "copy": [["Alchemists powder", 1], ["Bloodmoss", 1], ["Pigskin puffball", 1]],
+    "note": "Sygnatura: krwawnik (Bloodmoss) — tani zamiennik drogiej Optima mater, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Grapeshot 1": {
     "item": "Grapeshot 1",
@@ -474,7 +474,7 @@
     "kind": "bomb",
     "full": [["Saltpetre", 2], ["Calcium equum", 2]],
     "copy": [["Saltpetre", 1], ["Calcium equum", 1]],
-    "note": ""
+    "note": "Sygnatura: calcium equum — wapienny odłamek kartacza, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Grapeshot 2": {
     "item": "Grapeshot 2",
@@ -482,8 +482,8 @@
     "level": 2,
     "kind": "bomb",
     "full": [["Stammelfords dust", 1], ["Grapeshot 1", 1], ["Calcium equum", 1], ["Blowbill", 1], ["Crows eye", 1], ["Longrube", 1]],
-    "copy": [["Stammelfords dust", 1], ["Calcium equum", 1], ["Blowbill", 1], ["Crows eye", 1], ["Longrube", 1]],
-    "note": ""
+    "copy": [["Stammelfords dust", 1], ["Calcium equum", 1], ["Crows eye", 1], ["Longrube", 1]],
+    "note": "Sygnatura: calcium equum — wapienny odłamek kartacza, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Grapeshot 3": {
     "item": "Grapeshot 3",
@@ -491,8 +491,8 @@
     "level": 3,
     "kind": "bomb",
     "full": [["Alchemists powder", 1], ["Grapeshot 2", 1], ["Calcium equum", 2], ["Sulfur", 2], ["Longrube", 2], ["Hop umbels", 2], ["Nigredo", 1]],
-    "copy": [["Alchemists powder", 1], ["Calcium equum", 1], ["Sulfur", 1], ["Longrube", 1], ["Hop umbels", 1]],
-    "note": ""
+    "copy": [["Alchemists powder", 1], ["Calcium equum", 1], ["Longrube", 1], ["Hop umbels", 1]],
+    "note": "Sygnatura: calcium equum — wapienny odłamek kartacza, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Samum 1": {
     "item": "Samum 1",
@@ -501,7 +501,7 @@
     "kind": "bomb",
     "full": [["Saltpetre", 1], ["Celandine", 2]],
     "copy": [["Saltpetre", 1], ["Celandine", 1]],
-    "note": ""
+    "note": "Sygnatura: glistnik — duszący dym samum, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Samum 2": {
     "item": "Samum 2",
@@ -509,8 +509,8 @@
     "level": 2,
     "kind": "bomb",
     "full": [["Stammelfords dust", 1], ["Samum 1", 1], ["Phosphorus", 1], ["Fogling teeth", 1], ["Celandine", 1], ["Blowbill", 1]],
-    "copy": [["Stammelfords dust", 1], ["Phosphorus", 1], ["Celandine", 1], ["Blowbill", 1]],
-    "note": ""
+    "copy": [["Stammelfords dust", 1], ["Celandine", 1], ["Blowbill", 1]],
+    "note": "Sygnatura: glistnik — duszący dym samum, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Samum 3": {
     "item": "Samum 3",
@@ -518,8 +518,8 @@
     "level": 3,
     "kind": "bomb",
     "full": [["Alchemists powder", 1], ["Samum 2", 1], ["Phosphorus", 2], ["Fogling teeth", 2], ["Celandine", 2], ["Hellebore petals", 2], ["Aether", 1]],
-    "copy": [["Alchemists powder", 1], ["Phosphorus", 1], ["Celandine", 1], ["Hellebore petals", 1]],
-    "note": ""
+    "copy": [["Alchemists powder", 1], ["Celandine", 1], ["Hellebore petals", 1]],
+    "note": "Sygnatura: glistnik — duszący dym samum, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Silver Dust Bomb 1": {
     "item": "Silver Dust Bomb 1",
@@ -527,8 +527,8 @@
     "level": 1,
     "kind": "bomb",
     "full": [["Saltpetre", 1], ["Quicksilver solution", 2]],
-    "copy": [["Saltpetre", 1]],
-    "note": ""
+    "copy": [["Saltpetre", 1], ["Quicksilver solution", 1]],
+    "note": "Sygnatura: roztwór rtęci — srebro bomby, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Silver Dust Bomb 2": {
     "item": "Silver Dust Bomb 2",
@@ -536,8 +536,8 @@
     "level": 2,
     "kind": "bomb",
     "full": [["Stammelfords dust", 1], ["Silver Dust Bomb 1", 1], ["Quicksilver solution", 1], ["Sulfur", 1], ["Hop umbels", 1], ["Blowbill", 1], ["Honeysuckle", 1]],
-    "copy": [["Stammelfords dust", 1], ["Sulfur", 1], ["Hop umbels", 1], ["Blowbill", 1], ["Honeysuckle", 1]],
-    "note": ""
+    "copy": [["Stammelfords dust", 1], ["Quicksilver solution", 1], ["Hop umbels", 1], ["Honeysuckle", 1]],
+    "note": "Sygnatura: roztwór rtęci — srebro bomby, nie ma go w powieleniu innych bomb."
   },
   "Recipe for Silver Dust Bomb 3": {
     "item": "Silver Dust Bomb 3",
@@ -545,8 +545,8 @@
     "level": 3,
     "kind": "bomb",
     "full": [["Alchemists powder", 1], ["Silver Dust Bomb 2", 1], ["Quicksilver solution", 2], ["Sulfur", 2], ["Hop umbels", 2], ["Blowbill", 2], ["Nigredo", 1]],
-    "copy": [["Alchemists powder", 1], ["Sulfur", 1], ["Hop umbels", 1], ["Blowbill", 1]],
-    "note": ""
+    "copy": [["Alchemists powder", 1], ["Quicksilver solution", 1], ["Hop umbels", 1], ["Blowbill", 1]],
+    "note": "Sygnatura: roztwór rtęci — srebro bomby, nie ma go w powieleniu innych bomb."
   },
   "Recipe for White Frost 1": {
     "item": "White Frost 1",
@@ -555,7 +555,7 @@
     "kind": "bomb",
     "full": [["Saltpetre", 1], ["Ducal water", 1], ["Powdered pearl", 1], ["Allspice root", 2]],
     "copy": [["Saltpetre", 1], ["Ducal water", 1], ["Allspice root", 1]],
-    "note": ""
+    "note": "Sygnatura: woda książęca — mroźny roztwór bomby, nie ma jej w powieleniu innych bomb."
   },
   "Recipe for White Frost 2": {
     "item": "White Frost 2",
@@ -563,8 +563,8 @@
     "level": 2,
     "kind": "bomb",
     "full": [["Stammelfords dust", 1], ["White Frost 1", 1], ["Ducal water", 2], ["Powdered pearl", 1], ["Fools parsley leaves", 1], ["Verbena", 1], ["Allspice root", 2]],
-    "copy": [["Stammelfords dust", 1], ["Ducal water", 1], ["Fools parsley leaves", 1], ["Verbena", 1], ["Allspice root", 1]],
-    "note": ""
+    "copy": [["Stammelfords dust", 1], ["Ducal water", 1], ["Verbena", 1], ["Fools parsley leaves", 1]],
+    "note": "Sygnatura: woda książęca — mroźny roztwór bomby, nie ma jej w powieleniu innych bomb."
   },
   "Recipe for White Frost 3": {
     "item": "White Frost 3",
@@ -572,8 +572,8 @@
     "level": 3,
     "kind": "bomb",
     "full": [["Saltpetre", 1], ["White Frost 2", 1], ["Ducal water", 3], ["Powdered pearl", 2], ["Verbena", 2], ["Allspice root", 3], ["Quebrith", 1]],
-    "copy": [["Saltpetre", 1], ["Ducal water", 2], ["Verbena", 1], ["Allspice root", 2]],
-    "note": ""
+    "copy": [["Saltpetre", 1], ["Ducal water", 2], ["Verbena", 1], ["Allspice root", 1]],
+    "note": "Sygnatura: woda książęca — mroźny roztwór bomby, nie ma jej w powieleniu innych bomb."
   },
   "Recipe for Mutagen 1": {
     "item": "Mutagen 1",
