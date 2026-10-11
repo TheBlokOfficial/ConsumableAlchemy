@@ -43,6 +43,13 @@ Degradacja (zasada 5: zapisy po odinstalowaniu zostają sprawne):
 - [ ] Po usunięciu moda zapis się wczytuje; mikstura 0/x odnawia się medytacją; bomba ponad max zostaje
   i schodzi przy użyciu.
 
+Samodzielne starty i stół:
+- [ ] Nowa gra HoS i B&W: menu alchemii pokazuje receptury startowych przedmiotów (także poz. 1 i wywary);
+  da się je uwarzyć ponownie (lista składników krótsza, jak przy powieleniu).
+- [ ] Istniejący zapis po starcie dodatku (bez moda przy zapisie): po wczytaniu z modem to samo.
+- [ ] Corvo Bianco, stół włączony, medytacja: questowa mikstura lub bomba dostaje +1 ponad max
+  (jak w vanilli), consumable nie.
+
 ## Potwierdzone w grze
 
 - `@addMethod` działa na `CInventoryComponent`; `@wrapMethod` bez klasy na globalnej
@@ -55,9 +62,9 @@ Degradacja (zasada 5: zapisy po odinstalowaniu zostają sprawne):
 
 ## Pułapki testowe
 
-- **Samodzielny start dodatku (nowa gra z HoS lub B&W) nie nadaje się do testów alchemii.** Czyści receptury
-  i daje przedmioty bez receptury na swój poziom; poziomu 1 nie można warzyć, bo posiadany jest wyższy (tak
-  samo w vanilli) — [architecture.md](architecture.md#samodzielne-starty-dodatków-hos--bw).
+- **Samodzielny start dodatku (nowa gra z HoS lub B&W):** vanilla czyści receptury, mod dodaje receptury
+  startowych consumables; poza nimi gracz zaczyna bez receptur, więc to nie jest stan do ogólnych testów
+  alchemii — [architecture.md](architecture.md#samodzielne-starty-dodatków-hos--bw).
 - Mod nie pojawia się na liście modów w menu gry — to nie znaczy, że się nie wczytał.
 - Wywar Wodnej Baby dodaje i zabiera dawki — vanilla, nie błąd moda; przy teście limitów nie mieć go
   aktywnego ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)).

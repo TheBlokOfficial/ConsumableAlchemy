@@ -22,7 +22,8 @@ do gracza. Limit jest [vanillowy](decisions.md#limit-jak-w-vanilli): mod nie ma 
 | Nadmiar ponad limit (stary zapis, wygasły bonus) | przycina tylko przy zmianie skilla/zestawu (`SkillReduceBombAmmoBonus`, `r4Player.ws:11743`) | bez zmian; nie przycinać przy odczycie ([powód](decisions.md#nadmiar-ponad-limit-zostaje)) |
 | Alkohol i powiadomienia: `SingletonItemsRefillAmmo` (`:3641`) / `NoAlco`, sterowane prywatnym `HasNotFilledSingletonItem` (`:3712`) | | `@replaceMethod HasNotFilledSingletonItem`: pomija consumables |
 | Tutorial „uzupełnij alkoholem”: `SingletonItemRemoveAmmo` (`:3749`) dodaje fakt `tut_alch_refill` | | `@replaceMethod`: nie dla consumables |
-| Stół w Corvo Bianco: `ManageSingletonItemsBonus` (`:3832`), wołane z `ApplyAlchemyTableBuff` (`quest_function.ws:7927`) | +1 ponad max | `@replaceMethod`: tylko dźwięk odmowy ([powód](decisions.md#stół-w-corvo-bianco-bez-premii)) |
+| Stół w Corvo Bianco: `ManageSingletonItemsBonus` (`:3832`), wołane z `ApplyAlchemyTableBuff` (`quest_function.ws:7927`) | +1 ponad max | `@replaceMethod`: kopia vanilli z pominięciem consumables — premia +1 tylko dla pozostałych mikstur i bomb (questowych), vanillowe powiadomienia |
+| Samodzielne starty: `StandaloneEp1_1` / `StandaloneEp2_1` (`playerWitcher.ws:11428` / `:11930`), `ApplyPatchFixes` (`:738`, wołane z `:367` przy wczytaniu zapisu) | czyszczą receptury, dają zestaw startowy | `@wrapMethod` na trzech: po vanilli `CA_LearnRecipesOfOwnedConsumables` ([sekcja niżej](#samodzielne-starty-dodatków-hos--bw)) |
 | Loot i zakup: `GiveItemTo` (`:745`) | posiadany singleton → odmowa „already cooked” | bez zmian ([powód](decisions.md#pozyskanie-poza-warzeniem-jak-w-vanilli)) |
 | Czy wolno warzyć: `W3AlchemyManager.CanCookRecipe` (`alchemyManager.ws:141`) | `EAE_CannotCookMore` dla posiadanych | `@replaceMethod`: posiadany consumable zablokowany tylko przy pełnej kieszeni |
 | Warzenie: `CookItem` (`alchemyManager.ws:208`) | nowy przedmiot dostaje max, posiadany bez zmian | `@wrapMethod`: po vanilli każdy egzemplarz uwarzonego consumable poniżej limitu → `SingletonItemSetAmmo(max)`; nadmiar ponad max nietknięty |
@@ -104,7 +105,14 @@ bez receptury na swój poziom (poz. 2 przy recepturze poz. 1, poz. 1 i wywary be
 medytacja je odnawia; w modzie są jednorazowe. Receptury poz. 2 da się później kupić (Toussaint
 `_EP2_store__Alchemist`, zielarze `Oxenfurt_Herbalist` / `Druid_Herbalist`). Przy każdym wczytaniu zapisu
 woła się `ApplyPatchFixes` (`private final`, `playerWitcher.ws:738`) — miejsce na poprawkę dla istniejących
-zapisów. Możliwa poprawka: [roadmap.md](roadmap.md#do-decyzji-autora), „Starty dodatków”.
+zapisów.
+
+Mod owija `StandaloneEp1_1` / `StandaloneEp2_1` i `ApplyPatchFixes` (ta tylko przy fakcie `standalone_ep1` /
+`standalone_ep2`). Po vanilli `CA_LearnRecipesOfOwnedConsumables` (`ConsumableAlchemy_standalone.ws`) daje
+każdemu posiadanemu consumable bez znanej receptury recepturę po `cookedItem_name` z `alchemy_recipes`
+(`AddAlchemyRecipe(r, true, true)`, `playerWitcher.ws:4851`, idempotentne). Nic w save'ie. Przedmiot, którego
+jakakolwiek receptura jest już znana, zostaje bez zmian. Skutki jak przy każdej poznanej recepturze:
+statystyki i osiągnięcia warzenia, Nabyta Tolerancja, `SEC_AlchemyRecipe`.
 
 ## Degradacja
 
