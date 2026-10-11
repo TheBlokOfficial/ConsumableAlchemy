@@ -82,6 +82,21 @@ W3 nie ma zamienników składników: `CanCookRecipe` sprawdza po nazwie, a uśpi
   składników / Już wykonane”, tylko przez skrót klawiszowy „Filtry”; „Już wykonane” domyślnie wyłączony.
   Mod zachowuje statusy → przy pełnej kieszeni pozycja chowa się jak w vanilli, poniżej limitu jest widoczna.
   Zmiana statusu zmienia, co menu ukrywa; żeby zmienić tylko tekst pozycji, zmieniaj `cantCookReason`.
+- **Teksty powodu odmowy:** `AlchemyExceptionToString` (`alchemyTypes.ws:103`) mapuje status na klucz;
+  `EAE_CannotCookMore` → `panel_alchemy_exception_already_cooked` (`:111`). Ten klucz trafia do `cantCookReason`
+  pozycji menu (`alchemyMenu.ws:505`), do komunikatu przy próbie warzenia (`alchemyMenu.ws:369`), do HUD
+  (`inventoryComponent.ws:777`) i do tooltipu (`guiTooltipComponent.ws:1921`). Etykiety filtrów to klucze
+  `gui_panel_filter_has_ingredients / _elements_missing / _already_crafted` przekazane ze skryptu
+  (`alchemyMenu.ws:90`), ale same trzy przełączniki i ich logika są we Flashu. Pokrewne klucze vanilli:
+  `message_common_alchemy_items_refilled` / `_cannot_refill` (`inventoryComponent.ws:3658/3668`, odnawianie przy
+  medytacji). Brzmień PL/EN nie ustalono: `*.w3strings` (nagłówek `RTSW`, wersja 164, szyfrowane) nie dają się
+  odczytać prostym skryptem; czytać je trzeba narzędziem do w3strings.
+- **Przedmioty `Potion` + `SingletonItem` bez tagu `Quest`** (dane z XML): wszystkie mikstury i wywary z recepturą
+  w lootcie/sklepach, plus `Killer Whale 1` i feromony Nekker / Utopiec / Niedźwiedź 1 (receptura 1 poz., zwykłe
+  składniki) — w modzie zużywalne. Bez receptury: `Village drink`, `ReinaldsPhiltre` (efekt `EET_ReinaldPhiltre`,
+  nazwa „signs_enhancement”, bez referencji w skryptach poza efektem). `Trial Potion Kit` ma tag `Quest`, brak
+  `SingletonItem`; jego recepturę vanilla usuwa po zadaniu (`playerWitcher.ws:1152`). Martwy filtr `GetRecipes`
+  (`alchemyManager.ws:488`) ukrywał posiadane `Killer Whale 1`, `Trial Potion Kit`, `Pops Antidote`, feromony.
 - **Receptury od startu nowej gry** (`playerWitcher.ws:260`): Jaskółka 1, Kot 1, Biały Miód 1, Samum 1,
   Kartacz 1, oleje na upiory i trupojady, Alcohest.
 - **Walka:** warzenie zablokowane w walce (`EAE_InCombat`, `alchemyManager.ws:156`, `IsInCombat()`);
