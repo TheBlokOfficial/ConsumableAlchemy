@@ -581,8 +581,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Katakan mutagen", 1], ["Verbena", 1], ["Arenaria", 1]],
-    "copy": [["Dwarven spirit", 1], ["Verbena", 1], ["Arenaria", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Arenaria", 1], ["Bloodmoss", 1]],
+    "note": "Sygnatura: Bloodmoss (krew) — katakan."
   },
   "Recipe for Mutagen 2": {
     "item": "Mutagen 2",
@@ -590,8 +590,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Arachas mutagen", 1], ["White myrtle", 1]],
-    "copy": [["Dwarven spirit", 1], ["White myrtle", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["White myrtle", 1], ["Sulfur", 1]],
+    "note": "Sygnatura: Sulfur (siarka) — jad arachasa."
   },
   "Recipe for Mutagen 3": {
     "item": "Mutagen 3",
@@ -599,8 +599,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Cockatrice mutagen", 1], ["Crows eye", 1]],
-    "copy": [["Dwarven spirit", 1], ["Crows eye", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Crows eye", 1], ["Wolfsbane", 1]],
+    "note": "Sygnatura: Wolfsbane (tojad) — trucizna kokatrysa."
   },
   "Recipe for Mutagen 4": {
     "item": "Mutagen 4",
@@ -608,8 +608,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Volcanic Gryphon mutagen", 1], ["Ribleaf", 1], ["Blowbill", 1]],
-    "copy": [["Dwarven spirit", 1], ["Ribleaf", 1], ["Blowbill", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Ribleaf", 1], ["Allspice root", 1]],
+    "note": "Sygnatura: Allspice root (ziele angielskie) — wulkaniczny gryf."
   },
   "Recipe for Mutagen 5": {
     "item": "Mutagen 5",
@@ -617,8 +617,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Water Hag mutagen", 1], ["Berbercane fruit", 1]],
-    "copy": [["Dwarven spirit", 1], ["Berbercane fruit", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Ducal water", 1], ["Arenaria", 1]],
+    "note": "Sygnatura: Ducal water — wypada z wodnic."
   },
   "Recipe for Mutagen 6": {
     "item": "Mutagen 6",
@@ -626,8 +626,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Nightwraith mutagen", 1], ["Mistletoe", 1], ["Sewant mushrooms", 1]],
-    "copy": [["Dwarven spirit", 1], ["Mistletoe", 1], ["Sewant mushrooms", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Nightwraith mutagen", 1], ["Mistletoe", 1]],
+    "note": "Sygnatura: mutagen nocnicy (wysiłek 3) — zostaje."
   },
   "Recipe for Mutagen 7": {
     "item": "Mutagen 7",
@@ -636,7 +636,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Ekimma mutagen", 1], ["White myrtle", 1], ["Mandrake root", 1]],
     "copy": [["Dwarven spirit", 1], ["White myrtle", 1], ["Mandrake root", 1]],
-    "note": ""
+    "note": "Sygnatura: Mandrake root (mandragora) — ekimma."
   },
   "Recipe for Mutagen 8": {
     "item": "Mutagen 8",
@@ -645,7 +645,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Czart mutagen", 1], ["Pigskin puffball", 1], ["Cortinarius", 1]],
     "copy": [["Dwarven spirit", 1], ["Pigskin puffball", 1], ["Cortinarius", 1]],
-    "note": ""
+    "note": "Sygnatura: Pigskin puffball (purchawka) — czart."
   },
   "Recipe for Mutagen 9": {
     "item": "Mutagen 9",
@@ -653,8 +653,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Fogling 1 mutagen", 1], ["Fools parsley leaves", 1], ["Blowbill", 1]],
-    "copy": [["Dwarven spirit", 1], ["Fools parsley leaves", 1], ["Blowbill", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Fools parsley leaves", 1], ["Verbena", 1]],
+    "note": "Sygnatura: Verbena (werbena) — foglet."
   },
   "Recipe for Mutagen 10": {
     "item": "Mutagen 10",
@@ -663,7 +663,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Wyvern mutagen", 1], ["Moleyarrow", 1], ["Celandine", 1]],
     "copy": [["Dwarven spirit", 1], ["Moleyarrow", 1], ["Celandine", 1]],
-    "note": ""
+    "note": "Sygnatura: Celandine (glistnik) — wyverna."
   },
   "Recipe for Mutagen 11": {
     "item": "Mutagen 11",
@@ -672,7 +672,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Doppler mutagen", 1], ["Han", 1], ["Longrube", 1]],
     "copy": [["Dwarven spirit", 1], ["Han", 1], ["Longrube", 1]],
-    "note": ""
+    "note": "Sygnatura: Han — zmiennokształtny doppler."
   },
   "Recipe for Mutagen 12": {
     "item": "Mutagen 12",
@@ -680,8 +680,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Troll mutagen", 1], ["Crows eye", 1], ["Honeysuckle", 1]],
-    "copy": [["Dwarven spirit", 1], ["Crows eye", 1], ["Honeysuckle", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Honeysuckle", 1], ["Calcium equum", 1]],
+    "note": "Sygnatura: Calcium equum (wapń) — skalny troll."
   },
   "Recipe for Mutagen 13": {
     "item": "Mutagen 13",
@@ -689,8 +689,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Noonwraith mutagen", 1], ["Ginatia petals", 1], ["Ergot seeds", 1]],
-    "copy": [["Dwarven spirit", 1], ["Ginatia petals", 1], ["Ergot seeds", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Noonwraith mutagen", 1], ["Ginatia petals", 1]],
+    "note": "Sygnatura: mutagen południcy (wysiłek 3) — zostaje."
   },
   "Recipe for Mutagen 14": {
     "item": "Mutagen 14",
@@ -698,8 +698,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Succubus mutagen", 1], ["Green mold", 1], ["Allspice root", 1]],
-    "copy": [["Dwarven spirit", 1], ["Green mold", 1], ["Allspice root", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Green mold", 1], ["Arenaria", 1]],
+    "note": "Sygnatura: Green mold (zielona pleśń) — sukkub."
   },
   "Recipe for Mutagen 15": {
     "item": "Mutagen 15",
@@ -708,7 +708,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Lesser mutagen red", 5], ["Alghoul bone marrow", 1], ["Buckthorn", 1]],
     "copy": [["Dwarven spirit", 1], ["Buckthorn", 1]],
-    "note": ""
+    "note": "Sygnatura: Buckthorn (szakłak) — mutageny pomniejsze (bez wspólnego potwora)."
   },
   "Recipe for Mutagen 16": {
     "item": "Mutagen 16",
@@ -717,7 +717,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Fiend mutagen", 1], ["Hellebore petals", 1], ["Fools parsley leaves", 1], ["Arenaria", 1]],
     "copy": [["Dwarven spirit", 1], ["Hellebore petals", 1], ["Fools parsley leaves", 1], ["Arenaria", 1]],
-    "note": ""
+    "note": "Sygnatura: Hellebore petals (ciemiernik) — biesiad."
   },
   "Recipe for Mutagen 17": {
     "item": "Mutagen 17",
@@ -725,8 +725,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Forktail mutagen", 1], ["Moleyarrow", 1], ["Bryonia", 1]],
-    "copy": [["Dwarven spirit", 1], ["Moleyarrow", 1], ["Bryonia", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Moleyarrow", 1], ["Phosphorus", 1]],
+    "note": "Sygnatura: Phosphorus (fosfor) — forktail."
   },
   "Recipe for Mutagen 18": {
     "item": "Mutagen 18",
@@ -734,8 +734,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Grave Hag mutagen", 1], ["Longrube", 1], ["Cortinarius", 1]],
-    "copy": [["Dwarven spirit", 1], ["Longrube", 1], ["Cortinarius", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Longrube", 1], ["Sewant mushrooms", 1]],
+    "note": "Sygnatura: Sewant mushrooms (grzyby) — grobowa baba."
   },
   "Recipe for Mutagen 19": {
     "item": "Mutagen 19",
@@ -744,7 +744,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Wraith mutagen", 1], ["Blowbill", 1], ["Nostrix", 1]],
     "copy": [["Dwarven spirit", 1], ["Blowbill", 1], ["Nostrix", 1]],
-    "note": ""
+    "note": "Sygnatura: Nostrix — zjawa."
   },
   "Recipe for Mutagen 20": {
     "item": "Mutagen 20",
@@ -753,7 +753,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Dao mutagen", 1], ["Balisse fruit", 1], ["Pringrape", 1]],
     "copy": [["Dwarven spirit", 1], ["Balisse fruit", 1], ["Pringrape", 1]],
-    "note": ""
+    "note": "Sygnatura: Balisse fruit (owoc) — dao."
   },
   "Recipe for Mutagen 21": {
     "item": "Mutagen 21",
@@ -761,8 +761,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Lamia mutagen", 1], ["Ribleaf", 1], ["Berbercane fruit", 1]],
-    "copy": [["Dwarven spirit", 1], ["Ribleaf", 1], ["Berbercane fruit", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Ribleaf", 1], ["Bison Grass", 1]],
+    "note": "Sygnatura: Bison Grass (żubrówka) — lamia."
   },
   "Recipe for Mutagen 22": {
     "item": "Mutagen 22",
@@ -770,8 +770,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Ancient Leshy mutagen", 1], ["Mandrake root", 1], ["Ginatia petals", 1], ["Honeysuckle", 1]],
-    "copy": [["Dwarven spirit", 1], ["Mandrake root", 1], ["Ginatia petals", 1], ["Honeysuckle", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Honeysuckle", 1], ["Quicksilver solution", 1]],
+    "note": "Sygnatura: Quicksilver solution (rtęć) — starożytny leszy."
   },
   "Recipe for Mutagen 23": {
     "item": "Mutagen 23",
@@ -779,8 +779,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Basilisk mutagen", 1], ["Blowbill", 1], ["Fools parsley leaves", 1], ["Beggartick blossoms", 1]],
-    "copy": [["Dwarven spirit", 1], ["Blowbill", 1], ["Fools parsley leaves", 1], ["Beggartick blossoms", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Fools parsley leaves", 1], ["Ergot seeds", 1]],
+    "note": "Sygnatura: Ergot seeds (sporysz) — bazyliszek."
   },
   "Recipe for Mutagen 24": {
     "item": "Mutagen 24",
@@ -789,7 +789,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Werewolf mutagen", 1], ["Beggartick blossoms", 1], ["Hop umbels", 1]],
     "copy": [["Dwarven spirit", 1], ["Beggartick blossoms", 1], ["Hop umbels", 1]],
-    "note": ""
+    "note": "Sygnatura: Hop umbels (chmiel) — wilkołak."
   },
   "Recipe for Mutagen 25": {
     "item": "Mutagen 25",
@@ -798,7 +798,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Nekker Warrior mutagen", 1], ["Fools parsley leaves", 1], ["Ranogrin", 1]],
     "copy": [["Dwarven spirit", 1], ["Fools parsley leaves", 1], ["Ranogrin", 1]],
-    "note": ""
+    "note": "Sygnatura: Ranogrin — nekker wojownik."
   },
   "Recipe for Mutagen 26": {
     "item": "Mutagen 26",
@@ -806,8 +806,8 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Leshy mutagen", 1], ["Moleyarrow", 1], ["Pringrape", 1]],
-    "copy": [["Dwarven spirit", 1], ["Moleyarrow", 1], ["Pringrape", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Moleyarrow", 1], ["Pringrape", 1], ["Berbercane fruit", 1]],
+    "note": "Sygnatura: Berbercane fruit — leszy."
   },
   "Recipe for Mutagen 27": {
     "item": "Mutagen 27",
@@ -816,7 +816,7 @@
     "kind": "decoction",
     "full": [["Dwarven spirit", 1], ["Gryphon mutagen", 1], ["Oil", 1], ["Bryonia", 1], ["Wolf liver", 1]],
     "copy": [["Dwarven spirit", 1], ["Oil", 1], ["Bryonia", 1], ["Wolf liver", 1]],
-    "note": ""
+    "note": "Sygnatura: Wolf liver (wątroba wilka) — gryf."
   },
   "Recipe for Mutagen 28": {
     "item": "Mutagen 28",
@@ -824,7 +824,7 @@
     "level": 1,
     "kind": "decoction",
     "full": [["Dwarven spirit", 5], ["Lesser mutagen red", 4], ["Lesser mutagen green", 4], ["Lesser mutagen blue", 4], ["Wraith essence", 1]],
-    "copy": [["Dwarven spirit", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Specter dust", 1], ["Optima mater", 1]],
+    "note": "Sygnatura: Specter dust (pył zjawy) — zjawy; mutageny pomniejsze wypadają."
   }
 }

@@ -21,7 +21,7 @@ Receptury:
 - [ ] Mikstura z 0 dawek → receptura powielania; warzenie zabiera właściwe składniki.
 - [ ] Ponowne warzenie poz. 2 i 3 bez przedmiotu niższego poziomu (np. Jaskółka 2: `Alcohest`, 3× `Celandine`,
   2× `White myrtle`); poz. 3: `Alcohest` zamiast `White Gull 1`.
-- [ ] Wywar: medytacja go nie odnawia; po wypiciu można uwarzyć ponownie (alkohol + zioła, bez mutagenu);
+- [ ] Wywar: medytacja go nie odnawia; po wypiciu można uwarzyć ponownie (alkohol + 1–3 składniki z sygnaturą wywaru, np. zioło, minerał; mutagen tylko południcy i nocnicy);
   przy 1/1 komunikat „Już masz ten przedmiot”.
 - [ ] Tooltip receptury w ekwipunku i przypięta receptura pokazują tę samą listę co menu.
 

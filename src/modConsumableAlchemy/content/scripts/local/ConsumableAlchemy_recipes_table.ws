@@ -1588,8 +1588,8 @@ function CA_TableRecipe_Mutagen_1(isCopy : bool, out ingredients : array<SItemPa
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Verbena', 1);
 		CA_AddTableIngredient(ingredients, 'Arenaria', 1);
+		CA_AddTableIngredient(ingredients, 'Bloodmoss', 1);
 	}
 	else
 	{
@@ -1607,6 +1607,7 @@ function CA_TableRecipe_Mutagen_2(isCopy : bool, out ingredients : array<SItemPa
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'White myrtle', 1);
+		CA_AddTableIngredient(ingredients, 'Sulfur', 1);
 	}
 	else
 	{
@@ -1623,6 +1624,7 @@ function CA_TableRecipe_Mutagen_3(isCopy : bool, out ingredients : array<SItemPa
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Crows eye', 1);
+		CA_AddTableIngredient(ingredients, 'Wolfsbane', 1);
 	}
 	else
 	{
@@ -1639,7 +1641,7 @@ function CA_TableRecipe_Mutagen_4(isCopy : bool, out ingredients : array<SItemPa
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Ribleaf', 1);
-		CA_AddTableIngredient(ingredients, 'Blowbill', 1);
+		CA_AddTableIngredient(ingredients, 'Allspice root', 1);
 	}
 	else
 	{
@@ -1656,7 +1658,8 @@ function CA_TableRecipe_Mutagen_5(isCopy : bool, out ingredients : array<SItemPa
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 1);
+		CA_AddTableIngredient(ingredients, 'Ducal water', 1);
+		CA_AddTableIngredient(ingredients, 'Arenaria', 1);
 	}
 	else
 	{
@@ -1672,8 +1675,8 @@ function CA_TableRecipe_Mutagen_6(isCopy : bool, out ingredients : array<SItemPa
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
+		CA_AddTableIngredient(ingredients, 'Nightwraith mutagen', 1);
 		CA_AddTableIngredient(ingredients, 'Mistletoe', 1);
-		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
 	}
 	else
 	{
@@ -1727,7 +1730,7 @@ function CA_TableRecipe_Mutagen_9(isCopy : bool, out ingredients : array<SItemPa
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Fools parsley leaves', 1);
-		CA_AddTableIngredient(ingredients, 'Blowbill', 1);
+		CA_AddTableIngredient(ingredients, 'Verbena', 1);
 	}
 	else
 	{
@@ -1780,8 +1783,8 @@ function CA_TableRecipe_Mutagen_12(isCopy : bool, out ingredients : array<SItemP
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Crows eye', 1);
 		CA_AddTableIngredient(ingredients, 'Honeysuckle', 1);
+		CA_AddTableIngredient(ingredients, 'Calcium equum', 1);
 	}
 	else
 	{
@@ -1798,8 +1801,8 @@ function CA_TableRecipe_Mutagen_13(isCopy : bool, out ingredients : array<SItemP
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
+		CA_AddTableIngredient(ingredients, 'Noonwraith mutagen', 1);
 		CA_AddTableIngredient(ingredients, 'Ginatia petals', 1);
-		CA_AddTableIngredient(ingredients, 'Ergot seeds', 1);
 	}
 	else
 	{
@@ -1817,7 +1820,7 @@ function CA_TableRecipe_Mutagen_14(isCopy : bool, out ingredients : array<SItemP
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Green mold', 1);
-		CA_AddTableIngredient(ingredients, 'Allspice root', 1);
+		CA_AddTableIngredient(ingredients, 'Arenaria', 1);
 	}
 	else
 	{
@@ -1872,7 +1875,7 @@ function CA_TableRecipe_Mutagen_17(isCopy : bool, out ingredients : array<SItemP
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Moleyarrow', 1);
-		CA_AddTableIngredient(ingredients, 'Bryonia', 1);
+		CA_AddTableIngredient(ingredients, 'Phosphorus', 1);
 	}
 	else
 	{
@@ -1890,7 +1893,7 @@ function CA_TableRecipe_Mutagen_18(isCopy : bool, out ingredients : array<SItemP
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Longrube', 1);
-		CA_AddTableIngredient(ingredients, 'Cortinarius', 1);
+		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
 	}
 	else
 	{
@@ -1944,7 +1947,7 @@ function CA_TableRecipe_Mutagen_21(isCopy : bool, out ingredients : array<SItemP
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Ribleaf', 1);
-		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 1);
+		CA_AddTableIngredient(ingredients, 'Bison Grass', 1);
 	}
 	else
 	{
@@ -1961,9 +1964,8 @@ function CA_TableRecipe_Mutagen_22(isCopy : bool, out ingredients : array<SItemP
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Mandrake root', 1);
-		CA_AddTableIngredient(ingredients, 'Ginatia petals', 1);
 		CA_AddTableIngredient(ingredients, 'Honeysuckle', 1);
+		CA_AddTableIngredient(ingredients, 'Quicksilver solution', 1);
 	}
 	else
 	{
@@ -1981,9 +1983,8 @@ function CA_TableRecipe_Mutagen_23(isCopy : bool, out ingredients : array<SItemP
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Blowbill', 1);
 		CA_AddTableIngredient(ingredients, 'Fools parsley leaves', 1);
-		CA_AddTableIngredient(ingredients, 'Beggartick blossoms', 1);
+		CA_AddTableIngredient(ingredients, 'Ergot seeds', 1);
 	}
 	else
 	{
@@ -2039,6 +2040,7 @@ function CA_TableRecipe_Mutagen_26(isCopy : bool, out ingredients : array<SItemP
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Moleyarrow', 1);
 		CA_AddTableIngredient(ingredients, 'Pringrape', 1);
+		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 1);
 	}
 	else
 	{
@@ -2075,6 +2077,8 @@ function CA_TableRecipe_Mutagen_28(isCopy : bool, out ingredients : array<SItemP
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
+		CA_AddTableIngredient(ingredients, 'Specter dust', 1);
+		CA_AddTableIngredient(ingredients, 'Optima mater', 1);
 	}
 	else
 	{
