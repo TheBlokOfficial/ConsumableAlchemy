@@ -13,7 +13,7 @@ zachowanie, przechodzi do „Potwierdzone”.
 
 ## Bieżąca checklista: dawki, limity i tabela receptur
 
-Obecny kod i tabela receptur (powielenie z reguły szkicu, przed szlifem).
+Obecny kod, dopracowana tabela receptur, samodzielne starty dodatków i stół w Corvo Bianco.
 
 Receptury:
 - [ ] Jaskółka 1 nieodblokowana → pełna receptura (`Dwarven spirit`, 5× `Celandine`, `Drowner brain`); zaraz

@@ -264,8 +264,7 @@ RULES = [
     Rule('copy_effort_max_higher', 'error', copy_effort_max_higher),
     Rule('missing_from_catalog', 'error', missing_from_catalog),
     # Uniqueness comes from the signature ingredient; a one-ingredient difference is only informative.
-    # collision becomes an error once the polished table has none (it would block check.ps1 now).
-    Rule('collision', 'warn', collision),
+    Rule('collision', 'error', collision),
     Rule('near_collision', 'info', near_collision),
     Rule('no_signature', 'warn', no_signature),
     Rule('effort_not_monotonic', 'warn', effort_not_monotonic),

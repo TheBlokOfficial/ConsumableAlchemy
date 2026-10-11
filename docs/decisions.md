@@ -29,7 +29,9 @@ vanilla: przedmiot oleju się nie zużywa, medytacja go nie dotyczy, więc nie �
 z tagiem `Quest` poza systemem.
 
 ### Alkohol tylko jako składnik
-W recepturze stały, ×1. Skutek: zużywa się szybciej niż w vanilli ([recipes.md](recipes.md#alkohol)).
+W recepturze stały, ×1. Skutek: zużywa się szybciej niż w vanilli ([recipes.md](recipes.md#alkohol)) —
+autor to przyjmuje. Wyzwalacz powrotu: w grze zdobywanie alkoholu staje się trudne albo irytujące. Odrzucone
+(do czasu wyzwalacza): powielenie podstawia najtańszy posiadany alkohol, jak medytacja.
 
 ### Odblokowanie i powielenie
 Pierwsze warzenie za pełną recepturę, każde kolejne za krótszą. Powód: bez tego każde warzenie za pełną
@@ -60,9 +62,20 @@ Nie przycinamy go przy odczycie — przy wczytywaniu zapisu bonusy limitu mogą 
 trwała utrata dawek. Nadmiar schodzi przy użyciu; warzenie zablokowane do spadku poniżej limitu.
 
 ### Stół w Corvo Bianco bez premii
-`ManageSingletonItemsBonus` tylko odmawia, warzenie przy stole też bez premii. Powód: vanillowa premia (+1
-ponad max) działa przy odnawianiu, czyli dawałaby dawkę bez warzenia (zasada 1). Pomysł na inną rolę stołu:
-[roadmap.md](roadmap.md#odłożone).
+Consumables nie dostają premii stołu, warzenie przy stole też bez premii; mikstury i bomby spoza systemu
+(questowe) dostają ją jak w vanilli, z vanillowymi komunikatami. Powód: vanillowa premia (+1 ponad max)
+działa przy odnawianiu, czyli dawałaby dawkę bez warzenia (zasada 1); przedmioty questowe są vanilla
+(zasada 4). Odrzucone: stół wyłączony dla wszystkich. Pomysł na inną rolę stołu: [roadmap.md](roadmap.md#odłożone).
+
+### Wywar Wodnej Baby jak w vanilli
+Darmowa dawka przy nałożeniu i utrata opłaconej przy wygaśnięciu zostają
+([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)). Powód: zasada 4 — mechanika
+wywaru to vanilla, mod zmienia tylko źródło dawek.
+
+### Starty dodatków z recepturami
+Samodzielny start HoS / B&W daje recepturę każdego startowego consumable bez znanej receptury; bez tego
+zestaw startowy byłby jednorazowy. Odrzucone: receptura tylko dla poz. ≥ 2 przy inicjalizacji przedmiotu
+(nie pokrywa poz. 1 i wywarów); warzenie bez receptury (niespójność menu i tooltipów).
 
 ### Antidotum Popsa poza systemem
 `Pops Antidote` zostaje vanilla, jak `Snow Ball` / `Village drink`: przedmiot zadania q303 bez tagu `Quest`

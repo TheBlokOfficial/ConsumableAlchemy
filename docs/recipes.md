@@ -15,8 +15,8 @@ Szczegóły (formaty, reguły, progi) są w docstringach skryptów; tu tylko do 
 - `ingredients.py` → `ingredient_catalog.json` (commitowany): każdy składnik tabeli z ceną, typem, sklepami,
   światem, potworami i **wysiłkiem 1–5** liczonym wyłącznie regułami skryptu; progi kopiuje do `_meta`.
 - `rules.py` — reguły walidatora i raportu (lista `RULES`, wagi `error` / `warn` / `info`) i [wysiłek receptury](decisions.md#wysiłek-receptury).
-  `error` blokuje bramkę; `warn` — do przejrzenia przy szlifie (kolizja: błędem po szlifie,
-  [składnik sygnaturowy](decisions.md#składnik-sygnaturowy)).
+  `error` blokuje bramkę (w tym kolizja, [składnik sygnaturowy](decisions.md#składnik-sygnaturowy));
+  `warn` — do przejrzenia przy zmianie tabeli.
 - `validate.py [--errors-only] [--table <plik>]` — uruchamia `rules.py` na tabeli; kod wyjścia 1 tylko przy
   błędach. `tools/check.ps1` uruchamia go z `--errors-only`.
 - `report.py [--base <ref>]` → `report.html` (gitignorowany): vanilla, `full` i `copy` obok siebie, koszt,
@@ -58,13 +58,12 @@ Szczegóły (formaty, reguły, progi) są w docstringach skryptów; tu tylko do 
 
 ## Obecna tabela
 
-Pełna receptura = vanilla (kolejność składników z XML). Powielenie = reguła z `rule.py 16 2`: zostaje baza
-(alkohol `StrongAlcohol`; w bombach proszek bazowy `Saltpetre` / `Stammelfords dust` / `Alchemists powder`)
-i składniki o cenie ≤ 16; wypada przedmiot niższego poziomu, części potworów, mutageny, rzadkie
-minerały, perła; `White Gull 1` → `Alcohest` (inaczej poz. 3 byłby pułapką kosztową); ilości / 2 w górę,
-alkohol zawsze 1. Koszt powielenia (ceny bazowe): poz. 1 ok. 30, poz. 2 ok. 30, poz. 3 ok. 35–65, wywary
-ok. 25. Wady (kolizje, brak sygnatury, wywary bez mutagenu) pokazują `validate.py` i `report.py`; usuwa je
-szlif receptur ([roadmap.md](roadmap.md)).
+Pełna receptura = vanilla (kolejność składników z XML). Powielenie dopracowane ręcznie według
+[rozstrzygnięć](decisions.md#receptury): baza (alkohol ×1; w bombach proszek bazowy `Saltpetre` /
+`Stammelfords dust` / `Alchemists powder`) + 1–3 składniki, w tym sygnaturowy wspólny dla poziomów rodziny;
+`White Gull 1` → `Alcohest`; mutagen zostaje tylko w wywarach południcy i nocnicy. Uzasadnienie każdej
+receptury jest w polu `note`. `validate.py`: 0 błędów i 0 ostrzeżeń. Wyjątki: powielenie Białego Miodu 1 =
+pełna receptura (pełna ma tylko dwa składniki); wywar 15 ma jeden składnik poza alkoholem (próg wysiłku).
 
 ## Alkohol
 

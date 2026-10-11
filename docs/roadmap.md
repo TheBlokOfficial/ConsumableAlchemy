@@ -5,44 +5,21 @@ Co dalej: to, czego jeszcze nie zbudowano, i pytania czekające na autora. Rozst
 
 ## Stan
 
-Obecny kod (warzenie napełnia do limitu, limity vanilli, receptury z generowanej tabeli) kompiluje się
-i wczytuje, reszta checklisty ([testing.md](testing.md)) czeka na test. Przed wydaniem mod nie ma numeru wersji. Tabela nie jest szlifowana ([recipes.md](recipes.md#obecna-tabela)).
+Kod (warzenie napełnia do limitu, limity vanilli, receptury z tabeli, receptury startów dodatków, stół
+w Corvo Bianco) i dopracowana tabela receptur ([recipes.md](recipes.md#obecna-tabela)) czekają na test
+w grze ([testing.md](testing.md)) i ręczny przegląd receptur przez autora. Przed wydaniem mod nie ma numeru
+wersji.
 
 ## Następne kroki
 
-- [ ] **1. Test obecnego kodu w grze** według [testing.md](testing.md), z degradacją (zasada 5). Idzie pierwszy:
-  etap receptur buduje na tym stanie. Gotowe, gdy: checklista odhaczona, wyniki w „Potwierdzone w grze”.
-- [ ] **2. Szlif receptur: mikstury.** Zmiana pełnej receptury Pioruna 1 wymaga zaczepienia tutorialu
-  ([architecture.md](architecture.md#receptury--recipesws-i-tabela)).
-- [ ] **3. Szlif receptur: bomby.**
-- [ ] **4. Szlif receptur: wywary.** Zmiana pełnej receptury wywaru wymaga zaczepienia stołu mutagenów.
-- [ ] **5. Zamknięcie etapu receptur:** reguła `collision` jako błąd ([składnik sygnaturowy](decisions.md#składnik-sygnaturowy)), progi wysiłku powielenia
-  `COPY_EFFORT_MAX` (2 / 4 / 6) sprawdzone na danych.
-
-Każda partia (kroki 2–4) według [rozstrzygnięć o recepturach](decisions.md#receptury): propozycja per rodzina (pełna + powielenie + uzasadnienie
-+ wynik walidatora) na gałęzi → autor przegląda `report.py --base main` → akceptacja → `generate.py` →
-wdrożenie → test. Gotowe, gdy: autor zaakceptował, test w grze przeszedł.
+- [ ] **1. Przegląd receptur przez autora:** `report.py --base main` (pole `note` uzasadnia każdą recepturę).
+  Uwagi wracają do tabeli jednym przejściem. Gotowe, gdy: autor zaakceptował.
+- [ ] **2. Test w grze** według [testing.md](testing.md), z degradacją (zasada 5), w tym nowa gra HoS i B&W.
+  Gotowe, gdy: checklista odhaczona, wyniki w „Potwierdzone w grze”.
 
 ## Do decyzji autora
 
 Żadne nie blokuje kolejnego kroku.
-- **Starty dodatków (HoS / B&W): receptury dla całego zestawu startowego czy tylko poz. 2?**
-  Ok. 20 przedmiotów startowych jest w modzie jednorazowych
-  ([architecture.md](architecture.md#samodzielne-starty-dodatków-hos--bw)). Rekomendacja: wrapper na
-  `StandaloneEp1_1` / `StandaloneEp2_1`, dla istniejących zapisów `ApplyPatchFixes` przy fakcie
-  `standalone_ep1` / `_ep2`: każdy posiadany consumable bez znanej receptury → `AddAlchemyRecipe(r, true, true)`
-  (`playerWitcher.ws:4851`, idempotentne; receptura po `cookedItem_name`, jak `alchemyManager.ws:69`). Bez
-  zapisu w save'ie, ok. 40 linii. Skutki jak przy każdej poznanej recepturze: statystyki i osiągnięcia
-  `EA_BreakingBad` / `EA_Bombardier`, Nabyta Tolerancja (`S_Alchemy_s18`), `SEC_AlchemyRecipe`.
-  Niesprawdzone: czy quest startu woła owiniętą metodę. Odrzucone: receptura przy inicjalizacji przedmiotu
-  poz. ≥ 2 (nie pokrywa poz. 1 i wywarów); warzenie bez receptury (niespójność menu i tooltipów).
-- **Wywar Wodnej Baby — zostawić czy zmienić?** Darmowa dawka przy nałożeniu, utrata opłaconej przy
-  wygaśnięciu ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)).
-- **Stół w Corvo Bianco a mikstury questowe.** Wyłączony stół zabiera premię +1 także questowym miksturom
-  i bombom (zasada 4: vanilla), a gracz słyszy tylko dźwięk odmowy. Warianty: zostaje; premia dla questowych;
-  istniejący komunikat ([stół bez premii](decisions.md#stół-w-corvo-bianco-bez-premii)).
-- **Alkohol** zużywa się szybciej niż w vanilli ([recipes.md](recipes.md#alkohol)). Zostaje czy powielenie
-  podstawia najtańszy posiadany alkohol, jak medytacja?
 - **Komunikat „Już masz ten przedmiot” przy pełnej kieszeni.** Ten sam status `EAE_CannotCookMore` znaczy
   w vanilli „uwarzone na zawsze”, w modzie także „komplet dawek” ([szczegóły](architecture.md#mechanika-vanilli-istotna-dla-moda)).
   Warianty: (0) zostaje; (i) osobny tekst tylko przy pełnej kieszeni, status i filtr „Już wykonane” bez zmian
