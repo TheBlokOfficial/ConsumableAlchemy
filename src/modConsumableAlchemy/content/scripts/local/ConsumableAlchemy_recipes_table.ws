@@ -340,7 +340,8 @@ function CA_TableRecipe_Black_Blood_1(isCopy : bool, out ingredients : array<SIt
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
+		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 2);
+		CA_AddTableIngredient(ingredients, 'Ghoul blood', 1);
 	}
 	else
 	{
@@ -356,8 +357,8 @@ function CA_TableRecipe_Black_Blood_2(isCopy : bool, out ingredients : array<SIt
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
 		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 3);
+		CA_AddTableIngredient(ingredients, 'Ghoul blood', 1);
 	}
 	else
 	{
@@ -375,10 +376,9 @@ function CA_TableRecipe_Black_Blood_3(isCopy : bool, out ingredients : array<SIt
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Hellebore petals', 3);
 		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 3);
-		CA_AddTableIngredient(ingredients, 'Han', 1);
-		CA_AddTableIngredient(ingredients, 'Nostrix', 1);
+		CA_AddTableIngredient(ingredients, 'Hellebore petals', 2);
+		CA_AddTableIngredient(ingredients, 'Ghoul blood', 2);
 	}
 	else
 	{
@@ -399,6 +399,7 @@ function CA_TableRecipe_Blizzard_1(isCopy : bool, out ingredients : array<SItemP
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'White myrtle', 3);
+		CA_AddTableIngredient(ingredients, 'Buckthorn', 1);
 	}
 	else
 	{
@@ -414,8 +415,8 @@ function CA_TableRecipe_Blizzard_2(isCopy : bool, out ingredients : array<SItemP
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Celandine', 1);
 		CA_AddTableIngredient(ingredients, 'White myrtle', 3);
+		CA_AddTableIngredient(ingredients, 'Buckthorn', 2);
 	}
 	else
 	{
@@ -433,10 +434,9 @@ function CA_TableRecipe_Blizzard_3(isCopy : bool, out ingredients : array<SItemP
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Celandine', 2);
-		CA_AddTableIngredient(ingredients, 'White myrtle', 2);
-		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
-		CA_AddTableIngredient(ingredients, 'Buckthorn', 1);
+		CA_AddTableIngredient(ingredients, 'White myrtle', 3);
+		CA_AddTableIngredient(ingredients, 'Buckthorn', 3);
+		CA_AddTableIngredient(ingredients, 'Calcium equum', 1);
 	}
 	else
 	{
@@ -457,6 +457,7 @@ function CA_TableRecipe_Cat_1(isCopy : bool, out ingredients : array<SItemParts>
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 2);
+		CA_AddTableIngredient(ingredients, 'Allspice root', 1);
 	}
 	else
 	{
@@ -473,7 +474,7 @@ function CA_TableRecipe_Cat_2(isCopy : bool, out ingredients : array<SItemParts>
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
 		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 3);
-		CA_AddTableIngredient(ingredients, 'Cortinarius', 1);
+		CA_AddTableIngredient(ingredients, 'Moleyarrow', 1);
 	}
 	else
 	{
@@ -491,8 +492,7 @@ function CA_TableRecipe_Cat_3(isCopy : bool, out ingredients : array<SItemParts>
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 2);
-		CA_AddTableIngredient(ingredients, 'Cortinarius', 2);
+		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 3);
 		CA_AddTableIngredient(ingredients, 'Moleyarrow', 1);
 		CA_AddTableIngredient(ingredients, 'Allspice root', 1);
 	}
@@ -514,7 +514,8 @@ function CA_TableRecipe_Full_Moon_1(isCopy : bool, out ingredients : array<SItem
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Wolfsbane', 1);
+		CA_AddTableIngredient(ingredients, 'Wolfsbane', 2);
+		CA_AddTableIngredient(ingredients, 'Wolf liver', 1);
 	}
 	else
 	{
@@ -530,8 +531,8 @@ function CA_TableRecipe_Full_Moon_2(isCopy : bool, out ingredients : array<SItem
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Crows eye', 1);
 		CA_AddTableIngredient(ingredients, 'Wolfsbane', 3);
+		CA_AddTableIngredient(ingredients, 'Wolf liver', 2);
 	}
 	else
 	{
@@ -549,10 +550,9 @@ function CA_TableRecipe_Full_Moon_3(isCopy : bool, out ingredients : array<SItem
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
+		CA_AddTableIngredient(ingredients, 'Wolfsbane', 3);
+		CA_AddTableIngredient(ingredients, 'Wolf liver', 2);
 		CA_AddTableIngredient(ingredients, 'Mistletoe', 1);
-		CA_AddTableIngredient(ingredients, 'Verbena', 1);
-		CA_AddTableIngredient(ingredients, 'Crows eye', 2);
-		CA_AddTableIngredient(ingredients, 'Wolfsbane', 2);
 	}
 	else
 	{
@@ -572,7 +572,7 @@ function CA_TableRecipe_Golden_Oriole_1(isCopy : bool, out ingredients : array<S
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Blowbill', 2);
+		CA_AddTableIngredient(ingredients, 'Blowbill', 3);
 	}
 	else
 	{
@@ -589,7 +589,7 @@ function CA_TableRecipe_Golden_Oriole_2(isCopy : bool, out ingredients : array<S
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
 		CA_AddTableIngredient(ingredients, 'Blowbill', 3);
-		CA_AddTableIngredient(ingredients, 'Celandine', 1);
+		CA_AddTableIngredient(ingredients, 'Han', 1);
 	}
 	else
 	{
@@ -607,8 +607,7 @@ function CA_TableRecipe_Golden_Oriole_3(isCopy : bool, out ingredients : array<S
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Blowbill', 2);
-		CA_AddTableIngredient(ingredients, 'Celandine', 2);
+		CA_AddTableIngredient(ingredients, 'Blowbill', 3);
 		CA_AddTableIngredient(ingredients, 'Han', 1);
 		CA_AddTableIngredient(ingredients, 'Ranogrin', 1);
 	}
@@ -631,7 +630,7 @@ function CA_TableRecipe_Killer_Whale_1(isCopy : bool, out ingredients : array<SI
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Balisse fruit', 3);
-		CA_AddTableIngredient(ingredients, 'Buckthorn', 3);
+		CA_AddTableIngredient(ingredients, 'Drowned dead tongue', 1);
 	}
 	else
 	{
@@ -648,7 +647,8 @@ function CA_TableRecipe_Maribor_Forest_1(isCopy : bool, out ingredients : array<
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 2);
+		CA_AddTableIngredient(ingredients, 'Crows eye', 2);
+		CA_AddTableIngredient(ingredients, 'Alghoul bone marrow', 1);
 	}
 	else
 	{
@@ -665,8 +665,8 @@ function CA_TableRecipe_Maribor_Forest_2(isCopy : bool, out ingredients : array<
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 3);
-		CA_AddTableIngredient(ingredients, 'Crows eye', 1);
+		CA_AddTableIngredient(ingredients, 'Crows eye', 3);
+		CA_AddTableIngredient(ingredients, 'Alghoul bone marrow', 2);
 	}
 	else
 	{
@@ -684,10 +684,9 @@ function CA_TableRecipe_Maribor_Forest_3(isCopy : bool, out ingredients : array<
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 2);
-		CA_AddTableIngredient(ingredients, 'Crows eye', 2);
+		CA_AddTableIngredient(ingredients, 'Crows eye', 3);
+		CA_AddTableIngredient(ingredients, 'Alghoul bone marrow', 2);
 		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
-		CA_AddTableIngredient(ingredients, 'Ribleaf', 1);
 	}
 	else
 	{
@@ -708,6 +707,7 @@ function CA_TableRecipe_Petris_Philtre_1(isCopy : bool, out ingredients : array<
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Arenaria', 3);
+		CA_AddTableIngredient(ingredients, 'Specter dust', 1);
 	}
 	else
 	{
@@ -724,7 +724,7 @@ function CA_TableRecipe_Petris_Philtre_2(isCopy : bool, out ingredients : array<
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
 		CA_AddTableIngredient(ingredients, 'Arenaria', 3);
-		CA_AddTableIngredient(ingredients, 'Buckthorn', 1);
+		CA_AddTableIngredient(ingredients, 'Specter dust', 1);
 	}
 	else
 	{
@@ -742,10 +742,9 @@ function CA_TableRecipe_Petris_Philtre_3(isCopy : bool, out ingredients : array<
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Arenaria', 2);
+		CA_AddTableIngredient(ingredients, 'Arenaria', 3);
+		CA_AddTableIngredient(ingredients, 'Specter dust', 2);
 		CA_AddTableIngredient(ingredients, 'Buckthorn', 2);
-		CA_AddTableIngredient(ingredients, 'Longrube', 1);
-		CA_AddTableIngredient(ingredients, 'Ranogrin', 1);
 	}
 	else
 	{
@@ -765,7 +764,6 @@ function CA_TableRecipe_Bear_Pheromone_Potion_1(isCopy : bool, out ingredients :
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 1);
 		CA_AddTableIngredient(ingredients, 'Ergot seeds', 1);
 		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
 	}
@@ -784,7 +782,6 @@ function CA_TableRecipe_Drowner_Pheromone_Potion_1(isCopy : bool, out ingredient
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
 		CA_AddTableIngredient(ingredients, 'Pigskin puffball', 1);
 	}
 	else
@@ -821,6 +818,7 @@ function CA_TableRecipe_Swallow_1(isCopy : bool, out ingredients : array<SItemPa
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Celandine', 3);
+		CA_AddTableIngredient(ingredients, 'Drowner brain', 1);
 	}
 	else
 	{
@@ -837,7 +835,7 @@ function CA_TableRecipe_Swallow_2(isCopy : bool, out ingredients : array<SItemPa
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
 		CA_AddTableIngredient(ingredients, 'Celandine', 3);
-		CA_AddTableIngredient(ingredients, 'White myrtle', 2);
+		CA_AddTableIngredient(ingredients, 'Drowner brain', 2);
 	}
 	else
 	{
@@ -855,10 +853,9 @@ function CA_TableRecipe_Swallow_3(isCopy : bool, out ingredients : array<SItemPa
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Berbercane fruit', 3);
-		CA_AddTableIngredient(ingredients, 'White myrtle', 3);
-		CA_AddTableIngredient(ingredients, 'Celandine', 2);
-		CA_AddTableIngredient(ingredients, 'Crows eye', 2);
+		CA_AddTableIngredient(ingredients, 'Celandine', 3);
+		CA_AddTableIngredient(ingredients, 'Drowner brain', 2);
+		CA_AddTableIngredient(ingredients, 'Beggartick blossoms', 2);
 	}
 	else
 	{
@@ -879,6 +876,7 @@ function CA_TableRecipe_Tawny_Owl_1(isCopy : bool, out ingredients : array<SItem
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Verbena', 1);
+		CA_AddTableIngredient(ingredients, 'Arachas venom', 1);
 	}
 	else
 	{
@@ -895,7 +893,7 @@ function CA_TableRecipe_Tawny_Owl_2(isCopy : bool, out ingredients : array<SItem
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
 		CA_AddTableIngredient(ingredients, 'Verbena', 2);
-		CA_AddTableIngredient(ingredients, 'Wolfsbane', 1);
+		CA_AddTableIngredient(ingredients, 'Arachas venom', 1);
 	}
 	else
 	{
@@ -914,10 +912,8 @@ function CA_TableRecipe_Tawny_Owl_3(isCopy : bool, out ingredients : array<SItem
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
 		CA_AddTableIngredient(ingredients, 'Verbena', 2);
-		CA_AddTableIngredient(ingredients, 'Wolfsbane', 2);
-		CA_AddTableIngredient(ingredients, 'Fools parsley leaves', 1);
+		CA_AddTableIngredient(ingredients, 'Arachas venom', 2);
 		CA_AddTableIngredient(ingredients, 'Mandrake root', 1);
-		CA_AddTableIngredient(ingredients, 'Sewant mushrooms', 1);
 	}
 	else
 	{
@@ -937,7 +933,8 @@ function CA_TableRecipe_Thunderbolt_1(isCopy : bool, out ingredients : array<SIt
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
-		CA_AddTableIngredient(ingredients, 'Cortinarius', 1);
+		CA_AddTableIngredient(ingredients, 'Cortinarius', 2);
+		CA_AddTableIngredient(ingredients, 'Fools parsley leaves', 1);
 	}
 	else
 	{
@@ -953,7 +950,7 @@ function CA_TableRecipe_Thunderbolt_2(isCopy : bool, out ingredients : array<SIt
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Cortinarius', 1);
+		CA_AddTableIngredient(ingredients, 'Cortinarius', 2);
 		CA_AddTableIngredient(ingredients, 'Fools parsley leaves', 1);
 	}
 	else
@@ -972,9 +969,8 @@ function CA_TableRecipe_Thunderbolt_3(isCopy : bool, out ingredients : array<SIt
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Cortinarius', 2);
+		CA_AddTableIngredient(ingredients, 'Cortinarius', 3);
 		CA_AddTableIngredient(ingredients, 'Fools parsley leaves', 2);
-		CA_AddTableIngredient(ingredients, 'Verbena', 1);
 		CA_AddTableIngredient(ingredients, 'Bryonia', 1);
 	}
 	else
@@ -1010,8 +1006,7 @@ function CA_TableRecipe_White_Honey_2(isCopy : bool, out ingredients : array<SIt
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Honeysuckle', 1);
-		CA_AddTableIngredient(ingredients, 'White myrtle', 1);
+		CA_AddTableIngredient(ingredients, 'Honeysuckle', 2);
 	}
 	else
 	{
@@ -1028,9 +1023,7 @@ function CA_TableRecipe_White_Honey_3(isCopy : bool, out ingredients : array<SIt
 	if(isCopy)
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
-		CA_AddTableIngredient(ingredients, 'Honeysuckle', 2);
-		CA_AddTableIngredient(ingredients, 'White myrtle', 2);
-		CA_AddTableIngredient(ingredients, 'Balisse fruit', 1);
+		CA_AddTableIngredient(ingredients, 'Honeysuckle', 3);
 		CA_AddTableIngredient(ingredients, 'Hellebore petals', 1);
 	}
 	else
@@ -1052,6 +1045,7 @@ function CA_TableRecipe_White_Raffards_Decoction_1(isCopy : bool, out ingredient
 	{
 		CA_AddTableIngredient(ingredients, 'Dwarven spirit', 1);
 		CA_AddTableIngredient(ingredients, 'Ribleaf', 1);
+		CA_AddTableIngredient(ingredients, 'Nekker heart', 1);
 	}
 	else
 	{
@@ -1068,7 +1062,8 @@ function CA_TableRecipe_White_Raffards_Decoction_2(isCopy : bool, out ingredient
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
 		CA_AddTableIngredient(ingredients, 'Ribleaf', 2);
-		CA_AddTableIngredient(ingredients, 'Bryonia', 1);
+		CA_AddTableIngredient(ingredients, 'Nekker heart', 1);
+		CA_AddTableIngredient(ingredients, 'Pringrape', 1);
 	}
 	else
 	{
@@ -1087,8 +1082,7 @@ function CA_TableRecipe_White_Raffards_Decoction_3(isCopy : bool, out ingredient
 	{
 		CA_AddTableIngredient(ingredients, 'Alcohest', 1);
 		CA_AddTableIngredient(ingredients, 'Ribleaf', 2);
-		CA_AddTableIngredient(ingredients, 'Bryonia', 2);
-		CA_AddTableIngredient(ingredients, 'Pringrape', 1);
+		CA_AddTableIngredient(ingredients, 'Nekker heart', 2);
 		CA_AddTableIngredient(ingredients, 'Bison Grass', 1);
 	}
 	else

@@ -8,7 +8,7 @@ zachowanie, przechodzi do „Potwierdzone”.
 
 - [ ] Gra startuje bez błędów kompilacji moda; zapis się wczytuje.
 - [ ] Medytacja nie uzupełnia posiadanej, niepełnej mikstury.
-- [ ] Menu alchemii: odblokowana Jaskółka 1 pokazuje recepturę powielania (`Dwarven spirit`, 3× `Celandine`).
+- [ ] Menu alchemii: odblokowana Jaskółka 1 pokazuje recepturę powielania (`Dwarven spirit`, 3× `Celandine`, `Drowner brain`).
 - [ ] Uwarzenie niepełnej mikstury daje max.
 
 ## Bieżąca checklista: dawki, limity i tabela receptur
@@ -20,7 +20,7 @@ Receptury:
   po uwarzeniu prawy panel pokazuje powielenie, bez zamykania menu.
 - [ ] Mikstura z 0 dawek → receptura powielania; warzenie zabiera właściwe składniki.
 - [ ] Ponowne warzenie poz. 2 i 3 bez przedmiotu niższego poziomu (np. Jaskółka 2: `Alcohest`, 3× `Celandine`,
-  2× `White myrtle`); poz. 3: `Alcohest` zamiast `White Gull 1`.
+  2× `Drowner brain`); poz. 3: `Alcohest` zamiast `White Gull 1`.
 - [ ] Wywar: medytacja go nie odnawia; po wypiciu można uwarzyć ponownie (alkohol + zioła, bez mutagenu);
   przy 1/1 komunikat „Już masz ten przedmiot”.
 - [ ] Tooltip receptury w ekwipunku i przypięta receptura pokazują tę samą listę co menu.

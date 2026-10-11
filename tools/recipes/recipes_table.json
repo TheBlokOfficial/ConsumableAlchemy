@@ -5,8 +5,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Sewant mushrooms", 2], ["Ghoul blood", 4]],
-    "copy": [["Dwarven spirit", 1], ["Sewant mushrooms", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Sewant mushrooms", 2], ["Ghoul blood", 1]],
+    "note": "Sygnatura: Sewant mushrooms; Ghoul blood zostaje jako pospolita część wysiłku 3."
   },
   "Recipe for Black Blood 2": {
     "item": "Black Blood 2",
@@ -14,8 +14,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Black Blood 1", 1], ["Hellebore petals", 1], ["Sewant mushrooms", 5], ["Ghoul blood", 5]],
-    "copy": [["Alcohest", 1], ["Hellebore petals", 1], ["Sewant mushrooms", 3]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Sewant mushrooms", 3], ["Ghoul blood", 1]],
+    "note": "Sygnatura: Sewant mushrooms, ta sama co na poz. 1 i 3."
   },
   "Recipe for Black Blood 3": {
     "item": "Black Blood 3",
@@ -23,8 +23,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Black Blood 2", 1], ["Hellebore petals", 5], ["Sewant mushrooms", 5], ["Han", 1], ["Nostrix", 1], ["Rebis", 1]],
-    "copy": [["Alcohest", 1], ["Hellebore petals", 3], ["Sewant mushrooms", 3], ["Han", 1], ["Nostrix", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Sewant mushrooms", 3], ["Hellebore petals", 2], ["Ghoul blood", 2]],
+    "note": "Sygnatura: Sewant mushrooms; rzadkie Han, Nostrix i Rebis wypadają."
   },
   "Recipe for Blizzard 1": {
     "item": "Blizzard 1",
@@ -32,8 +32,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["White myrtle", 5], ["Golem heart", 1]],
-    "copy": [["Dwarven spirit", 1], ["White myrtle", 3]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["White myrtle", 3], ["Buckthorn", 1]],
+    "note": "Sygnatura: White myrtle; Buckthorn (zimotrwały krzew) zamiast rzadkiego Golem heart."
   },
   "Recipe for Blizzard 2": {
     "item": "Blizzard 2",
@@ -41,8 +41,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Blizzard 1", 1], ["Celandine", 1], ["White myrtle", 5], ["Golem heart", 1]],
-    "copy": [["Alcohest", 1], ["Celandine", 1], ["White myrtle", 3]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["White myrtle", 3], ["Buckthorn", 2]],
+    "note": "Sygnatura: White myrtle; Buckthorn zamiast Golem heart, Celandine zostaje Jaskółce."
   },
   "Recipe for Blizzard 3": {
     "item": "Blizzard 3",
@@ -50,8 +50,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Blizzard 2", 1], ["Celandine", 4], ["White myrtle", 4], ["Sewant mushrooms", 1], ["Buckthorn", 1], ["Rebis", 1]],
-    "copy": [["Alcohest", 1], ["Celandine", 2], ["White myrtle", 2], ["Sewant mushrooms", 1], ["Buckthorn", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["White myrtle", 3], ["Buckthorn", 3], ["Calcium equum", 1]],
+    "note": "Sygnatura: White myrtle; Buckthorn i kreda (Calcium equum) zamiast Golem heart i Rebis."
   },
   "Recipe for Cat 1": {
     "item": "Cat 1",
@@ -59,8 +59,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Berbercane fruit", 4], ["Water essence", 2]],
-    "copy": [["Dwarven spirit", 1], ["Berbercane fruit", 2]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Berbercane fruit", 2], ["Allspice root", 1]],
+    "note": "Sygnatura: Berbercane fruit; Allspice root zamiast drogiego Water essence."
   },
   "Recipe for Cat 2": {
     "item": "Cat 2",
@@ -68,8 +68,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Cat 1", 1], ["Berbercane fruit", 5], ["Cortinarius", 1], ["Water essence", 3]],
-    "copy": [["Alcohest", 1], ["Berbercane fruit", 3], ["Cortinarius", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Berbercane fruit", 3], ["Moleyarrow", 1]],
+    "note": "Sygnatura: Berbercane fruit; Moleyarrow zamiast Water essence, Cortinarius zostaje Gromowi."
   },
   "Recipe for Cat 3": {
     "item": "Cat 3",
@@ -77,8 +77,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Cat 2", 1], ["Berbercane fruit", 4], ["Cortinarius", 4], ["Moleyarrow", 1], ["Allspice root", 1], ["Aether", 1]],
-    "copy": [["Alcohest", 1], ["Berbercane fruit", 2], ["Cortinarius", 2], ["Moleyarrow", 1], ["Allspice root", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Berbercane fruit", 3], ["Moleyarrow", 1], ["Allspice root", 1]],
+    "note": "Sygnatura: Berbercane fruit; bez Aether i Water essence."
   },
   "Recipe for Full Moon 1": {
     "item": "Full Moon 1",
@@ -86,8 +86,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Wolfsbane", 2], ["Nightwraith dark essence", 1]],
-    "copy": [["Dwarven spirit", 1], ["Wolfsbane", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Wolfsbane", 2], ["Wolf liver", 1]],
+    "note": "Sygnatura: Wolfsbane; Wolf liver (wilkołak) zamiast rzadkiego Nightwraith dark essence."
   },
   "Recipe for Full Moon 2": {
     "item": "Full Moon 2",
@@ -95,8 +95,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Full Moon 1", 1], ["Crows eye", 2], ["Wolfsbane", 5], ["Nightwraith dark essence", 2]],
-    "copy": [["Alcohest", 1], ["Crows eye", 1], ["Wolfsbane", 3]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Wolfsbane", 3], ["Wolf liver", 2]],
+    "note": "Sygnatura: Wolfsbane; Wolf liver zamiast Nightwraith dark essence, Crows eye zostaje Maribor Forest."
   },
   "Recipe for Full Moon 3": {
     "item": "Full Moon 3",
@@ -104,8 +104,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Full Moon 2", 1], ["Mistletoe", 1], ["Verbena", 1], ["Crows eye", 4], ["Wolfsbane", 4], ["Quebrith", 1]],
-    "copy": [["Alcohest", 1], ["Mistletoe", 1], ["Verbena", 1], ["Crows eye", 2], ["Wolfsbane", 2]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Wolfsbane", 3], ["Wolf liver", 2], ["Mistletoe", 1]],
+    "note": "Sygnatura: Wolfsbane; Mistletoe z pełnej receptury, bez Quebrith."
   },
   "Recipe for Golden Oriole 1": {
     "item": "Golden Oriole 1",
@@ -113,8 +113,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Blowbill", 4], ["Noonwraith light essence", 1]],
-    "copy": [["Dwarven spirit", 1], ["Blowbill", 2]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Blowbill", 3]],
+    "note": "Sygnatura: Blowbill; Noonwraith light essence wypada jako rzadka."
   },
   "Recipe for Golden Oriole 2": {
     "item": "Golden Oriole 2",
@@ -122,8 +122,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Golden Oriole 1", 1], ["Blowbill", 6], ["Celandine", 1], ["Noonwraith light essence", 2]],
-    "copy": [["Alcohest", 1], ["Blowbill", 3], ["Celandine", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Blowbill", 3], ["Han", 1]],
+    "note": "Sygnatura: Blowbill; Celandine zostaje Jaskółce, bez Noonwraith light essence."
   },
   "Recipe for Golden Oriole 3": {
     "item": "Golden Oriole 3",
@@ -131,8 +131,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Golden Oriole 2", 1], ["Blowbill", 4], ["Celandine", 4], ["Han", 1], ["Ranogrin", 1], ["Quebrith", 1]],
-    "copy": [["Alcohest", 1], ["Blowbill", 2], ["Celandine", 2], ["Han", 1], ["Ranogrin", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Blowbill", 3], ["Han", 1], ["Ranogrin", 1]],
+    "note": "Sygnatura: Blowbill; bez Celandine i Quebrith."
   },
   "Recipe for Killer Whale 1": {
     "item": "Killer Whale 1",
@@ -140,8 +140,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 2], ["Balisse fruit", 5], ["Buckthorn", 6], ["Drowned dead tongue", 5]],
-    "copy": [["Dwarven spirit", 1], ["Balisse fruit", 3], ["Buckthorn", 3]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Balisse fruit", 3], ["Drowned dead tongue", 1]],
+    "note": "Sygnatura: Balisse fruit; pojedynczy Drowned dead tongue zamiast Buckthorn."
   },
   "Recipe for Maribor Forest 1": {
     "item": "Maribor Forest 1",
@@ -149,8 +149,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Berbercane fruit", 3], ["Alghoul bone marrow", 1], ["Drowned dead tongue", 4]],
-    "copy": [["Dwarven spirit", 1], ["Berbercane fruit", 2]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Crows eye", 2], ["Alghoul bone marrow", 1]],
+    "note": "Sygnatura: Crows eye; Alghoul bone marrow to pospolita część wysiłku 3."
   },
   "Recipe for Maribor Forest 2": {
     "item": "Maribor Forest 2",
@@ -158,8 +158,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Maribor Forest 1", 1], ["Berbercane fruit", 5], ["Crows eye", 1], ["Drowned dead tongue", 2]],
-    "copy": [["Alcohest", 1], ["Berbercane fruit", 3], ["Crows eye", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Crows eye", 3], ["Alghoul bone marrow", 2]],
+    "note": "Sygnatura: Crows eye, ta sama co na poz. 1 i 3; Berbercane fruit zostaje Kotu."
   },
   "Recipe for Maribor Forest 3": {
     "item": "Maribor Forest 3",
@@ -167,8 +167,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Maribor Forest 2", 1], ["Berbercane fruit", 4], ["Crows eye", 4], ["Hellebore petals", 1], ["Ribleaf", 1], ["Vermilion", 1]],
-    "copy": [["Alcohest", 1], ["Berbercane fruit", 2], ["Crows eye", 2], ["Hellebore petals", 1], ["Ribleaf", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Crows eye", 3], ["Alghoul bone marrow", 2], ["Hellebore petals", 1]],
+    "note": "Sygnatura: Crows eye; bez Ribleaf i Vermilion."
   },
   "Recipe for Petris Philtre 1": {
     "item": "Petri Philtre 1",
@@ -176,8 +176,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Arenaria", 5], ["Specter dust", 1]],
-    "copy": [["Dwarven spirit", 1], ["Arenaria", 3]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Arenaria", 3], ["Specter dust", 1]],
+    "note": "Sygnatura: Arenaria; Specter dust zostaje (wysiłek 2)."
   },
   "Recipe for Petris Philtre 2": {
     "item": "Petri Philtre 2",
@@ -185,8 +185,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Petri Philtre 1", 1], ["Arenaria", 6], ["Buckthorn", 1], ["Specter dust", 2]],
-    "copy": [["Alcohest", 1], ["Arenaria", 3], ["Buckthorn", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Arenaria", 3], ["Specter dust", 1]],
+    "note": "Sygnatura: Arenaria, ta sama co na poz. 1 i 3."
   },
   "Recipe for Petris Philtre 3": {
     "item": "Petri Philtre 3",
@@ -194,8 +194,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Petri Philtre 2", 1], ["Arenaria", 4], ["Buckthorn", 4], ["Longrube", 1], ["Ranogrin", 1], ["Rubedo", 1]],
-    "copy": [["Alcohest", 1], ["Arenaria", 2], ["Buckthorn", 2], ["Longrube", 1], ["Ranogrin", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Arenaria", 3], ["Specter dust", 2], ["Buckthorn", 2]],
+    "note": "Sygnatura: Arenaria; bez Longrube, Ranogrin i Rubedo."
   },
   "Recipe for Bear Pheromone Potion 1": {
     "item": "Pheromone Potion Bear 1",
@@ -203,8 +203,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Berbercane fruit", 1], ["Ergot seeds", 1], ["Hellebore petals", 1]],
-    "copy": [["Dwarven spirit", 1], ["Berbercane fruit", 1], ["Ergot seeds", 1], ["Hellebore petals", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Ergot seeds", 1], ["Hellebore petals", 1]],
+    "note": "Sygnatura: Ergot seeds; Berbercane fruit zostaje Kotu."
   },
   "Recipe for Drowner Pheromone Potion 1": {
     "item": "Pheromone Potion Drowner 1",
@@ -212,8 +212,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Drowner brain", 1], ["Sewant mushrooms", 1], ["Pigskin puffball", 1]],
-    "copy": [["Dwarven spirit", 1], ["Sewant mushrooms", 1], ["Pigskin puffball", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Pigskin puffball", 1]],
+    "note": "Sygnatura: Pigskin puffball; Sewant mushrooms zostaje Czarnej Krwi, bez Drowner brain."
   },
   "Recipe for Nekker Pheromone Potion 1": {
     "item": "Pheromone Potion Nekker 1",
@@ -222,7 +222,7 @@
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Green mold", 1], ["Drowner brain", 1], ["Moleyarrow", 1]],
     "copy": [["Dwarven spirit", 1], ["Green mold", 1], ["Moleyarrow", 1]],
-    "note": ""
+    "note": "Sygnatura: Green mold; bez Drowner brain."
   },
   "Recipe for Swallow 1": {
     "item": "Swallow 1",
@@ -230,8 +230,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Celandine", 5], ["Drowner brain", 1]],
-    "copy": [["Dwarven spirit", 1], ["Celandine", 3]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Celandine", 3], ["Drowner brain", 1]],
+    "note": "Sygnatura: Celandine; Drowner brain to pospolita część wysiłku 3."
   },
   "Recipe for Swallow 2": {
     "item": "Swallow 2",
@@ -239,8 +239,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Swallow 1", 1], ["Celandine", 6], ["White myrtle", 4], ["Drowner brain", 5]],
-    "copy": [["Alcohest", 1], ["Celandine", 3], ["White myrtle", 2]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Celandine", 3], ["Drowner brain", 2]],
+    "note": "Sygnatura: Celandine; White myrtle zostaje Zamieci."
   },
   "Recipe for Swallow 3": {
     "item": "Swallow 3",
@@ -248,8 +248,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Swallow 2", 1], ["Berbercane fruit", 6], ["White myrtle", 6], ["Celandine", 4], ["Crows eye", 4], ["Vitriol", 2]],
-    "copy": [["Alcohest", 1], ["Berbercane fruit", 3], ["White myrtle", 3], ["Celandine", 2], ["Crows eye", 2]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Celandine", 3], ["Drowner brain", 2], ["Beggartick blossoms", 2]],
+    "note": "Sygnatura: Celandine; Beggartick blossoms zamiast Vitriol i cudzych ziół."
   },
   "Recipe for Tawny Owl 1": {
     "item": "Tawny Owl 1",
@@ -257,8 +257,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Verbena", 2], ["Arachas venom", 1]],
-    "copy": [["Dwarven spirit", 1], ["Verbena", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Verbena", 1], ["Arachas venom", 1]],
+    "note": "Sygnatura: Verbena; Arachas venom to pospolita część wysiłku 3."
   },
   "Recipe for Tawny Owl 2": {
     "item": "Tawny Owl 2",
@@ -266,8 +266,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Tawny Owl 1", 1], ["Verbena", 4], ["Wolfsbane", 2], ["Arachas venom", 1]],
-    "copy": [["Alcohest", 1], ["Verbena", 2], ["Wolfsbane", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Verbena", 2], ["Arachas venom", 1]],
+    "note": "Sygnatura: Verbena; Wolfsbane zostaje Pełni."
   },
   "Recipe for Tawny Owl 3": {
     "item": "Tawny Owl 3",
@@ -275,8 +275,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Tawny Owl 2", 1], ["Verbena", 4], ["Wolfsbane", 4], ["Fools parsley leaves", 1], ["Mandrake root", 1], ["Sewant mushrooms", 1]],
-    "copy": [["Alcohest", 1], ["Verbena", 2], ["Wolfsbane", 2], ["Fools parsley leaves", 1], ["Mandrake root", 1], ["Sewant mushrooms", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Verbena", 2], ["Arachas venom", 2], ["Mandrake root", 1]],
+    "note": "Sygnatura: Verbena; Arachas venom zamiast Sewant mushrooms i Fools parsley."
   },
   "Recipe for Thunderbolt 1": {
     "item": "Thunderbolt 1",
@@ -284,8 +284,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Cortinarius", 2], ["Endriag embryo", 1]],
-    "copy": [["Dwarven spirit", 1], ["Cortinarius", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Cortinarius", 2], ["Fools parsley leaves", 1]],
+    "note": "Sygnatura: Cortinarius; Endriag embryo (wysiłek 4) wypada."
   },
   "Recipe for Thunderbolt 2": {
     "item": "Thunderbolt 2",
@@ -293,8 +293,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["Thunderbolt 1", 1], ["Cortinarius", 2], ["Fools parsley leaves", 1], ["Endriag embryo", 2]],
-    "copy": [["Alcohest", 1], ["Cortinarius", 1], ["Fools parsley leaves", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Cortinarius", 2], ["Fools parsley leaves", 1]],
+    "note": "Sygnatura: Cortinarius; bez Endriag embryo."
   },
   "Recipe for Thunderbolt 3": {
     "item": "Thunderbolt 3",
@@ -302,8 +302,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["Thunderbolt 2", 1], ["Cortinarius", 4], ["Fools parsley leaves", 4], ["Verbena", 1], ["Bryonia", 1], ["Quebrith", 1]],
-    "copy": [["Alcohest", 1], ["Cortinarius", 2], ["Fools parsley leaves", 2], ["Verbena", 1], ["Bryonia", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Cortinarius", 3], ["Fools parsley leaves", 2], ["Bryonia", 1]],
+    "note": "Sygnatura: Cortinarius; bez Verbena i Quebrith."
   },
   "Recipe for White Honey 1": {
     "item": "White Honey 1",
@@ -312,7 +312,7 @@
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Honeysuckle", 1]],
     "copy": [["Dwarven spirit", 1], ["Honeysuckle", 1]],
-    "note": ""
+    "note": "Sygnatura: Honeysuckle; pełna receptura ma tylko dwa składniki."
   },
   "Recipe for White Honey 2": {
     "item": "White Honey 2",
@@ -320,8 +320,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["White Honey 1", 1], ["Honeysuckle", 2], ["White myrtle", 1]],
-    "copy": [["Alcohest", 1], ["Honeysuckle", 1], ["White myrtle", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Honeysuckle", 2]],
+    "note": "Sygnatura: Honeysuckle; White myrtle zostaje Zamieci."
   },
   "Recipe for White Honey 3": {
     "item": "White Honey 3",
@@ -329,8 +329,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["White Honey 2", 1], ["Honeysuckle", 4], ["White myrtle", 4], ["Balisse fruit", 1], ["Hellebore petals", 1], ["Vitriol", 1]],
-    "copy": [["Alcohest", 1], ["Honeysuckle", 2], ["White myrtle", 2], ["Balisse fruit", 1], ["Hellebore petals", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Honeysuckle", 3], ["Hellebore petals", 1]],
+    "note": "Sygnatura: Honeysuckle; bez Balisse fruit (Orka) i Vitriol."
   },
   "Recipe for White Raffards Decoction 1": {
     "item": "White Raffards Decoction 1",
@@ -338,8 +338,8 @@
     "level": 1,
     "kind": "potion",
     "full": [["Dwarven spirit", 1], ["Ribleaf", 2], ["Nekker heart", 4]],
-    "copy": [["Dwarven spirit", 1], ["Ribleaf", 1]],
-    "note": ""
+    "copy": [["Dwarven spirit", 1], ["Ribleaf", 1], ["Nekker heart", 1]],
+    "note": "Sygnatura: Ribleaf; Nekker heart to pospolita część wysiłku 3."
   },
   "Recipe for White Raffards Decoction 2": {
     "item": "White Raffards Decoction 2",
@@ -347,8 +347,8 @@
     "level": 2,
     "kind": "potion",
     "full": [["Alcohest", 1], ["White Raffards Decoction 1", 1], ["Ribleaf", 4], ["Bryonia", 1], ["Nekker heart", 5]],
-    "copy": [["Alcohest", 1], ["Ribleaf", 2], ["Bryonia", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Ribleaf", 2], ["Nekker heart", 1], ["Pringrape", 1]],
+    "note": "Sygnatura: Ribleaf; Pringrape zamiast Bryonia."
   },
   "Recipe for White Raffards Decoction 3": {
     "item": "White Raffards Decoction 3",
@@ -356,8 +356,8 @@
     "level": 3,
     "kind": "potion",
     "full": [["White Gull 1", 1], ["White Raffards Decoction 2", 1], ["Ribleaf", 4], ["Bryonia", 4], ["Pringrape", 1], ["Bison Grass", 1], ["Vermilion", 1]],
-    "copy": [["Alcohest", 1], ["Ribleaf", 2], ["Bryonia", 2], ["Pringrape", 1], ["Bison Grass", 1]],
-    "note": ""
+    "copy": [["Alcohest", 1], ["Ribleaf", 2], ["Nekker heart", 2], ["Bison Grass", 1]],
+    "note": "Sygnatura: Ribleaf; bez Vermilion i Pringrape."
   },
   "Recipe for Dancing Star 1": {
     "item": "Dancing Star 1",
