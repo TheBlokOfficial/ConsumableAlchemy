@@ -13,7 +13,7 @@ zachowanie, przechodzi do „Potwierdzone”.
 
 ## Bieżąca checklista: dawki, limity i tabela receptur
 
-Kod v0.4 i tabela receptur (tabela odtwarza poprzednią regułę 1:1, rozgrywka bez zmian).
+Obecny kod i tabela receptur (powielenie z reguły szkicu, przed szlifem).
 
 Receptury:
 - [ ] Jaskółka 1 nieodblokowana → pełna receptura (`Dwarven spirit`, 5× `Celandine`, `Drowner brain`); zaraz

@@ -85,3 +85,5 @@ sygnał do przeglądu, nie powód do skracania kosztem jasności, powodu czy inf
   dokumentach. Rozstrzygnięcia nie odsyłają do specu — spec znika po etapie.
 - Pojęcie ma jedną nazwę ze słownika. „X nie ma” podaje powód albo odsyła do rozstrzygnięcia. Punkt to jedna
   myśl, do ok. 60 słów. Odwołanie do vanilli: nazwa funkcji plus `plik:linia` jako podpowiedź.
+- Rozstrzygnięcie i otwarte pytanie mają nazwę, nie numer — w dokumentach link do nagłówka, w rozmowie nazwa.
+  Mod nie ma numeru wersji przed wydaniem; stan opisuje się słowami (co działa).

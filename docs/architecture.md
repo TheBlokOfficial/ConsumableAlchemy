@@ -7,10 +7,10 @@ Jak mod działa i na czym opiera się w vanilli. Pojęcia: słownik w [README.md
 ## Klasyfikacja — `CA_IsConsumableItemName` (common.ws)
 
 Consumable = singleton **i** (bomba (`category == petard`) **lub** tag `Potion` — także wywary z tagiem
-`Mutagen`), z wyłączeniem: `Snow Ball`, `Tutorial Bomb`, `Village drink`, `Pops Antidote` (q303, D27), tag `Quest`, tag
+`Mutagen`), z wyłączeniem: `Snow Ball`, `Tutorial Bomb`, `Village drink`, `Pops Antidote` (q303, [rozstrzygnięcie](decisions.md#antidotum-popsa-poza-systemem)), tag `Quest`, tag
 `NoAdditionalAmmo` (bomby z farbą `q703_paint_bomb_*` z Toussaint), `TAG_INFINITE_AMMO`.
 `CA_IsConsumableItem(id)` (`@addMethod` na `CInventoryComponent`) dodatkowo wymaga, by inwentarz należał
-do gracza. Limit jest vanillowy (D7): mod nie ma własnej stałej ani nie zmienia `SingletonItemGetMaxAmmo`.
+do gracza. Limit jest [vanillowy](decisions.md#limit-jak-w-vanilli): mod nie ma własnej stałej ani nie zmienia `SingletonItemGetMaxAmmo`.
 
 ## Punkty zaczepienia
 
@@ -19,11 +19,11 @@ do gracza. Limit jest vanillowy (D7): mod nie ma własnej stałej ani nie zmieni
 | Każde odnawianie (medytacja `MeditationRestoring` `playerWitcher.ws:10249`, łóżko, stół, `RecoverGeralt`, NG+ `:1191`, tutorial) przechodzi przez `SingletonItemRefillAmmo` (`inventoryComponent.ws:3575`) | ustawia max | `@wrapMethod`: zainicjalizowany consumable (`is_initialized != 0`) → nic; reszta (nie-consumables, inicjalizacja nowego przedmiotu) → vanilla |
 | Inicjalizacja nowego przedmiotu: `OnItemAdded` (`inventoryComponent.ws:4817`) woła odnawianie, potem ustawia `is_initialized = 1` | max | vanilla (po łóżku/stole w Corvo Bianco vanilla daje max + 1) |
 | Limit: `SingletonItemGetMaxAmmo` (`:3779`) | atrybut `ammo` + bonusy | bez zmian |
-| Nadmiar ponad limit (stary zapis, wygasły bonus) | przycina tylko przy zmianie skilla/zestawu (`SkillReduceBombAmmoBonus`, `r4Player.ws:11743`) | bez zmian; nie przycinać przy odczycie (D16) |
+| Nadmiar ponad limit (stary zapis, wygasły bonus) | przycina tylko przy zmianie skilla/zestawu (`SkillReduceBombAmmoBonus`, `r4Player.ws:11743`) | bez zmian; nie przycinać przy odczycie ([powód](decisions.md#nadmiar-ponad-limit-zostaje)) |
 | Alkohol i powiadomienia: `SingletonItemsRefillAmmo` (`:3641`) / `NoAlco`, sterowane prywatnym `HasNotFilledSingletonItem` (`:3712`) | | `@replaceMethod HasNotFilledSingletonItem`: pomija consumables |
 | Tutorial „uzupełnij alkoholem”: `SingletonItemRemoveAmmo` (`:3749`) dodaje fakt `tut_alch_refill` | | `@replaceMethod`: nie dla consumables |
-| Stół w Corvo Bianco: `ManageSingletonItemsBonus` (`:3832`), wołane z `ApplyAlchemyTableBuff` (`quest_function.ws:7927`) | +1 ponad max | `@replaceMethod`: tylko dźwięk odmowy (D17) |
-| Loot i zakup: `GiveItemTo` (`:745`) | posiadany singleton → odmowa „already cooked” | bez zmian (D14) |
+| Stół w Corvo Bianco: `ManageSingletonItemsBonus` (`:3832`), wołane z `ApplyAlchemyTableBuff` (`quest_function.ws:7927`) | +1 ponad max | `@replaceMethod`: tylko dźwięk odmowy ([powód](decisions.md#stół-w-corvo-bianco-bez-premii)) |
+| Loot i zakup: `GiveItemTo` (`:745`) | posiadany singleton → odmowa „already cooked” | bez zmian ([powód](decisions.md#pozyskanie-poza-warzeniem-jak-w-vanilli)) |
 | Czy wolno warzyć: `W3AlchemyManager.CanCookRecipe` (`alchemyManager.ws:141`) | `EAE_CannotCookMore` dla posiadanych | `@replaceMethod`: posiadany consumable zablokowany tylko przy pełnej kieszeni |
 | Warzenie: `CookItem` (`alchemyManager.ws:208`) | nowy przedmiot dostaje max, posiadany bez zmian | `@wrapMethod`: po vanilli każdy egzemplarz uwarzonego consumable poniżej limitu → `SingletonItemSetAmmo(max)`; nadmiar ponad max nietknięty |
 | Tekst blokady w menu: `alchemyMenu.ws` pokazuje `cantCookReason` z `AlchemyExceptionToString` | | bez zmian (`panel_alchemy_exception_already_cooked`) |
@@ -91,7 +91,7 @@ W3 nie ma zamienników składników: `CanCookRecipe` sprawdza po nazwie, a uśpi
 - **Wywar Wodnej Baby** (`EET_Mutagen03`, `mutagen03.ws`): przy nałożeniu +1 dawka każdej miksturze i bombie
   (także z 0 dawek — darmowa dawka), przy wygaśnięciu −1 (także dawka opłacona składnikami, uwarzona ponad
   limit w trakcie działania).
-- **Pełne dawki z pominięciem wrappera odnawiania** (zgodne z D14): `AddItemQuest`, `AddItemQuestExt` itd.
+- **Pełne dawki z pominięciem wrappera odnawiania** (zgodne z [pozyskaniem jak w vanilli](decisions.md#pozyskanie-poza-warzeniem-jak-w-vanilli)): `AddItemQuest`, `AddItemQuestExt` itd.
   (`quest_function.ws:2016/2053/2135/5958/6004`) i przedmioty startowe nowej gry (`r4Player.ws:15482`)
   po `AddAnItem` wołają wprost `SingletonItemSetAmmo(max)`. Nie łatać (zasada 4).
 
@@ -104,7 +104,7 @@ bez receptury na swój poziom (poz. 2 przy recepturze poz. 1, poz. 1 i wywary be
 medytacja je odnawia; w modzie są jednorazowe. Receptury poz. 2 da się później kupić (Toussaint
 `_EP2_store__Alchemist`, zielarze `Oxenfurt_Herbalist` / `Druid_Herbalist`). Przy każdym wczytaniu zapisu
 woła się `ApplyPatchFixes` (`private final`, `playerWitcher.ws:738`) — miejsce na poprawkę dla istniejących
-zapisów. Możliwa poprawka (D23): [roadmap.md](roadmap.md#do-decyzji-autora).
+zapisów. Możliwa poprawka: [roadmap.md](roadmap.md#do-decyzji-autora), „Starty dodatków”.
 
 ## Degradacja
 

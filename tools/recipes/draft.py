@@ -1,10 +1,10 @@
-"""Draft of recipes_table.json - the hand-edited recipe table read by the mod (decision D19).
+"""Draft of recipes_table.json - the hand-edited recipe table read by the mod (see docs/decisions.md).
 
 python draft.py            write recipes_table.json (refuses to overwrite an existing table)
 python draft.py --force    overwrite the existing table (hand edits are lost!)
 python draft.py --diff     compare the existing table with a fresh draft (shows hand edits)
 
-The draft reproduces the v0.3 behaviour: full = vanilla recipe (XML order),
+The draft: full = vanilla recipe (XML order),
 copy = rule.py (price threshold 16, quantity divisor 2).
 Covered: every alchemy recipe whose item is a consumable in the mod
 (mirrors CA_IsConsumableItemName in ConsumableAlchemy_common.ws).

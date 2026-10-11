@@ -1,8 +1,6 @@
-"""Copy-recipe rule v0.3 (variant A, session 4).
+"""Copy-recipe rule used by draft.py for the first draft of recipes_table.json.
 
-Until v0.3 the mod computed copy recipes in game with this rule (CA_GetCopyIngredients).
-Now the mod reads recipes_table.json (via generate.py) and draft.py uses this rule
-to make the first draft of the table.
+The mod itself reads the hand-edited table (via generate.py), not this rule.
 
 python rule.py [price_threshold=16] [quantity_divisor=2]
 

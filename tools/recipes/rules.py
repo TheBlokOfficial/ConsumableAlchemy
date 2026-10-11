@@ -108,7 +108,7 @@ def no_powder(k, r, ctx):
 
 @per_recipe
 def copy_lower_level(k, r, ctx):
-    low = [n for n in names(r['copy']) if ctx.is_lower_level(n)]  # D28
+    low = [n for n in names(r['copy']) if ctx.is_lower_level(n)]  # copy must stay brewable while the higher level is owned
     return ['copy contains a lower-level item: ' + ', '.join(low)] if low else []
 
 
@@ -263,7 +263,7 @@ RULES = [
     Rule('copy_effort_higher', 'error', copy_effort_higher),
     Rule('copy_effort_max_higher', 'error', copy_effort_max_higher),
     Rule('missing_from_catalog', 'error', missing_from_catalog),
-    # D30: uniqueness comes from the signature ingredient; a one-ingredient difference is only informative.
+    # Uniqueness comes from the signature ingredient; a one-ingredient difference is only informative.
     # collision becomes an error once the polished table has none (it would block check.ps1 now).
     Rule('collision', 'warn', collision),
     Rule('near_collision', 'info', near_collision),

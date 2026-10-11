@@ -1,4 +1,4 @@
-"""recipes_table.json -> ConsumableAlchemy_recipes_table.ws (decision D19).
+"""recipes_table.json -> ConsumableAlchemy_recipes_table.ws (recipes are hand-edited, see docs/decisions.md).
 
 python generate.py [--check]
 
