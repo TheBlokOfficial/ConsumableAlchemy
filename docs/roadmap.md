@@ -23,8 +23,7 @@ Brak otwartych pytań.
 
 ## Szlif
 
-- Prawy panel menu przy pełnej kieszeni nadal pokazuje „Już masz ten przedmiot” (`cantCookReason` w prywatnej
-  `PopulateData`); nowy tekst daje tylko komunikat przy próbie warzenia.
+Brak.
 
 ## Odłożone
 

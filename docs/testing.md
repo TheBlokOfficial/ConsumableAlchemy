@@ -24,8 +24,8 @@ Receptury:
 - [ ] Wywar: medytacja go nie odnawia; po wypiciu można uwarzyć ponownie (alkohol + 1–3 składniki
   z sygnaturą wywaru; mutagen tylko w wywarach południcy i nocnicy);
   przy 1/1 komunikat „Masz już wszystkie dawki” (EN: „Already fully stocked”).
-- [ ] Przedmiot uwarzony na zawsze w vanilli nadal pokazuje „Już masz ten przedmiot”; mikstura z kompletem
-  dawek pokazuje „Masz już wszystkie dawki”.
+- [ ] Przedmiot uwarzony na zawsze w vanilli nadal pokazuje „Już masz ten przedmiot” (także w prawym panelu);
+  mikstura z kompletem dawek pokazuje w prawym panelu i w komunikacie „Masz już wszystkie dawki”.
 - [ ] Tooltip receptury w ekwipunku i przypięta receptura pokazują tę samą listę co menu.
 
 Dawki i limity:

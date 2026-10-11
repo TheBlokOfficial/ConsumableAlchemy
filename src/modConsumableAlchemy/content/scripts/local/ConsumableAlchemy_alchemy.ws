@@ -61,6 +61,157 @@ function CreateItem( recipeIndex : int )
 		UpdateItemsById(recipeIndex);
 }
 
+// Vanilla, except the cantCookReason of a consumable at full stock is CA_FullStockText().
+// Replaced because the entry array goes to Flash inside the method and cantCookReason is
+// set there; canCookStatus stays untouched (the menu filters read it).
+@replaceMethod(CR4AlchemyMenu)
+function PopulateData()
+{
+	var l_DataFlashArray		: CScriptedFlashArray;
+	var l_DataFlashObject 		: CScriptedFlashObject;
+
+	var recipe					: SAlchemyRecipe;
+
+	var i, length				: int;
+
+	var l_Title					: string;
+	var l_Tag					: name;
+	var l_IconPath				: string;
+	var l_GroupTitle			: string;
+	var l_GroupTag				: name;
+	var l_IsNew					: bool;
+	var canCraftResult			: EAlchemyExceptions;
+	var canCraftResultFilters	: EAlchemyExceptions;
+
+
+	var cookableType			: EAlchemyCookedItemType;
+	var cookable				: SCookable;
+	var cookables				: array<SCookable>;
+	var exists					: bool;
+	var j, cookableCount		: int;
+	var minQuality, maxQuality  : int;
+
+	var expandedAlchemyCategories : array< name >;
+
+	expandedAlchemyCategories = GetWitcherPlayer().GetExpandedAlchemyCategories();
+
+	l_DataFlashArray = m_flashValueStorage.CreateTempFlashArray();
+	length = m_recipeList.Size();
+
+
+	for(i=0; i<length; i+=1)
+	{
+		if(m_alchemyManager.CanCookRecipe(m_recipeList[i].recipeName) == EAE_NoException)
+		{
+			exists = false;
+			cookableType = m_recipeList[i].cookedItemType;
+
+			for(j=0; j<cookables.Size(); j+=1)
+			{
+				if(cookables[j].type == cookableType)
+				{
+					cookables[j].cnt += 1;
+					exists = true;
+					break;
+				}
+			}
+
+			if(!exists)
+			{
+				cookable.type = cookableType;
+				cookable.cnt = 1;
+				cookables.PushBack(cookable);
+			}
+		}
+	}
+
+	for( i = 0; i < length; i+= 1 )
+	{
+		recipe = m_recipeList[ i ];
+		l_GroupTag = AlchemyCookedItemTypeEnumToName( recipe.cookedItemType );
+
+		l_GroupTitle = GetLocStringByKeyExt( AlchemyCookedItemTypeToLocKey(recipe.cookedItemType) );
+
+		l_Title = GetLocStringByKeyExt( m_definitionsManager.GetItemLocalisationKeyName( recipe.cookedItemName ) ) ;
+		l_IconPath = m_definitionsManager.GetItemIconPath(recipe.cookedItemName);
+		l_IsNew	= false;
+		l_Tag = recipe.recipeName;
+
+		canCraftResult = m_alchemyManager.CanCookRecipe(recipe.recipeName);
+		canCraftResultFilters = m_alchemyManager.CanCookRecipe(recipe.recipeName, true);
+
+
+		cookableCount = 0;
+		for(j=0; j<cookables.Size(); j+=1)
+		{
+			if(cookables[j].type == recipe.cookedItemType)
+			{
+				cookableCount = cookables[j].cnt;
+				break;
+			}
+		}
+
+
+		l_DataFlashObject = m_flashValueStorage.CreateTempFlashObject();
+
+		if(cookableCount > 0)
+		{
+			l_DataFlashObject.SetMemberFlashString(  "categoryPostfix", " | " + cookableCount + " |");
+		}
+		else
+		{
+			l_DataFlashObject.SetMemberFlashString(  "categoryPostfix", "" );
+		}
+
+		thePlayer.inv.GetItemQualityFromName( recipe.cookedItemName, minQuality, maxQuality );
+
+		l_DataFlashObject.SetMemberFlashUInt(  "tag", NameToFlashUInt(l_Tag) );
+		l_DataFlashObject.SetMemberFlashString(  "dropDownLabel", l_GroupTitle );
+		l_DataFlashObject.SetMemberFlashUInt(  "dropDownTag",  NameToFlashUInt(l_GroupTag) );
+		l_DataFlashObject.SetMemberFlashBool(  "dropDownOpened", expandedAlchemyCategories.Contains( l_GroupTag ) );
+		l_DataFlashObject.SetMemberFlashString(  "dropDownIcon", "icons/monsters/ICO_MonsterDefault.png" );
+
+		l_DataFlashObject.SetMemberFlashBool( "isNew", l_IsNew );
+
+		if ( m_guiManager.GetShowItemNames() )
+		{
+			l_Title = l_Title + "<br><font color=\"#FFDB00\">'" + recipe.recipeName + "'</font>";
+		}
+
+		l_DataFlashObject.SetMemberFlashString(  "label", l_Title );
+		l_DataFlashObject.SetMemberFlashString(  "iconPath", l_IconPath );
+		l_DataFlashObject.SetMemberFlashInt( "rarity", minQuality );
+
+		if (canCraftResult != EAE_NoException)
+		{
+			if (canCraftResult == EAE_CannotCookMore && CA_IsFullStock(recipe.cookedItemName))
+				l_DataFlashObject.SetMemberFlashString( "cantCookReason", CA_FullStockText());
+			else
+				l_DataFlashObject.SetMemberFlashString( "cantCookReason", GetLocStringByKeyExt(AlchemyExceptionToString(canCraftResult)));
+		}
+		else
+		{
+			l_DataFlashObject.SetMemberFlashString( "cantCookReason", "" );
+		}
+
+		l_DataFlashObject.SetMemberFlashBool( "isSchematic", false );
+		l_DataFlashObject.SetMemberFlashInt( "canCookStatus", canCraftResult);
+		l_DataFlashObject.SetMemberFlashInt( "canCookStatusForFilter", canCraftResultFilters);
+
+		l_DataFlashArray.PushBackFlashObject(l_DataFlashObject);
+	}
+
+	if( l_DataFlashArray.GetLength() > 0 )
+	{
+		m_flashValueStorage.SetFlashArray( DATA_BINDING_NAME, l_DataFlashArray );
+		m_fxShowSecondaryModulesSFF.InvokeSelfOneArg(FlashArgBool(true));
+	}
+	else
+	{
+		m_fxShowSecondaryModulesSFF.InvokeSelfOneArg(FlashArgBool(false));
+	}
+}
+
 // Vanilla, except an owned consumable can be brewed again until it reaches the cap.
 // At the cap the vanilla "already brewed" exception is returned, so the menu
 // shows the original localized message.

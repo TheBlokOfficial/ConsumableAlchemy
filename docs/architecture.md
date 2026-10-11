@@ -27,7 +27,8 @@ do gracza. Limit jest [vanillowy](decisions.md#limit-jak-w-vanilli): mod nie ma 
 | Loot i zakup: `GiveItemTo` (`:745`) | posiadany singleton → odmowa „already cooked” | bez zmian ([powód](decisions.md#pozyskanie-poza-warzeniem-jak-w-vanilli)) |
 | Czy wolno warzyć: `W3AlchemyManager.CanCookRecipe` (`alchemyManager.ws:141`) | `EAE_CannotCookMore` dla posiadanych | `@replaceMethod`: posiadany consumable zablokowany tylko przy pełnej kieszeni |
 | Warzenie: `CookItem` (`alchemyManager.ws:208`) | nowy przedmiot dostaje max, posiadany bez zmian | `@wrapMethod`: po vanilli każdy egzemplarz uwarzonego consumable poniżej limitu → `SingletonItemSetAmmo(max)`; nadmiar ponad max nietknięty |
-| Powiadomienie przy próbie warzenia: `CR4AlchemyMenu.CreateItem` (`alchemyMenu.ws:332`) | `panel_alchemy_exception_already_cooked` | `@wrapMethod`: przy pełnej kieszeni consumable własny tekst `CA_FullStockText` ([powód](decisions.md#tekst-przy-pełnej-kieszeni)), bez wołania vanilli. `cantCookReason` pozycji menu (`:505`, wewnątrz `PopulateData`) i HUD przy lootcie (`inventoryComponent.ws:777`) bez zmian |
+| Powiadomienie przy próbie warzenia: `CR4AlchemyMenu.CreateItem` (`alchemyMenu.ws:332`) | `panel_alchemy_exception_already_cooked` | `@wrapMethod`: przy pełnej kieszeni consumable własny tekst `CA_FullStockText` ([powód](decisions.md#tekst-przy-pełnej-kieszeni)), bez wołania vanilli. HUD przy lootcie (`inventoryComponent.ws:777`) bez zmian |
+| Pozycje menu: `CR4AlchemyMenu.PopulateData` (prywatna, `alchemyMenu.ws:386`) | `cantCookReason` z `AlchemyExceptionToString` (`:505`) | `@replaceMethod`, kopia vanilli; jedyna zmiana: przy pełnej kieszeni consumable `cantCookReason` = `CA_FullStockText`. `canCookStatus` bez zmian |
 | Składniki receptury: `GetRecipe`, `GetRecipes`, `getAlchemyRecipeFromName`, `CR4AlchemyMenu.CreateItem` | | sekcja niżej |
 
 ## Receptury — recipes.ws i tabela
@@ -85,8 +86,8 @@ W3 nie ma zamienników składników: `CanCookRecipe` sprawdza po nazwie, a uśpi
   Zmiana statusu zmienia, co menu ukrywa; żeby zmienić tylko tekst pozycji, zmieniaj `cantCookReason`.
 - **Teksty powodu odmowy:** `AlchemyExceptionToString` (`alchemyTypes.ws:103`) mapuje status na klucz;
   `EAE_CannotCookMore` → `panel_alchemy_exception_already_cooked` (`:111`). Ten klucz trafia do `cantCookReason`
-  pozycji menu (`alchemyMenu.ws:505`, wewnątrz prywatnej `PopulateData`, idzie wprost do Flasha — mod go nie
-  podmienia), do komunikatu przy próbie warzenia (`alchemyMenu.ws:369`; mod podmienia przy pełnej kieszeni,
+  pozycji menu (`alchemyMenu.ws:505`, wewnątrz prywatnej `PopulateData`, idzie wprost do Flasha — dlatego mod
+  podmienia całą metodę; przy pełnej kieszeni consumable daje własny tekst), do komunikatu przy próbie warzenia (`alchemyMenu.ws:369`; mod podmienia przy pełnej kieszeni,
   [tekst przy pełnej kieszeni](decisions.md#tekst-przy-pełnej-kieszeni)) i do HUD przy lootcie posiadanego
   singletona (`inventoryComponent.ws:777`). Etykiety filtrów to klucze
   `gui_panel_filter_has_ingredients / _elements_missing / _already_crafted` przekazane ze skryptu

@@ -84,7 +84,7 @@ Wyłączenie po nazwie w `CA_IsConsumableItemName` i w `draft.py`. Feromony i `K
 mikstury z recepturą z lootu i sklepów) zostają w systemie.
 
 ### Tekst przy pełnej kieszeni
-Consumable z kompletem dawek przy próbie warzenia dostaje „Masz już wszystkie dawki” / „Already fully
+Consumable z kompletem dawek dostaje, w komunikacie przy próbie warzenia i w prawym panelu menu, „Masz już wszystkie dawki” / „Already fully
 stocked”. Powód: w vanilli ten sam tekst („Już masz ten przedmiot”) znaczy „uwarzone na zawsze”. Status
 i filtr „Już wykonane” bez zmian. Tekst daje funkcja wg języka gry (PL, reszta EN), bo nie ma narzędzia do
 `.w3strings`. Odrzucone: filtr „Uzupełniono” — wymaga zmian we Flashu.
