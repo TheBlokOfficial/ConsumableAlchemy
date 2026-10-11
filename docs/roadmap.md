@@ -19,17 +19,7 @@ wersji.
 
 ## Do decyzji autora
 
-Żadne nie blokuje kolejnego kroku.
-- **Komunikat „Już masz ten przedmiot” przy pełnej kieszeni.** Ten sam status `EAE_CannotCookMore` znaczy
-  w vanilli „uwarzone na zawsze”, w modzie także „komplet dawek” ([szczegóły](architecture.md#mechanika-vanilli-istotna-dla-moda)).
-  Warianty: (0) zostaje; (i) osobny tekst tylko przy pełnej kieszeni, status i filtr „Już wykonane” bez zmian
-  (nowy klucz PL + EN, brzmienie do uzgodnienia); (ii) dodatkowo filtr „Uzupełniono” — wymaga zmian we Flashu
-  (trzy stałe przełączniki), poza zakresem moda. Rekomendacja: (i).
-- **Przedmioty specjalne: system moda czy vanilla?** Bez tagu `Quest` zostały: feromony (3) i `Killer Whale 1`
-  — zwykłe mikstury z recepturą z lootu i sklepów; rekomendacja: system moda. `ReinaldsPhiltre` — bez receptury,
-  jak `Village drink`; rekomendacja: vanilla, wyłączenie po nazwie w `CA_IsConsumableItemName` i `draft.py`
-  ([wzór](decisions.md#antidotum-popsa-poza-systemem)). `Trial Potion Kit` ma tag `Quest` — już vanilla.
-  Dane: [architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda).
+Brak otwartych pytań.
 
 ## Odłożone
 

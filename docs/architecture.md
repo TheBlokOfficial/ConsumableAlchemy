@@ -7,7 +7,7 @@ Jak mod działa i na czym opiera się w vanilli. Pojęcia: słownik w [README.md
 ## Klasyfikacja — `CA_IsConsumableItemName` (common.ws)
 
 Consumable = singleton **i** (bomba (`category == petard`) **lub** tag `Potion` — także wywary z tagiem
-`Mutagen`), z wyłączeniem: `Snow Ball`, `Tutorial Bomb`, `Village drink`, `Pops Antidote` (q303, [rozstrzygnięcie](decisions.md#antidotum-popsa-poza-systemem)), tag `Quest`, tag
+`Mutagen`), z wyłączeniem: `Snow Ball`, `Tutorial Bomb`, `Village drink`, `Pops Antidote` (q303), `ReinaldsPhiltre` ([rozstrzygnięcie](decisions.md#przedmioty-specjalne-poza-systemem)), tag `Quest`, tag
 `NoAdditionalAmmo` (bomby z farbą `q703_paint_bomb_*` z Toussaint), `TAG_INFINITE_AMMO`.
 `CA_IsConsumableItem(id)` (`@addMethod` na `CInventoryComponent`) dodatkowo wymaga, by inwentarz należał
 do gracza. Limit jest [vanillowy](decisions.md#limit-jak-w-vanilli): mod nie ma własnej stałej ani nie zmienia `SingletonItemGetMaxAmmo`.
@@ -27,7 +27,7 @@ do gracza. Limit jest [vanillowy](decisions.md#limit-jak-w-vanilli): mod nie ma 
 | Loot i zakup: `GiveItemTo` (`:745`) | posiadany singleton → odmowa „already cooked” | bez zmian ([powód](decisions.md#pozyskanie-poza-warzeniem-jak-w-vanilli)) |
 | Czy wolno warzyć: `W3AlchemyManager.CanCookRecipe` (`alchemyManager.ws:141`) | `EAE_CannotCookMore` dla posiadanych | `@replaceMethod`: posiadany consumable zablokowany tylko przy pełnej kieszeni |
 | Warzenie: `CookItem` (`alchemyManager.ws:208`) | nowy przedmiot dostaje max, posiadany bez zmian | `@wrapMethod`: po vanilli każdy egzemplarz uwarzonego consumable poniżej limitu → `SingletonItemSetAmmo(max)`; nadmiar ponad max nietknięty |
-| Tekst blokady w menu: `alchemyMenu.ws` pokazuje `cantCookReason` z `AlchemyExceptionToString` | | bez zmian (`panel_alchemy_exception_already_cooked`) |
+| Powiadomienie przy próbie warzenia: `CR4AlchemyMenu.CreateItem` (`alchemyMenu.ws:332`) | `panel_alchemy_exception_already_cooked` | `@wrapMethod`: przy pełnej kieszeni consumable własny tekst `CA_FullStockText` ([powód](decisions.md#tekst-przy-pełnej-kieszeni)), bez wołania vanilli. `cantCookReason` pozycji menu (`:505`, wewnątrz `PopulateData`) i HUD przy lootcie (`inventoryComponent.ws:777`) bez zmian |
 | Składniki receptury: `GetRecipe`, `GetRecipes`, `getAlchemyRecipeFromName`, `CR4AlchemyMenu.CreateItem` | | sekcja niżej |
 
 ## Receptury — recipes.ws i tabela

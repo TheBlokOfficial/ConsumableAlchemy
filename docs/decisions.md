@@ -77,9 +77,17 @@ Samodzielny start HoS / B&W daje recepturę każdego startowego consumable bez z
 zestaw startowy byłby jednorazowy. Odrzucone: receptura tylko dla poz. ≥ 2 przy inicjalizacji przedmiotu
 (nie pokrywa poz. 1 i wywarów); warzenie bez receptury (niespójność menu i tooltipów).
 
-### Antidotum Popsa poza systemem
-`Pops Antidote` zostaje vanilla, jak `Snow Ball` / `Village drink`: przedmiot zadania q303 bez tagu `Quest`
-i bez alkoholu w recepturze. Wyłączenie po nazwie w `CA_IsConsumableItemName` i w `draft.py`.
+### Przedmioty specjalne poza systemem
+`Pops Antidote` i `ReinaldsPhiltre` zostają vanilla, jak `Snow Ball` / `Village drink`: `Pops Antidote` to
+przedmiot zadania q303 bez tagu `Quest` i bez alkoholu w recepturze, `ReinaldsPhiltre` nie ma receptury.
+Wyłączenie po nazwie w `CA_IsConsumableItemName` i w `draft.py`. Feromony i `Killer Whale 1` (zwykłe
+mikstury z recepturą z lootu i sklepów) zostają w systemie.
+
+### Tekst przy pełnej kieszeni
+Consumable z kompletem dawek przy próbie warzenia dostaje „Masz już wszystkie dawki” / „Already fully
+stocked”. Powód: w vanilli ten sam tekst („Już masz ten przedmiot”) znaczy „uwarzone na zawsze”. Status
+i filtr „Już wykonane” bez zmian. Tekst daje funkcja wg języka gry (PL, reszta EN), bo nie ma narzędzia do
+`.w3strings`. Odrzucone: filtr „Uzupełniono” — wymaga zmian we Flashu.
 
 ### Dwa poziomy naraz na liście
 Posiadana niepełna Jaskółka 1 (dolewka) i znana receptura Jaskółki 2 (ulepszenie) widoczne obok siebie

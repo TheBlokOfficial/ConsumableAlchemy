@@ -23,7 +23,9 @@ Receptury:
   2× `Drowner brain`); poz. 3: `Alcohest` zamiast `White Gull 1`.
 - [ ] Wywar: medytacja go nie odnawia; po wypiciu można uwarzyć ponownie (alkohol + 1–3 składniki
   z sygnaturą wywaru; mutagen tylko w wywarach południcy i nocnicy);
-  przy 1/1 komunikat „Już masz ten przedmiot”.
+  przy 1/1 komunikat „Masz już wszystkie dawki” (EN: „Already fully stocked”).
+- [ ] Przedmiot uwarzony na zawsze w vanilli nadal pokazuje „Już masz ten przedmiot”; mikstura z kompletem
+  dawek pokazuje „Masz już wszystkie dawki”.
 - [ ] Tooltip receptury w ekwipunku i przypięta receptura pokazują tę samą listę co menu.
 
 Dawki i limity:

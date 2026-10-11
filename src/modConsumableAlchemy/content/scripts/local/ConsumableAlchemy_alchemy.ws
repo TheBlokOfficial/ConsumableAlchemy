@@ -42,6 +42,17 @@ function GetRecipes(forceAll : bool) : array<SAlchemyRecipe>
 @wrapMethod(CR4AlchemyMenu)
 function CreateItem( recipeIndex : int )
 {
+	// A brew attempt at a full stock gets its own notification instead of the vanilla
+	// "already cooked" one (which in vanilla means "brewed for good").
+	if(recipeIndex >= 0 && recipeIndex < m_recipeList.Size() && bCouldCraft
+		&& CA_IsFullStock(m_recipeList[recipeIndex].cookedItemName)
+		&& m_alchemyManager.CanCookRecipe(m_recipeList[recipeIndex].recipeName) == EAE_CannotCookMore)
+	{
+		showNotification(CA_FullStockText());
+		OnPlaySoundEvent("gui_global_denied");
+		return;
+	}
+
 	wrappedMethod(recipeIndex);
 
 	m_recipeList = m_alchemyManager.GetRecipes(false);
