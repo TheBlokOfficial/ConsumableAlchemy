@@ -43,17 +43,16 @@ wdrożenie → test. Gotowe, gdy: autor zaakceptował, test w grze przeszedł.
   istniejący komunikat ([stół bez premii](decisions.md#stół-w-corvo-bianco-bez-premii)).
 - **Alkohol** zużywa się szybciej niż w vanilli ([recipes.md](recipes.md#alkohol)). Zostaje czy powielenie
   podstawia najtańszy posiadany alkohol, jak medytacja?
-
-## Do zbadania przed pytaniem do autora
-
-- **Dwuznaczny komunikat „Już masz ten przedmiot”** (`panel_alchemy_exception_already_cooked`): w vanilli
-  „uwarzone na zawsze”, w modzie także „pełna kieszeń”. Zbadać: `EAlchemyExceptions`,
-  `AlchemyExceptionToString`, kandydaci kluczy z brzmieniem PL/EN z `*.w3strings`, czy etykiety filtrów
-  przychodzą ze skryptu, czy z Flasha. Potem pytanie z wariantami: (0) zostaje; (i) inny tekst tylko przy pełnej
-  kieszeni przez `cantCookReason` (status i filtr bez zmian, [architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda));
-  (ii) dodatkowo filtr „Uzupełniono”.
-- **Inne przedmioty specjalne bez tagu `Quest`** (feromony, `Killer Whale 1`, `Trial Potion Kit`) — sprawdzić
-  w XML, czy powinny zostać vanillowe jak [`Pops Antidote`](decisions.md#antidotum-popsa-poza-systemem).
+- **Komunikat „Już masz ten przedmiot” przy pełnej kieszeni.** Ten sam status `EAE_CannotCookMore` znaczy
+  w vanilli „uwarzone na zawsze”, w modzie także „komplet dawek” ([szczegóły](architecture.md#mechanika-vanilli-istotna-dla-moda)).
+  Warianty: (0) zostaje; (i) osobny tekst tylko przy pełnej kieszeni, status i filtr „Już wykonane” bez zmian
+  (nowy klucz PL + EN, brzmienie do uzgodnienia); (ii) dodatkowo filtr „Uzupełniono” — wymaga zmian we Flashu
+  (trzy stałe przełączniki), poza zakresem moda. Rekomendacja: (i).
+- **Przedmioty specjalne: system moda czy vanilla?** Bez tagu `Quest` zostały: feromony (3) i `Killer Whale 1`
+  — zwykłe mikstury z recepturą z lootu i sklepów; rekomendacja: system moda. `ReinaldsPhiltre` — bez receptury,
+  jak `Village drink`; rekomendacja: vanilla, wyłączenie po nazwie w `CA_IsConsumableItemName` i `draft.py`
+  ([wzór](decisions.md#antidotum-popsa-poza-systemem)). `Trial Potion Kit` ma tag `Quest` — już vanilla.
+  Dane: [architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda).
 
 ## Odłożone
 
