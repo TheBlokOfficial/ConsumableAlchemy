@@ -1,9 +1,9 @@
-# Rozstrzygnięcia — Consumable Alchemy
+# Rozstrzygnięcia — ConsumableAlchemy
 
 Rozstrzygnięcia autora z powodem. Odrzucone warianty są tu po to, żeby do nich nie wracać bez nowego
 argumentu. Numer nie zmienia się i nie wraca. Wymogi ogólne (vanillowość, PL + EN, zgodność z modami, nic
-poza warzeniem nie uzupełnia) są zasadami produktu w [CLAUDE.md](../CLAUDE.md) — stąd brak D1–D5; D24, D25
-wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm:
+poza warzeniem nie uzupełnia) są zasadami produktu w [README.md](../README.md) — stąd brak D1–D5; D12
+włączone do D11, D24, D25 wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm:
 [architecture.md](architecture.md), receptury: [recipes.md](recipes.md).
 
 ## Mechanika
@@ -26,11 +26,11 @@ wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm
   niż jednorazowe warzenie w vanilli, a powielenie ma nie boleć.
   1. Sygnałem jest sama lista składników w prawym panelu menu — precedens vanilli: poziomy 1/2/3 mają różne
      listy bez wyjaśnień.
-  2. Odblokowanie = posiadanie przedmiotu, także z 0 dawek: bez nowych danych w zapisie, a mikstur i bomb nie
+  2. Odblokowanie = posiadanie przedmiotu, także z 0 dawek (zostaje w ekwipunku, jak w vanilli): bez nowych
+     danych w zapisie, a mikstur i bomb nie
      da się sprzedać ani wyrzucić, więc odblokowania nie da się stracić (poza wymianą na wyższy poziom, który
      ma własne odblokowanie). Pozyskanie poza warzeniem też odblokowuje.
   3. Odrzucone: znacznik `isNew` na liście — menu alchemii go nie rysuje.
-- **D12. Mikstura z 0 dawek zostaje w ekwipunku** (jak w vanilli) — to znacznik odblokowania.
 - **D13. Warzenie tylko w menu alchemii.** Odrzucone: medytacja warzy z zapasu składników — ciche zabieranie
   składników jest niejawne i myli.
 - **D14. Pozyskanie poza warzeniem = vanilla:** nowy przedmiot z lootu, zakupu, questu czy startu dostaje max,
@@ -58,7 +58,7 @@ wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm
 - **D19. Receptury ręcznie dopracowane w tabeli**, nie liczone regułą w grze. Skrypt tworzy szkic; każdą
   recepturę poprawiamy pod kątem spójności między poziomami rodziny, unikatowości (brak kolizji) i oryginalności
   (sygnaturowy składnik). Do moda trafia generowany `.ws`. Powód: reguła dawała kolizje i odbierała miksturom
-  symbolikę ([spec/receptury.md](spec/receptury.md#wady-obecnej-tabeli)). Odrzucone reguły:
+  symbolikę (kolizje i brak sygnatury pokazuje `validate.py`). Odrzucone reguły:
   1. Próg ceny bez dzielnika ilości — poz. 3 był pułapką kosztową (zostawał `White Gull 1`), część bomb poz. 3
      tańsza od poz. 1; dzielnik 1 — powielenie bomb poz. 1 = pełna receptura.
   2. Reguła powszechności (zostają składniki z ≥ 7 sklepów albo zbierane) — nie tanieją receptury złożone
@@ -72,8 +72,7 @@ wycofane. Pytania otwarte: [roadmap.md](roadmap.md#do-decyzji-autora). Mechanizm
   `Drowner brain`, `Drowned dead tongue`, `Nekker heart`, `Arachas venom`, `Alghoul bone marrow`, mutageny
   południcy i nocnicy) zostaje jako składnik wysiłku; wysiłek 4–5 → tematyczny zamiennik (D20). Powód:
   pospolita część to logistyka jak zebranie zioła (punkt odniesienia W1), rzadka byłaby osobnym polowaniem
-  przy każdym powieleniu; bez części mikstura podstawowa byłaby droższa od zaawansowanej
-  ([spec/receptury.md](spec/receptury.md#kryteria-balansu)).
+  przy każdym powieleniu; bez części mikstura podstawowa byłaby droższa od zaawansowanej.
 - **D28. Receptura powielania nie zawiera przedmiotu niższego poziomu.** Powód: pełna receptura poz. 2/3
   zużywa przedmiot niższego poziomu, a niższego nie wolno warzyć, mając wyższy (D8) — z nim w powieleniu
   ponowne warzenie poz. 2/3 byłoby niemożliwe.

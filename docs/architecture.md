@@ -1,6 +1,6 @@
-# Architektura — Consumable Alchemy
+# Architektura — ConsumableAlchemy
 
-Jak mod działa i na czym opiera się w vanilli. Pojęcia: słownik w [CLAUDE.md](../CLAUDE.md). Powody:
+Jak mod działa i na czym opiera się w vanilli. Pojęcia: słownik w [README.md](../README.md). Powody:
 [decisions.md](decisions.md). Dane receptur: [recipes.md](recipes.md). Adresy vanilli to nazwa funkcji plus
 `plik:linia` w skryptach instalacji 5.0.0.1044392 (`<gra>\content\content0\scripts\game\...`).
 
@@ -33,7 +33,7 @@ do gracza. Limit jest vanillowy (D7): mod nie ma własnej stałej ani nie zmieni
 
 `CA_GetRecipeIngredients(recipe)` zwraca składniki, które gracz płaci teraz:
 `CA_GetTableIngredients(recipe.recipeName, isCopy, out ingredients)` z generowanego
-`consumableAlchemy_recipes_table.ws`. `isCopy` = przedmiot odblokowany (`CA_IsCopyRecipe`: consumable
+`ConsumableAlchemy_recipes_table.ws`. `isCopy` = przedmiot odblokowany (`CA_IsCopyRecipe`: consumable
 i `GetItemQuantityByName > 0`, także 0 dawek) → receptura powielania, inaczej pełna. Receptury spoza tabeli
 (oleje, questowe, inne) → vanillowe `requiredIngredients` w obu przypadkach. Kluczem jest nazwa receptury
 (`name_name` z XML, np. `Recipe for Swallow 1`).
@@ -81,6 +81,7 @@ W3 nie ma zamienników składników: `CanCookRecipe` sprawdza po nazwie, a uśpi
   `EAE_CannotCookMore` → pozycja ukryta pod filtrem „Już wykonane”. Filtry: „Posiadasz składniki / Brak
   składników / Już wykonane”, tylko przez skrót klawiszowy „Filtry”; „Już wykonane” domyślnie wyłączony.
   Mod zachowuje statusy → przy pełnej kieszeni pozycja chowa się jak w vanilli, poniżej limitu jest widoczna.
+  Zmiana statusu zmienia, co menu ukrywa; żeby zmienić tylko tekst pozycji, zmieniaj `cantCookReason`.
 - **Receptury od startu nowej gry** (`playerWitcher.ws:260`): Jaskółka 1, Kot 1, Biały Miód 1, Samum 1,
   Kartacz 1, oleje na upiory i trupojady, Alcohest.
 - **Walka:** warzenie zablokowane w walce (`EAE_InCombat`, `alchemyManager.ws:156`, `IsInCombat()`);
@@ -92,7 +93,7 @@ W3 nie ma zamienników składników: `CanCookRecipe` sprawdza po nazwie, a uśpi
   limit w trakcie działania).
 - **Pełne dawki z pominięciem wrappera odnawiania** (zgodne z D14): `AddItemQuest`, `AddItemQuestExt` itd.
   (`quest_function.ws:2016/2053/2135/5958/6004`) i przedmioty startowe nowej gry (`r4Player.ws:15482`)
-  po `AddAnItem` wołają wprost `SingletonItemSetAmmo(max)`.
+  po `AddAnItem` wołają wprost `SingletonItemSetAmmo(max)`. Nie łatać (zasada 4).
 
 ## Samodzielne starty dodatków (HoS / B&W)
 
@@ -103,17 +104,7 @@ bez receptury na swój poziom (poz. 2 przy recepturze poz. 1, poz. 1 i wywary be
 medytacja je odnawia; w modzie są jednorazowe. Receptury poz. 2 da się później kupić (Toussaint
 `_EP2_store__Alchemist`, zielarze `Oxenfurt_Herbalist` / `Druid_Herbalist`). Przy każdym wczytaniu zapisu
 woła się `ApplyPatchFixes` (`private final`, `playerWitcher.ws:738`) — miejsce na poprawkę dla istniejących
-zapisów.
-
-Możliwa poprawka (D23, do decyzji autora: [roadmap.md](roadmap.md#do-decyzji-autora)): wrapper na
-`StandaloneEp1_1` / `StandaloneEp2_1`, a dla istniejących zapisów na `ApplyPatchFixes` przy fakcie
-`standalone_ep1` / `_ep2`: każdy posiadany consumable bez znanej receptury → `AddAlchemyRecipe(r, true, true)`
-(`playerWitcher.ws:4851`, idempotentne; przedmiot → receptura przez iterację `alchemy_recipes` po
-`cookedItem_name`, jak `alchemyManager.ws:69`). Mod dalej nic nie zapisuje; ok. 40 linii. Skutki jak przy
-każdej poznanej recepturze, także cichej: statystyki i osiągnięcia `EA_BreakingBad` / `EA_Bombardier`, ability
-Nabytej Tolerancji (`S_Alchemy_s18`), zdarzenie `SEC_AlchemyRecipe`. Niesprawdzone: czy quest startu woła
-owiniętą metodę. Odrzucone: receptura przy inicjalizacji przedmiotu poz. ≥ 2 (nie pokrywa poz. 1 i wywarów);
-warzenie bez receptury (niespójność menu i tooltipów).
+zapisów. Możliwa poprawka (D23): [roadmap.md](roadmap.md#do-decyzji-autora).
 
 ## Degradacja
 
@@ -122,4 +113,3 @@ Mod nie zapisuje w save'ie nic własnego (brak klas ze stanem, `saved`, faktów,
 - Usunięcie moda: vanilla przy medytacji uzupełnia tylko, gdy dawki < limit (`inventoryComponent.ws:3599`);
   nadmiar zostaje i schodzi przy użyciu. Sprawdzenie w grze: [testing.md](testing.md).
 - Dodanie moda w trakcie gry: posiadane przedmioty są od razu odblokowane (receptura powielania).
-- Limity są vanillowe, więc po usunięciu moda nie zostaje widoczny ślad.

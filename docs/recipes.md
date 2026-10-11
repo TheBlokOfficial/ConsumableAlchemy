@@ -1,54 +1,35 @@
-# Receptury — Consumable Alchemy
+# Receptury — ConsumableAlchemy
 
-Dane receptur z gry, narzędzia `tools/recipes/` i obecna tabela. Decyzje: D10, D11, D19–D21, D28
-w [decisions.md](decisions.md). Jak mod czyta tabelę: [architecture.md](architecture.md#receptury--recipesws-i-tabela).
-Materiał do szlifowania receptur (dostępność składników, wady tabeli, kryteria balansu, części potworów):
-[spec/receptury.md](spec/receptury.md).
+Dane receptur z gry, narzędzia `tools/recipes/` i obecna tabela. Decyzje: [decisions.md](decisions.md#receptury).
+Jak mod czyta tabelę: [architecture.md](architecture.md#receptury--recipesws-i-tabela).
 
 ## Narzędzia (`tools/recipes/`, Python)
 
-- `bundle.py list|extract <bundle> <wzorzec> [katalog]` — czytnik bundli `POTATO70` (wpis TOC 0x130 B: nazwa
-  0x100, hash 16, offset/0/size/zsize/crc/kompresja; 0 = brak, 1 = zlib). Pliki trafiają do
-  `tools\recipes\x\`. `xml.bundle` → `gameplay\items\*.xml` (baza + wersje `items_plus` dla NG+);
+Szczegóły (formaty, reguły, progi) są w docstringach skryptów; tu tylko do czego służą.
+- `bundle.py list|extract <bundle> <wzorzec> [katalog]` — czytnik bundli gry; pliki trafiają do
+  `tools\recipes\x\`. `xml.bundle` → `gameplay\items\*.xml` (baza + `items_plus` dla NG+);
   `ep1.bundle` / `bob.bundle` → `dlc\ep1|bob\data\gameplay\items\*.xml`.
 - `recipes.py` → `data.json` (przedmioty + receptury).
-- `table.py` → tabela receptur mikstur i bomb z cenami.
-- `availability.py` — bez argumentu: źródła składników (sklepy, świat); `copies`: koszt powielenia wg dostępności.
-- `loot.py` — wspólny czytnik tabel lootu z `x/` (sklepy, zioła, potwory, kontenery; region = `base` / `ep1` / `bob`).
-- `ingredients.py` → `ingredient_catalog.json` (commitowany): każdy składnik z list `full` / `copy` tabeli
-  (poza przedmiotami niższego poziomu, wymienionymi w `_meta`) z ceną, typem, sklepami (liczba, regiony),
-  światem (krzaki, kontenery), potworami (tabela lootu, szansa, ilość) i **poziomem wysiłku 1–5**. Wysiłek liczą
-  wyłącznie reguły w skrypcie (bez ręcznych wyjątków, najłatwiejsze źródło); progi i uzasadnienia są stałymi
-  w skrypcie i kopią w `_meta`. Respawn nie jest modelowany. Deterministyczny: drugie uruchomienie nie zmienia pliku.
-- `rules.py` — wspólne reguły walidatora i raportu (jedna lista `RULES`: id, waga, funkcja). **Wysiłek receptury**
-  = Σ (wysiłek składnika − 1) × ilość po składnikach z katalogu (przedmioty niższego poziomu liczą się tylko do
-  kosztu), plus `effort_max` = najwyższy wysiłek składnika. Wagi: `error` (tabela błędna), `warn` (do przejrzenia),
-  `info`. Błędy: składnik spoza `data.json`; mikstura / wywar bez alkoholu (`StrongAlcohol`) albo bomba bez proszku
-  (`full` i `copy` osobno); `copy` z przedmiotem niższego poziomu (D28); `copy` droższe od `full`, o większym
-  wysiłku lub większym `effort_max`; składnik spoza katalogu. Ostrzeżenia: kolizja (te same zbiory nazw składników;
-  porównania copy–copy, full–full i copy–cudzy full; błędem po szlifowaniu, D30); brak sygnatury (żaden składnik `copy` nie jest unikatowy wśród `copy` innych rodzin tego
-  samego rodzaju; alkohole i proszki nie liczą się); wysiłek `copy` maleje między poziomami rodziny; wysiłek `copy`
-  ponad progiem poziomu (`COPY_EFFORT_MAX` = 2 / 4 / 6, stała do strojenia na danych). `info`: `full` różni się od vanilli; prawie-kolizja (zbiory różnią się o 1 składnik: jeden dodatkowy albo
-  jeden podmieniony).
-- `validate.py [--errors-only] [--table <plik>]` — uruchamia `rules.py` na `recipes_table.json`; wypisuje
-  `ERROR|WARN <klucz>: [id] komunikat` recepturę po recepturze i podsumowanie (liczby wg reguły i wagi). Kod wyjścia 1
-  tylko przy błędach. `tools/check.ps1` uruchamia go z `--errors-only`.
-- `report.py [--base <ref>]` → `report.html` (gitignorowany): raport HTML do porównania receptur — vanilla, `full`
-  i `copy` z tabeli (różnice względem vanilli podświetlone), koszt, wysiłek (Σ(e−1)×q / maksimum), wyniki reguł
-  z `rules.py` (błąd czerwony, ostrzeżenie żółte, `info` szare; filtr „tylko błędy i ostrzeżenia”). Z `--base`
-  pod zmienionymi wierszami pokazuje listy i liczby z tabeli w danym ref-ie git. Wymaga `ingredient_catalog.json`.
-- `rule.py [próg] [dzielnik]` → reguła powielania, z której powstała obecna tabela; używa jej `draft.py`.
-- `compare.py` → porównanie reguły z wariantem „wyrzuć najdroższy składnik” (odrzucony, D19).
+- `loot.py` — wspólny czytnik tabel lootu z `x/` (sklepy, zioła, potwory, kontenery).
+- `availability.py` — źródła składników (sklepy, świat); `copies`: koszt powielenia wg dostępności.
+- `ingredients.py` → `ingredient_catalog.json` (commitowany): każdy składnik tabeli z ceną, typem, sklepami,
+  światem, potworami i **wysiłkiem 1–5** liczonym wyłącznie regułami skryptu (D29); progi kopiuje do `_meta`.
+- `rules.py` — reguły walidatora i raportu (lista `RULES`, wagi `error` / `warn` / `info`) i wysiłek receptury
+  (D29). `error` blokuje bramkę; `warn` — do przejrzenia przy szlifie (kolizja: błędem po szlifie, D30).
+- `validate.py [--errors-only] [--table <plik>]` — uruchamia `rules.py` na tabeli; kod wyjścia 1 tylko przy
+  błędach. `tools/check.ps1` uruchamia go z `--errors-only`.
+- `report.py [--base <ref>]` → `report.html` (gitignorowany): vanilla, `full` i `copy` obok siebie, koszt,
+  wysiłek, wyniki reguł; z `--base` pokazuje też stan tabeli w danym ref-ie git. Wymaga katalogu składników.
+- `draft.py` → szkic tabeli z danych vanilli (`full` = XML, `copy` = `rule.py 16 2`); `--diff` pokazuje ręczne
+  zmiany względem szkicu. `rule.py` — reguła powielania szkicu.
+- `table.py`, `compare.py` — dawne analizy (ceny receptur; odrzucona reguła „wyrzuć najdroższy”, D19).
+- `generate.py [--check]` → waliduje tabelę i generuje `ConsumableAlchemy_recipes_table.ws`; `--check` niczego
+  nie zapisuje i kończy się błędem, gdy plik na dysku jest nieaktualny.
 - **`recipes_table.json` — tabela receptur, źródło prawdy dla moda** (D19), edytowana ręcznie, commitowana
   (same nazwy przedmiotów i ilości). Klucz = nazwa receptury (`Recipe for Swallow 1`); pola: `item`, `family`,
   `level` (1–3), `kind` (`potion` / `bomb` / `decoction`), `full` i `copy` (listy `[nazwa, ilość]`), `note`.
   Sortowanie: rodzaj → rodzina → poziom. Obejmuje każdą recepturę, której przedmiot jest consumable
   (92: 40 mikstur, 24 bomby, 28 wywarów).
-- `draft.py` → szkic tabeli z danych vanilli: `full` = receptura z XML, `copy` = `rule.py 16 2`. Bez `--force`
-  nie nadpisuje istniejącej tabeli; `--diff` porównuje tabelę ze świeżym szkicem (pokazuje ręczne zmiany).
-- `generate.py` → waliduje tabelę (pola, ilości > 0, niepuste listy, brak duplikatu składnika i klucza,
-  bezpieczne nazwy) i generuje `src/.../consumableAlchemy_recipes_table.ws`. `--check` niczego nie zapisuje:
-  kończy się błędem, gdy plik na dysku różni się od wygenerowanego (końce linii CRLF/LF są pomijane).
 - `x/` i `data.json` są w `.gitignore` (dane CDPR) — odtwarzać przez `bundle.py extract` + `recipes.py`.
 
 ## Dane receptur z gry
@@ -71,6 +52,8 @@ Materiał do szlifowania receptur (dostępność składników, wady tabeli, kryt
   feromony 2; bomby 2/3/4; wywary 1 (`CommonMutagenAbility`). Abilities poz. 2/3 zagnieżdżają się
   cyklicznie, więc wartości potwierdza test w grze ([testing.md](testing.md)).
 - Mikstur poz. 2/3 nie ma w tabelach lootu ani u kupców (tylko w zestawach samodzielnych startów dodatków).
+- W1 jako punkt odniesienia (D22): receptury na substancje, części potworów z odradzających się potworów były
+  tanie i zalegały — barierą była logistyka, nie koszt.
 
 ## Obecna tabela
 
@@ -79,8 +62,8 @@ Pełna receptura = vanilla (kolejność składników z XML). Powielenie = reguł
 i składniki o cenie ≤ 16; wypada przedmiot niższego poziomu (D28), części potworów, mutageny, rzadkie
 minerały, perła; `White Gull 1` → `Alcohest` (inaczej poz. 3 byłby pułapką kosztową); ilości / 2 w górę,
 alkohol zawsze 1. Koszt powielenia (ceny bazowe): poz. 1 ok. 30, poz. 2 ok. 30, poz. 3 ok. 35–65, wywary
-ok. 25. Przykład: Jaskółka 1 — pełna `Dwarven spirit`, 5× `Celandine`, `Drowner brain`; powielenie
-`Dwarven spirit`, 3× `Celandine`.
+ok. 25. Wady (kolizje, brak sygnatury, wywary bez mutagenu) pokazują `validate.py` i `report.py`; usuwa je
+szlif receptur ([roadmap.md](roadmap.md)).
 
 ## Alkohol
 

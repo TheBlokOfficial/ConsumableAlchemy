@@ -1,4 +1,4 @@
-"""Lint WitcherScript (.ws) for two compiler pitfalls (CLAUDE.md, "Pulapki" 1 and 2).
+"""Lint WitcherScript (.ws) for two compiler pitfalls (README.md, "Pulapki kompilatora" 1 and 2).
 
 python tools/lint_ws.py [path ...]
 

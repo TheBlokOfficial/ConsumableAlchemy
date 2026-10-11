@@ -1,4 +1,4 @@
-# Testy w grze — Consumable Alchemy
+# Testy w grze — ConsumableAlchemy
 
 Test robi autor po wdrożeniu (`deploy.ps1`), na **zwykłym zapisie** z poznanymi recepturami (pułapki niżej).
 Checklistę bieżącego wycinka aktualizuje gałąź, która zmienia kod; zaliczony punkt, który opisuje trwałe
@@ -39,15 +39,14 @@ Pozyskanie:
 - [ ] Zakup lub loot posiadanej mikstury → vanillowa odmowa „już uwarzono”.
 - [ ] Nowy przedmiot z lootu lub sklepu → max.
 
-Degradacja (README obiecuje, że zapisy po odinstalowaniu zostają sprawne):
+Degradacja (zasada 5: zapisy po odinstalowaniu zostają sprawne):
 - [ ] Po usunięciu moda zapis się wczytuje; mikstura 0/x odnawia się medytacją; bomba ponad max zostaje
   i schodzi przy użyciu.
 
 ## Potwierdzone w grze
 
-- Adnotacje działają na metodach `private`/`final`; `@addMethod` działa na `CInventoryComponent`;
-  `@wrapMethod` bez klasy na globalnej `getAlchemyRecipeFromName` się kompiluje.
-- Kod v0.4 się kompiluje i wczytuje.
+- `@addMethod` działa na `CInventoryComponent`; `@wrapMethod` bez klasy na globalnej
+  `getAlchemyRecipeFromName` się kompiluje.
 - Medytacja nie odnawia mikstur ani bomb (także na starcie HoS: Wzmocniona Jaskółka) i nie pokazuje
   komunikatu o odnowieniu.
 - Posiadaną miksturę można uwarzyć ponownie; mikstura z 0 dawek zostaje w ekwipunku.
