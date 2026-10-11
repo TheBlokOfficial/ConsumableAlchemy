@@ -1,5 +1,5 @@
 /***********************************************************************/
-/** 	Consumable Alchemy - shared helpers
+/** 	ConsumableAlchemy - shared helpers
 /***********************************************************************/
 
 // Potions, decoctions and bombs use the consumable system. Oils, quest items

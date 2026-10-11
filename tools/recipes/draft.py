@@ -7,7 +7,7 @@ python draft.py --diff     compare the existing table with a fresh draft (shows 
 The draft reproduces the v0.3 behaviour: full = vanilla recipe (XML order),
 copy = rule.py (price threshold 16, quantity divisor 2).
 Covered: every alchemy recipe whose item is a consumable in the mod
-(mirrors CA_IsConsumableItemName in consumableAlchemy_common.ws).
+(mirrors CA_IsConsumableItemName in ConsumableAlchemy_common.ws).
 Needs data.json (recipes.py).
 """
 import json, os, re, sys

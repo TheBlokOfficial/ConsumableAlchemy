@@ -1,5 +1,5 @@
 /***********************************************************************/
-/** 	Consumable Alchemy - inventory (doses, refills)
+/** 	ConsumableAlchemy - inventory (doses, refills)
 /***********************************************************************/
 
 // Every regular refill (meditation, bed, alchemy table, NG+) goes through here; quest rewards

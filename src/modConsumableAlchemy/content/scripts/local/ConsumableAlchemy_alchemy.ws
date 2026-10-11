@@ -1,8 +1,8 @@
 /***********************************************************************/
-/** 	Consumable Alchemy - alchemy menu (crafting)
+/** 	ConsumableAlchemy - alchemy menu (crafting)
 /***********************************************************************/
 
-// Vanilla, but an owned consumable returns its copy recipe (see consumableAlchemy_recipes.ws).
+// Vanilla, but an owned consumable returns its copy recipe (see ConsumableAlchemy_recipes.ws).
 // CanCookRecipe, CookItem and GetRequiredIngredients all read recipes through here.
 @replaceMethod(W3AlchemyManager)
 function GetRecipe(recipeName : name, out ret : SAlchemyRecipe) : bool

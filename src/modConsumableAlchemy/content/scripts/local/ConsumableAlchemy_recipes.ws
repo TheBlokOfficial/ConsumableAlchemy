@@ -1,10 +1,10 @@
 /***********************************************************************/
-/** 	Consumable Alchemy - recipes (first brew vs. copies)
+/** 	ConsumableAlchemy - recipes (first brew vs. copies)
 /***********************************************************************/
 
 // The first brew of a consumable uses the full recipe. Once the player owns
 // the item (also with no doses left), it is brewed from the shorter copy recipe.
-// Both come from the recipe table (consumableAlchemy_recipes_table.ws, generated
+// Both come from the recipe table (ConsumableAlchemy_recipes_table.ws, generated
 // from tools\recipes\recipes_table.json). Recipes missing from the table stay vanilla.
 
 function CA_IsCopyRecipe(cookedItemName : name) : bool

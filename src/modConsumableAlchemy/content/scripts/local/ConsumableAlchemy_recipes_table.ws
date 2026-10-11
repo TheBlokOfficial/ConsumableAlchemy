@@ -1,5 +1,5 @@
 /***********************************************************************/
-/** 	Consumable Alchemy - recipe table
+/** 	ConsumableAlchemy - recipe table
 /***********************************************************************/
 
 // GENERATED FILE - DO NOT EDIT BY HAND.

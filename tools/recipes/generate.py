@@ -1,4 +1,4 @@
-"""recipes_table.json -> consumableAlchemy_recipes_table.ws (decision D19).
+"""recipes_table.json -> ConsumableAlchemy_recipes_table.ws (decision D19).
 
 python generate.py [--check]
 
@@ -13,7 +13,7 @@ import json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 TABLE = os.path.join(HERE, 'recipes_table.json')
 OUT = os.path.join(HERE, '..', '..', 'src', 'modConsumableAlchemy', 'content', 'scripts', 'local',
-                   'consumableAlchemy_recipes_table.ws')
+                   'ConsumableAlchemy_recipes_table.ws')
 KINDS = ('potion', 'bomb', 'decoction')
 FIELDS = ('item', 'family', 'level', 'kind', 'full', 'copy', 'note')
 NAME_RE = re.compile(r"^[A-Za-z0-9 _\-.]+$")         # safe inside a 'name' literal
@@ -85,7 +85,7 @@ def generate(table):
     fn = func_names(keys)
     L = [
         '/***********************************************************************/',
-        '/** \tConsumable Alchemy - recipe table',
+        '/** \tConsumableAlchemy - recipe table',
         '/***********************************************************************/',
         '',
         '// GENERATED FILE - DO NOT EDIT BY HAND.',
