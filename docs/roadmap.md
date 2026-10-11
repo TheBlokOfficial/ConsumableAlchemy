@@ -21,6 +21,11 @@ wersji.
 
 Brak otwartych pytań.
 
+## Szlif
+
+- Prawy panel menu przy pełnej kieszeni nadal pokazuje „Już masz ten przedmiot” (`cantCookReason` w prywatnej
+  `PopulateData`); nowy tekst daje tylko komunikat przy próbie warzenia.
+
 ## Odłożone
 
 - **Widoczność moda na liście modów w menu gry** — znak, że mod się wczytał. Założenie: mod z samych skryptów

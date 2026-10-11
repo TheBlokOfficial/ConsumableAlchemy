@@ -85,8 +85,10 @@ W3 nie ma zamienników składników: `CanCookRecipe` sprawdza po nazwie, a uśpi
   Zmiana statusu zmienia, co menu ukrywa; żeby zmienić tylko tekst pozycji, zmieniaj `cantCookReason`.
 - **Teksty powodu odmowy:** `AlchemyExceptionToString` (`alchemyTypes.ws:103`) mapuje status na klucz;
   `EAE_CannotCookMore` → `panel_alchemy_exception_already_cooked` (`:111`). Ten klucz trafia do `cantCookReason`
-  pozycji menu (`alchemyMenu.ws:505`), do komunikatu przy próbie warzenia (`alchemyMenu.ws:369`), do HUD
-  (`inventoryComponent.ws:777`) i do tooltipu (`guiTooltipComponent.ws:1921`). Etykiety filtrów to klucze
+  pozycji menu (`alchemyMenu.ws:505`, wewnątrz prywatnej `PopulateData`, idzie wprost do Flasha — mod go nie
+  podmienia), do komunikatu przy próbie warzenia (`alchemyMenu.ws:369`; mod podmienia przy pełnej kieszeni,
+  [tekst przy pełnej kieszeni](decisions.md#tekst-przy-pełnej-kieszeni)) i do HUD przy lootcie posiadanego
+  singletona (`inventoryComponent.ws:777`). Etykiety filtrów to klucze
   `gui_panel_filter_has_ingredients / _elements_missing / _already_crafted` przekazane ze skryptu
   (`alchemyMenu.ws:90`), ale same trzy przełączniki i ich logika są we Flashu. Pokrewne klucze vanilli:
   `message_common_alchemy_items_refilled` / `_cannot_refill` (`inventoryComponent.ws:3658/3668`, odnawianie przy
