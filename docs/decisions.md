@@ -91,7 +91,7 @@ Wyłączenie po nazwie w `CA_IsConsumableItemName`. Feromony i `Killer Whale 1` 
 mikstury z recepturą z lootu i sklepów) zostają w systemie.
 
 ### Tekst przy pełnej kieszeni
-Consumable z kompletem dawek przy próbie warzenia dostaje „Masz już wszystkie dawki” / „Already fully
+Consumable z kompletem dawek dostaje, w komunikacie przy próbie warzenia i w prawym panelu menu, „Masz już wszystkie dawki” / „Already fully
 stocked”. Powód: w vanilli ten sam tekst („Już masz ten przedmiot”) znaczy „uwarzone na zawsze”. Status
 i filtr „Już wykonane” bez zmian. Tekst daje funkcja wg języka gry (PL, reszta EN), bo nie ma narzędzia do
 `.w3strings`. Odrzucone: filtr „Uzupełniono” — wymaga zmian we Flashu.
@@ -140,7 +140,9 @@ Część z wysiłkiem 3 z katalogu (`Ghoul blood`, `Drowner brain`, `Drowned dea
 `Arachas venom`, `Alghoul bone marrow`, mutageny południcy i nocnicy) zostaje w powieleniu jako składnik
 wysiłku; wysiłek 4–5 → tematyczny zamiennik ([podmiany](#podmiany-składników)). Powód: pospolita część to
 logistyka jak zebranie zioła (punkt odniesienia W1), rzadka byłaby osobnym polowaniem przy każdym powieleniu;
-bez części mikstura podstawowa byłaby droższa od zaawansowanej.
+bez części mikstura podstawowa byłaby droższa od zaawansowanej. Wyzwalacz powrotu: w grze polowanie na
+pospolite części przy powieleniu okazuje się uciążliwe. Odrzucone (do
+czasu wyzwalacza): powielenie bez części potworów, np. Jaskółka 1 = `Dwarven spirit` + 3× `Celandine`.
 
 ### Powielenie bez przedmiotu niższego poziomu
 Powód: pełna receptura poz. 2/3 zużywa przedmiot niższego poziomu, a niższego nie wolno warzyć, mając wyższy

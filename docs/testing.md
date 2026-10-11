@@ -24,8 +24,6 @@ Receptury:
 - [ ] Wywar: medytacja go nie odnawia; po wypiciu można uwarzyć ponownie (alkohol + 1–3 składniki
   z sygnaturą wywaru; mutagen tylko w wywarach południcy i nocnicy);
   przy 1/1 komunikat „Masz już wszystkie dawki” (EN: „Already fully stocked”).
-- [ ] Przedmiot uwarzony na zawsze w vanilli nadal pokazuje „Już masz ten przedmiot”; mikstura z kompletem
-  dawek pokazuje „Masz już wszystkie dawki”.
 - [ ] Tooltip receptury w ekwipunku i przypięta receptura pokazują tę samą listę co menu.
 
 Dawki i limity:
@@ -54,6 +52,9 @@ Samodzielne starty i stół:
   (jak w vanilli), consumable nie.
 
 ## Potwierdzone w grze
+
+- Podmiana `PopulateData` się kompiluje; mikstura z kompletem dawek pokazuje w prawym panelu i w komunikacie
+  „Masz już wszystkie dawki”, przedmiot uwarzony na zawsze w vanilli — „Już masz ten przedmiot”.
 
 - `@addMethod` działa na `CInventoryComponent`; `@wrapMethod` bez klasy na globalnej
   `getAlchemyRecipeFromName` się kompiluje.
