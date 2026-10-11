@@ -1,4 +1,4 @@
-"""Loot tables from the extracted game XML (tools/recipes/x): shared reader for availability.py and ingredients.py."""
+"""Loot tables from the extracted game XML (tools/recipes/x): shared reader for ingredients.py."""
 import os, re, glob
 
 HERE = os.path.dirname(os.path.abspath(__file__))
