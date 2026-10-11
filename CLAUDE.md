@@ -86,4 +86,4 @@ sygnał do przeglądu, nie powód do skracania kosztem jasności, powodu czy inf
 - Pojęcie ma jedną nazwę ze słownika. „X nie ma” podaje powód albo odsyła do rozstrzygnięcia. Punkt to jedna
   myśl, do ok. 60 słów. Odwołanie do vanilli: nazwa funkcji plus `plik:linia` jako podpowiedź.
 - Rozstrzygnięcie i otwarte pytanie mają nazwę, nie numer — w dokumentach link do nagłówka, w rozmowie nazwa.
-  Mod nie ma numeru wersji przed wydaniem; stan opisuje się słowami (co działa).
+  Mod nie ma numeru wersji ([bez wydania](docs/decisions.md#bez-wydania)); stan opisuje się słowami (co działa).

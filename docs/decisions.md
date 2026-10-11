@@ -26,7 +26,8 @@ Wyższy poziom usuwa niższy, niższego nie można warzyć, mając wyższy.
 ### Zakres systemu
 Mikstury, bomby, wywary. Wywary w systemie, bo medytacja nie ma odnawiać niczego alchemicznego. Oleje —
 vanilla: przedmiot oleju się nie zużywa, medytacja go nie dotyczy, więc nie łamie spójności. Przedmioty
-z tagiem `Quest` poza systemem.
+z tagiem `Quest` poza systemem. Odrzucone: oleje jako zużywalne (dawki = nałożenia, warzenie uzupełnia) —
+nowa mechanika zamiast zmiany źródła dawek, a powłoka oleju i tak ma w vanilli ładunki na ciosy.
 
 ### Alkohol tylko jako składnik
 W recepturze stały, ×1. Skutek: zużywa się szybciej niż w vanilli ([recipes.md](recipes.md#alkohol)) —
@@ -65,7 +66,13 @@ trwała utrata dawek. Nadmiar schodzi przy użyciu; warzenie zablokowane do spad
 Consumables nie dostają premii stołu, warzenie przy stole też bez premii; mikstury i bomby spoza systemu
 (questowe) dostają ją jak w vanilli, z vanillowymi komunikatami. Powód: vanillowa premia (+1 ponad max)
 działa przy odnawianiu, czyli dawałaby dawkę bez warzenia (zasada 1); przedmioty questowe są vanilla
-(zasada 4). Odrzucone: stół wyłączony dla wszystkich. Pomysł na inną rolę stołu: [roadmap.md](roadmap.md#odłożone).
+(zasada 4). Odrzucone: stół wyłączony dla wszystkich; warzenie przy stole daje max + 1
+(`QUANTITY_INCREASED_BY_ALCHEMY_TABLE`) — dawka ponad limit to nowa mechanika, a mod zmienia tylko źródło dawek.
+
+### Ekonomia ziół jak w vanilli
+Ceny ziół u kupców i ilość ziół w lootcie bez zmian. Powód: zasada 4 — pozyskanie składników to vanilla;
+koszt powielenia reguluje [tabela receptur](#receptury-ręcznie-w-tabeli). Odrzucone: tańsze zioła, więcej
+ziół w lootcie (wymagałyby też zmian w XML gry, czyli bundli zamiast samych skryptów).
 
 ### Wywar Wodnej Baby jak w vanilli
 Darmowa dawka przy nałożeniu i utrata opłaconej przy wygaśnięciu zostają
@@ -94,12 +101,25 @@ Posiadana niepełna Jaskółka 1 (dolewka) i znana receptura Jaskółki 2 (uleps
 w menu; w ekwipunku nigdy obie (ulepszenie zużywa poz. 1, a poz. 1 jest zablokowany przy posiadanym poz. 2).
 Odrzucone: ukrywanie niższego poziomu przy znanej wyższej recepturze albo gdy wyższy da się uwarzyć.
 
+## Projekt
+
+### Bez wydania
+Mod nie trafia na Nexusa ani mod.io; nie ma paczki, numeru wersji ani strony moda. Autor gra sam, publiczne
+repozytorium wystarcza. Odrzucone: paczka zip z wersją 1.0 i tagiem w gicie, strona moda dla gracza.
+
+### Mod poza listą modów w grze
+Zakładka „Mody” w grze 5.0 to przeglądarka mod.io: lista zainstalowanych pochodzi z natywnego
+`GetInstalledModList` (`modHandlerSystem.ws:111`, `modMenu.ws:168`) i zawiera tylko subskrypcje mod.io po ich
+identyfikatorze. Żaden plik ani skrypt nie dopisze do niej moda z folderu `mods` (gra zna jego nazwę tylko
+przez `GetStartupModNames`, `igmStructureCreator.ws:16`). Odrzucone: wydanie przez mod.io / REDkit
+([bez wydania](#bez-wydania)).
+
 ## Receptury
 
 ### Receptury ręcznie w tabeli
 Receptury ręcznie dopracowane w tabeli, nie liczone regułą w grze. Tabela powstała ze szkicu liczonego
-z danych vanilli; każdą recepturę poprawiono pod kątem spójności między poziomami rodziny, unikatowości (brak kolizji) i oryginalności
-(sygnaturowy składnik). Do moda trafia generowany `.ws`. Powód: reguła dawała kolizje i odbierała miksturom
+z danych vanilli; każdą recepturę poprawiono pod kątem spójności między poziomami rodziny, unikatowości
+(brak kolizji) i oryginalności (sygnaturowy składnik). Do moda trafia generowany `.ws`. Powód: reguła dawała kolizje i odbierała miksturom
 symbolikę (kolizje i brak sygnatury pokazuje `validate.py`). Odrzucone reguły:
 1. Próg ceny bez dzielnika ilości — poz. 3 był pułapką kosztową (zostawał `White Gull 1`), część bomb poz. 3
    tańsza od poz. 1; dzielnik 1 — powielenie bomb poz. 1 = pełna receptura.

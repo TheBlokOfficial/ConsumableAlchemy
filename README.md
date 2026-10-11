@@ -64,6 +64,7 @@ src/modConsumableAlchemy/content/scripts/local/
   ConsumableAlchemy_inventory.ws     blokada odnawiania, alkohol i powiadomienia, stół w Corvo Bianco
   ConsumableAlchemy_alchemy.ws       menedżer i menu alchemii (warzenie, blokada, odświeżanie listy)
   ConsumableAlchemy_recipes.ws       wybór receptury: pełna albo powielania
+  ConsumableAlchemy_standalone.ws    receptury startowych consumables przy samodzielnym starcie HoS / B&W
   ConsumableAlchemy_recipes_table.ws GENEROWANY z tabeli receptur
 tools/recipes/                       Python: bundle → dane → tabela receptur → generator .ws
 tools/check.ps1                      bramka przed grą

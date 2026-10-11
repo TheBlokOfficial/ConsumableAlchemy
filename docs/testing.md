@@ -68,6 +68,7 @@ Samodzielne starty i stół:
 - **Samodzielny start dodatku (nowa gra z HoS lub B&W):** vanilla czyści receptury, mod dodaje receptury
   startowych consumables; poza nimi gracz zaczyna bez receptur, więc to nie jest stan do ogólnych testów
   alchemii — [architecture.md](architecture.md#samodzielne-starty-dodatków-hos--bw).
-- Mod nie pojawia się na liście modów w menu gry — to nie znaczy, że się nie wczytał.
+- Mod nie pojawia się w zakładce „Mody” w grze — to nie znaczy, że się nie wczytał
+  ([powód](decisions.md#mod-poza-listą-modów-w-grze)); znak wczytania to test dymny.
 - Wywar Wodnej Baby dodaje i zabiera dawki — vanilla, nie błąd moda; przy teście limitów nie mieć go
   aktywnego ([architecture.md](architecture.md#mechanika-vanilli-istotna-dla-moda)).
