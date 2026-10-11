@@ -80,11 +80,43 @@ function SingletonItemRemoveAmmo(itemID : SItemUniqueId, optional quantity : int
 	theGame.GetGlobalEventsManager().OnScriptedEvent( SEC_OnAmmoChanged );
 }
 
-// Corvo Bianco alchemy table: its bonus only affects potions, decoctions and bombs.
-// The vanilla body would announce a buff although consumables are not refilled,
-// so the table does nothing (quest-tagged potions and bombs lose the bonus too).
+// Corvo Bianco alchemy table: the +1 bonus stays vanilla for non-consumable potions and bombs
+// (quest items); consumables are skipped, because they are never refilled.
+// Same as vanilla otherwise, including its notifications.
 @replaceMethod(CInventoryComponent)
 function ManageSingletonItemsBonus()
 {
-	theSound.SoundEvent("gui_global_denied");
+	var l_items			: array<SItemUniqueId>;
+	var l_i				: int;
+	var l_haveBombOrPot	: bool;
+
+	l_items = GetSingletonItems();
+
+	for( l_i = 0 ; l_i < l_items.Size() ; l_i += 1 )
+	{
+		if( CA_IsConsumableItem( l_items[ l_i ] ) )
+			continue;
+
+		if( IsItemPotion( l_items[ l_i ] ) || IsItemBomb( l_items[ l_i ] ) )
+		{
+			l_haveBombOrPot = true;
+			if( SingletonItemGetMaxAmmo( l_items[ l_i ] ) >= SingletonItemGetAmmo( l_items[ l_i ] ) )
+			{
+				if( SingletonItemsRefillAmmo( true ) )
+				{
+					theGame.GetGuiManager().ShowNotification( GetLocStringByKeyExt( "message_common_alchemy_table_buff_applied" ),, true );
+				}
+
+				return;
+			}
+		}
+	}
+
+	if( !l_haveBombOrPot )
+	{
+		theGame.GetGuiManager().ShowNotification( GetLocStringByKeyExt( "message_common_alchemy_table_buff_no_items" ),, true );
+		return;
+	}
+
+	theGame.GetGuiManager().ShowNotification( GetLocStringByKeyExt( "message_common_alchemy_table_buff_already_on" ),, true );
 }
